@@ -1,0 +1,8 @@
+name = "BoseHubbardNQS"
+uuid = "01df1d37-d7e8-46b6-beca-e1ab7728ae53"
+version = "0.1.0"
+
+[deps]
+ITensorMPS = "0d1a4710-d33b-49a5-8f18-73bdf49b47e2"
+ITensors = "9136182c-28ba-11e9-034c-db9fb085ebd5"
+PythonCall = "6099a3de-0909-46bc-b1f4-468b9a2dfc0d"

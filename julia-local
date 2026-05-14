@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+export JULIA_CONDAPKG_BACKEND=Null
+export JULIA_PYTHONCALL_EXE="$(cd "$(dirname "$0")/." && pwd)/.venv/bin/python"
+exec julia --project=. "$@"
