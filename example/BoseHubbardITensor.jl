@@ -28,4 +28,4 @@ Ntot = L  # choose total boson number sector
 state0 = [j <= Ntot ? "1" : "0" for j in 1:L]  # labels for Boson sites
 psi0 = random_mps(sites, state0; linkdims=20)   # or randomMPS(sites, state0; ...)
 energy, psi = dmrg(H, psi0; nsweeps=20, maxdim=[50,100,200,400], cutoff=[1e-10])
-println(energy)
+println(energy) # -7.459790610498828 
