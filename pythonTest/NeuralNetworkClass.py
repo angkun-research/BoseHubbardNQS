@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 import numpy as np
 
 def basis_to_one_hot(basis, n_sites, nmax):
@@ -59,7 +60,7 @@ class JastrowNet(nn.Module):
             for j in range(i + 1, self.n_sites):
                 d = min(j - i, self.n_sites - (j - i))
                 logpsi = logpsi + self.pair[d, occ[:, i], occ[:, j]]
-
+        #psi = torch.exp(logpsi)
         return logpsi
     
 class Conv1DNet(nn.Module):
@@ -80,3 +81,40 @@ class Conv1DNet(nn.Module):
         x = x.transpose(1, 2)  # (batch, Channels, n_sites)
         x = self.conv(x)  # (batch, 1)
         return x.squeeze(-1)
+
+
+class RBMNet(nn.Module):
+    """
+    Simple real-valued RBM wavefunction.
+    Input x is expected to be one-hot encoded with shape
+        (batch, n_sites, channels)
+    """
+    def __init__(self, n_sites,  channels, n_hidden):
+        super().__init__()
+        self.n_sites = n_sites
+        self.channels = channels
+        self.n_visible = n_sites * channels
+        self.n_hidden = n_hidden
+
+        self.visible_bias = nn.Parameter(torch.zeros(self.n_visible))
+        self.hidden_bias = nn.Parameter(torch.zeros(self.n_hidden))
+        self.W = nn.Parameter(0.01 * torch.randn(self.n_visible, self.n_hidden))
+    
+    def free_energy(self, v):
+        """
+        v: (batch, n_visible), binary or real-valued visible units
+        returns: (batch,)
+        """
+        linear_term = v @ self.visible_bias
+        hidden_term = F.softplus(self.hidden_bias + v @ self.W).sum(dim=1)
+        return -(linear_term + hidden_term)
+
+    def forward(self, v):
+        """
+        Returns an unnormalized log-score.
+        Larger value means higher probability up to a constant shift.
+        """
+        # flatten (batch, n_sites, channels) -> (batch, n_visible)
+        v = v.view(v.size(0), -1)
+        prob_unnorm = -self.free_energy(v) #torch.exp(-self.free_energy(v))
+        return prob_unnorm
