@@ -2,6 +2,9 @@ import numpy as np
 from scipy.sparse import csr_matrix
 from scipy.sparse.linalg import eigsh
 
+import matplotlib.pyplot as plt
+import numpy as np
+
 def generate_basis(L, Ntot, Nmax):
     """
     Generate all bosonic occupation-number basis states
@@ -117,6 +120,74 @@ def print_largest_components(state_vector, basis, n_show=10):
             f"basis={basis[k]}   amp={state_vector[k]: .8f}   prob={weights[k]:.8f}"
         )
 
+def density_profile(ground_state, basis):
+    """
+    Compute <n_i> for each site i from a ground-state vector in the occupation basis.
+
+    Returns:
+        dens: array of shape (L,)
+    """
+    dim = len(basis)
+    if dim == 0:
+        return np.array([])
+
+    L = len(basis[0])
+    probs = np.abs(ground_state) ** 2
+    dens = np.zeros(L, dtype=np.float64)
+
+    for amp2, state in zip(probs, basis):
+        for i, n_i in enumerate(state):
+            dens[i] += amp2 * n_i
+
+    return dens
+
+
+def one_body_density_matrix(ground_state, basis, Nmax):
+    """
+    Compute the one-body density matrix rho[i, j] = <b_i^dagger b_j>.
+
+    Args:
+        ground_state: eigenvector in the occupation basis
+        basis: list of occupation tuples
+        Nmax: local occupancy cutoff used to build the basis
+
+    Returns:
+        rho: complex array of shape (L, L)
+    """
+    dim = len(basis)
+    if dim == 0:
+        return np.zeros((0, 0), dtype=np.complex128)
+
+    L = len(basis[0])
+    basis_index = {state: idx for idx, state in enumerate(basis)}
+    rho = np.zeros((L, L), dtype=np.complex128)
+
+    for ket_idx, ket_state in enumerate(basis):
+        ket_amp = ground_state[ket_idx]
+
+        for j in range(L):
+            n_j = ket_state[j]
+            if n_j == 0:
+                continue
+
+            for i in range(L):
+                if i == j:
+                    rho[i, j] += np.conjugate(ket_amp) * ket_amp * n_j
+                    continue
+
+                n_i = ket_state[i]
+                if n_i >= Nmax:
+                    continue
+
+                new_state = list(ket_state)
+                new_state[i] += 1
+                new_state[j] -= 1
+                bra_idx = basis_index[tuple(new_state)]
+
+                matrix_element = np.sqrt((n_i + 1) * n_j)
+                rho[i, j] += np.conjugate(ground_state[bra_idx]) * ket_amp * matrix_element
+
+    return rho
 
 if __name__ == "__main__":
     # Match the Julia example as closely as possible
@@ -133,9 +204,25 @@ if __name__ == "__main__":
     )
     # -7.459790610498828 
 
+    dens = density_profile(psi0, basis)
+    rho = one_body_density_matrix(psi0, basis, Nmax)
+
     print("Hilbert-space dimension:", len(basis))
     print("Hamiltonian shape:", H.shape)
     print("Ground-state energy:", energy)
     print("Ground-state norm:", np.linalg.norm(psi0))
+    print("Density profile:", dens)
+    print("One-body density matrix:\n", rho)
 
-    print_largest_components(psi0, basis, n_show=10)
+    #print_largest_components(psi0, basis, n_show=10)
+
+    rho_plot = np.real_if_close(rho)   # or np.abs(rho) if you want magnitudes
+
+    fig, ax = plt.subplots(figsize=(6, 5))
+    im = ax.imshow(rho_plot, origin="lower", cmap="viridis")
+    fig.colorbar(im, ax=ax, label=r"$\langle b_i^\dagger b_j \rangle$")
+    ax.set_xlabel("j")
+    ax.set_ylabel("i")
+    ax.set_title("One-body density matrix")
+    plt.tight_layout()
+    plt.show()
