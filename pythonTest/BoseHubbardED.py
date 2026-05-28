@@ -225,4 +225,5 @@ if __name__ == "__main__":
     ax.set_ylabel("i")
     ax.set_title("One-body density matrix")
     plt.tight_layout()
-    plt.show()
+    #plt.show()
+    fig.savefig("fig_rho.pdf", dpi=150, bbox_inches="tight")
