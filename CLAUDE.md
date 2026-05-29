@@ -81,11 +81,19 @@ Physics: L=8, Ntot=8, Nmax=8, t=1.0, U=2.0, lr=1e-3, epochs=10000, target=logabs
 
 - **[Benedetti et al. (arXiv:2401.10293)](https://link.aps.org/doi/10.1103/PRXQuantum.5.030314)** — Symmetry-organised complexity: a framework for measuring how an ansatz distributes capacity across symmetry sectors. The leakage pattern itself is a diagnostic — organized leakage across sectors is a feature, not a bug.
 
+### Fixing Ntot — autoregressive as variational baseline
+
+Writing `ψ(n₁,...,nₗ) = ∏ₖ a(nₖ|n₁...nₖ₋₁)` is just **Bayes' rule** — a tautology for any nonzero function. The "autoregressive" decomposition imposes no physics; different orderings produce different conditionals but the same final wavefunction. For fixed Ntot, a "gauge block" masks amplitudes so that `nₖ ∈ [0, min(Nmax, remaining)]` at each step, guaranteeing zero leakage. This is a hand-built constraint in the forward pass, not an emergent property of the network.
+
+The only use of autoregressive NQS is as a **variational baseline**: if unconstrained networks (FCNet, RBMNet, etc.) achieve the same energy on the same physics, then leakage costs nothing — the network learns the correct sector anyway. If the autoregressive model beats it, the unconstrained model is wasting capacity on wrong sectors.
+
 ### Bosonic NQS Architectures
 
 - **[Bosonic NQS review (Phys. Rev. C 109, 034004)](https://link.aps.org/accepted/10.1103/PhysRevC.109.034004)** — Neural network solutions for bosonic quantum systems in 1D. Benchmarks symmetric vs. unconstrained architectures.
 
-- **[arXiv:2101.07243]** — Gauge invariant and anyonic symmetric autoregressive NQS (Transformer/RNN). Exact U(1) gauge invariance via site-by-site construction.
+- **[arXiv:2101.07243]** — General framework for gauge-invariant autoregressive NQS (applied to U(1) lattice gauge theory, toric codes, anyonic chains). The gauge block zeros out symmetry-violating configurations at each autoregressive step. For the global U(1) Ntot constraint, the same framework applies trivially (run remaining budget as a hand-built mask). Useful as a variational baseline only.
+
+- **[Choo et al., PRL 121, 167204 (2018)]** — Symmetry projection: train unconstrained, then apply `|ψ_projected⟩ = (1/2π) ∫ e^{-iαN̂} dα |ψ_unconstrained⟩` to extract the correct sector.
 
 - **[arXiv:2405.15488]** — Unsupervised deep neural network approach for bosonic systems. Adaptive momentum optimizer for faster convergence on Bose-Hubbard.
 

@@ -11,3 +11,5 @@ HPCtemps/
 src/__pycache__/
 
 .CondaPkg/
+
+.claude/
