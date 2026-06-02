@@ -22,6 +22,7 @@ Both target the same physics: finding ground states of `H = -t sum_<ij> (b_i^dag
 | `pythonTest/NeuralNetworkClass.py` | NN architectures: FCNet, JastrowNet, Conv1DNet, RBMNet |
 | `pythonTest/TrainEDstates.py` | Training loop: creates ED dataset, trains model, evaluates overlap |
 | `pythonTest/utils.py` | GPU device selection via nvidia-smi |
+| `pythonTest/leakage_analysis.py` | Measures `P(N')` across all `(Nmax+1)^L` occupation states; reports leakage fraction, sectored overlap, and plots distribution |
 | `example/BoseHubbardITensor.jl` | ITensor-based DMRG reference for validation |
 | `example/spin_nn_test.jl` | Julia-side usage example for saved spin net |
 
@@ -62,6 +63,44 @@ Physics: L=8, Ntot=8, Nmax=8, t=1.0, U=2.0, lr=1e-3, epochs=10000, target=logabs
 | P([1,1,1,1,1,1,1,1]) | 1.382670e-01 | 1.341546e-01 | 1.356353e-01 | 1.354035e-01 |
 | P([2,1,1,1,1,1,1,1]) | 2.027709e-01 | 1.773731e-01 | 3.148663e-01 | 8.556325e-01 |
 | P([0,1,1,1,1,1,1,1]) | 4.303387e-03 | 4.623400e-03 | 1.645630e-03 | 9.668646e-04 |
+
+## Leakage Analysis
+
+`leakage_analysis.py` evaluates a trained NQS on **all** `(Nmax+1)^L` occupation states (no fixed-particle-number constraint) and measures how amplitude leaks outside the training sector.
+
+### Key functions
+
+| Function | What it does |
+|----------|-------------|
+| `generate_all_basis(L, Nmax)` | Generates all Fock states ordered by increasing `N'`, grouped by sector |
+| `evaluate_logpsi_chunks(model, ...)` | Forward pass in 4096-batch chunks (memory-managed) |
+| `compute_sector_probabilities(model, ...)` | `P(N') = Σ_{s: Σnᵢ=N'} exp(2·logψ(s) - Z)` where `Z = logsumexp(2·logψ)` over all states |
+| `compute_leakage_fraction(model, ...)` | `leakage = 1 - P(N_train)` |
+| `compute_sectored_overlap(model, ...)` | Fidelity per sector vs ED ground state |
+| `plot_leakage_distribution(...)` | Bar chart of `P(N')` with training sector highlighted (log scale) |
+
+### CLI usage
+
+```bash
+# Train fresh and analyze
+.venv/bin/python pythonTest/leakage_analysis.py --architecture FCNet --L 8 --Nmax 8 --train_Ntot 8
+
+# Analyze a saved checkpoint (no overlap)
+.venv/bin/python pythonTest/leakage_analysis.py --model data/FCNet_net.pt --architecture FCNet --no_overlap --output fig_leakage_fcnet.pdf
+
+# Compare architectures
+for arch in FCNet JastrowNet Conv1DNet RBMNet; do
+    .venv/bin/python pythonTest/leakage_analysis.py --model data/${arch}_net.pt --architecture $arch \
+        --L 8 --Nmax 8 --train_Ntot 8 --output fig_leakage_${arch}.pdf
+done
+```
+
+### Interpreting leakage
+
+- **Low leakage** (< 1%) means the model's capacity is concentrated in the training sector — the unconstrained architecture naturally respects the U(1) symmetry despite no explicit constraint.
+- **High leakage** means the model wastes amplitude on wrong sectors. This does not necessarily mean poor physics: if the model still achieves high fidelity on the training sector, leakage is harmless capacity waste.
+- The leakage pattern across sectors is itself a diagnostic (Benedetti et al.): organized leakage (e.g. symmetric peaks) vs random suggests how the ansatz distributes capacity.
+- For `L=8, Nmax=8` the full basis is `9^8 ≈ 43M` states — ~1.2 GB for float32 arrays. The script uses 4096-batch evaluation and `int8` state storage to manage memory.
 
 ## Related Literature
 
