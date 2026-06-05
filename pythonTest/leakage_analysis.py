@@ -404,8 +404,8 @@ def main():
     parser.add_argument("--architecture", type=str, default="FCNet",
                         choices=["FCNet", "JastrowNet", "Conv1DNet", "RBMNet"],
                         help="NN architecture (default: FCNet)")
-    parser.add_argument("--L", type=int, default=4, help="Number of lattice sites")
-    parser.add_argument("--Nmax", type=int, default=4, help="Local occupancy cutoff")
+    parser.add_argument("--L", type=int, default=8, help="Number of lattice sites")
+    parser.add_argument("--Nmax", type=int, default=2, help="Local occupancy cutoff")
     parser.add_argument("--train_Ntot", type=int, default=8,
                         help="Total particle number used in training")
     parser.add_argument("--t", type=float, default=1.0, help="Hopping amplitude")

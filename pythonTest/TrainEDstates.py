@@ -60,7 +60,7 @@ def train_model_on_ed(
         loss.backward()
         optimizer.step()
 
-        if epoch % 100 == 0 or epoch == epochs - 1:
+        if epoch % (epochs // 10) == 0  or epoch == epochs - 1:
             print(f"epoch={epoch:4d}  loss={loss.item():.6e}")
 
     return model
@@ -99,9 +99,7 @@ def compare_predictions(model, x, y, target="amplitude", device="cpu"):
     mse = torch.mean((pred_cmp - y_cmp) ** 2)
     # norm_pred = np.linalg.norm(pred)
     # overlap = np.dot(pred, y_cmp) / (norm_pred * np.linalg.norm(y_cmp))
-    eps = torch.finfo(psi_pred.dtype).eps
-    denom = torch.linalg.vector_norm(psi_pred) * torch.linalg.vector_norm(psi_true)
-    overlap = torch.dot(psi_pred, psi_true) / torch.clamp(denom, min=eps)
+    overlap = torch.dot(psi_pred, psi_true)
 
     print(f"full-basis MSE: {mse.item():.6e}")
     print(f"normalized overlap: {overlap.item():.6e}")
@@ -128,7 +126,7 @@ if __name__ == "__main__":
     hidden_dim = 128
 
     # Choose one: "FCNet", "JastrowNet", "Conv1DNet", "RBMNet"
-    arch_name = "RBMNet"
+    arch_name = "FCNet"
 
     arch_builders = {
         "FCNet":       lambda: FCNet(n_sites=L, channels=Nmax + 1, hidden_dim=hidden_dim),

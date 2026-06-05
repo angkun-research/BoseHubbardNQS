@@ -17,8 +17,6 @@ import argparse
 import numpy as np
 import torch
 
-from scipy.special import logsumexp
-
 from NeuralNetworkClass import FCNet, JastrowNet, Conv1DNet, RBMNet
 from BoseHubbardED import generate_basis, basis_to_one_hot
 from TrainEDstates import make_ed_dataset, train_model_on_ed
@@ -36,14 +34,13 @@ ARCH_BUILDERS = {
 # ── Evaluation (log-space, for numerical stability) ────────────────────────
 
 @torch.no_grad()
-def evaluate_logpsi(model, basis_states, device, batch_size=4096, global_Nmax=8):
+def evaluate_logpsi(model, basis_states, device, global_Nmax=8):
     """Evaluate a model on basis states and return log-amplitudes (log|psi|).
 
     Args:
         model: trained PyTorch nn.Module (kept in eval mode)
         basis_states: list of occupation tuples or np.ndarray (N, L)
         device: torch device
-        batch_size: forward pass batch size
         global_Nmax: global occupancy cutoff (channels = Nmax + 1)
 
     Returns:
@@ -59,27 +56,14 @@ def evaluate_logpsi(model, basis_states, device, batch_size=4096, global_Nmax=8)
         states_arr = np.array(basis_states, dtype=np.int8)
     else:
         states_arr = basis_states
-
-    logpsi = np.zeros(N, dtype=np.float32)
-    buf = np.empty((batch_size, L, channels), dtype=np.float32)
-
-    for start in range(0, N, batch_size):
-        end = min(start + batch_size, N)
-        bs = end - start
-        batch = states_arr[start:end]
-
-        # One-hot encode into buffer (in-place)
-        for s in range(L):
-            buf[:, s, batch[:, s]] = 1.0
-        x_tensor = torch.tensor(buf[:bs], dtype=torch.float32, device=device)
-
-        logpsi[start:end] = model(x_tensor).cpu().numpy().astype(np.float32)
-
-    return logpsi
+    
+    x_np = basis_to_one_hot(states_arr, n_sites=L, nmax=global_Nmax)
+    x_tensor = torch.tensor(x_np, dtype=torch.float32, device=device)
+    return model(x_tensor).cpu().numpy().astype(np.float32)
 
 # ── Overlap computation (log-space, for numerical stability) ──────────────
 
-def compute_overlap_matrix(models, sector_list, all_basis_by_sector, device, batch_size=4096, global_Nmax=8):
+def compute_overlap_matrix(models, sector_list, all_basis_by_sector, device, global_Nmax=8, LocalNorm=True):
     """Compute the K×K inter-sector overlap matrix.
 
     Entry (i, j) = <Ψᵢ|Ψ⵽> evaluated within the ket's sector (sector N⵽).
@@ -92,7 +76,6 @@ def compute_overlap_matrix(models, sector_list, all_basis_by_sector, device, bat
         sector_list: list of K target Ntot values (also training sector indices)
         all_basis_by_sector: dict {Ntot: (basis_states, basis_array)}
         device: torch device
-        batch_size: forward pass batch size
         global_Nmax: global occupancy cutoff (channels = Nmax + 1)
 
     Returns:
@@ -106,16 +89,23 @@ def compute_overlap_matrix(models, sector_list, all_basis_by_sector, device, bat
         logpsi_raw[i] = {}
         for j, N_sect in enumerate(sector_list):
             basis_states = all_basis_by_sector[N_sect][0]
-            logpsi_raw[i][j] = evaluate_logpsi(models[i], basis_states, device, batch_size, global_Nmax=global_Nmax)
+            logpsi_raw[i][j] = evaluate_logpsi(models[i], basis_states, device, global_Nmax=global_Nmax)
 
     # Compute each model's normalization constant from its training sector:
     #   Z[i] = logsumexp(2 * logpsi_raw[i] over training sector i)
     # Use explicit shift to avoid overflow in 2*logpsi before logsumexp shifts it
     Z = []
-    for i in range(K):
-        lp = logpsi_raw[i][i]
-        m = 0.0 #np.max(2.0 * lp)
-        Z.append(float(np.log(np.sum(np.exp(2.0 * lp - m))) + m))
+    if LocalNorm:
+        print("  Using local (per-sector) normalization for overlap.")
+        for i in range(K):
+            lp = logpsi_raw[i][i]
+            Z.append(float(np.log(np.sum(np.exp(2.0 * lp)))))
+    else:
+        print("  Using global normalization across all sectors for overlap (not recommended).")
+        # Global normalization across all sectors (not recommended, but included for comparison)
+        for i in range(K):
+            all_lp = np.concatenate([logpsi_raw[i][j] for j in range(K)])
+            Z.append(float(np.log(np.sum(np.exp(2.0 * all_lp)))))
 
     # Compute overlap(i,j) = |<psi_i_j|psi_j_j>| / (||psi_i_j|| * ||psi_j_j||)
     # where each vector is normalized using its own training sector Z.
@@ -127,25 +117,35 @@ def compute_overlap_matrix(models, sector_list, all_basis_by_sector, device, bat
             logpsi_i = logpsi_raw[i][j] - 0.5 * Z[i]
             logpsi_j = logpsi_raw[j][j] - 0.5 * Z[j]
 
-            # Shift each by its own max for numerical stability of exp()
-            shift_i = np.max(logpsi_i)
-            shift_j = np.max(logpsi_j)
-
             # Evaluate wavefunctions with shift trick
-            psi_i = np.exp(logpsi_i - shift_i)
-            psi_j = np.exp(logpsi_j - shift_j)
-
-            # L2 norms within evaluation sector j
-            norm_i = np.sqrt(np.sum(psi_i ** 2))
-            norm_j = np.sqrt(np.sum(psi_j ** 2))
-
+            psi_i = np.exp(logpsi_i)
+            psi_j = np.exp(logpsi_j)
             # Dot product with shift
             dot = float(np.sum(psi_i * psi_j))
-
             # Normalized overlap
-            overlap[i, j] = float(np.abs(dot) / max(norm_i * norm_j, np.finfo(np.float64).eps))
+            overlap[i, j] = float(np.abs(dot))
 
     return overlap
+
+@torch.no_grad()
+def compute_ed_nn_overlap(model, x, y, device, target="logabs"):
+    model.eval()
+    x_tensor = torch.tensor(x, dtype=torch.float32, device=device)
+    y_tensor = torch.tensor(y, dtype=torch.float32, device=device).reshape(-1)
+
+    pred_raw = model(x_tensor).reshape(-1)
+
+    if target == "logabs":
+        pred_cmp = pred_raw - 0.5 * torch.logsumexp(2.0 * pred_raw, dim=0)
+        y_cmp = y_tensor - 0.5 * torch.logsumexp(2.0 * y_tensor, dim=0)
+        psi_pred = torch.exp(pred_cmp)
+        psi_true = torch.exp(y_cmp)
+    else:
+        psi_pred = pred_raw
+        psi_true = y_tensor
+
+    overlap = torch.abs(torch.dot(psi_pred, psi_true))
+    return overlap.item()
 
 # ── Main ───────────────────────────────────────────────────────────────────
 
@@ -163,7 +163,6 @@ def main():
     parser.add_argument("--t", type=float, default=1.0, help="Hopping amplitude")
     parser.add_argument("--U", type=float, default=2.0, help="Interaction strength")
     parser.add_argument("--mu", type=float, default=0.0, help="Chemical potential")
-    parser.add_argument("--batch_size", type=int, default=4096, help="Forward pass batch size")
     args = parser.parse_args()
 
     device = pick_best_device()
@@ -173,6 +172,7 @@ def main():
     N = args.L  # unit filling => total particles = L
     sectors = [N - 1, N, N + 1]
     sector_labels = [str(n) for n in sectors]
+    LocalNorm = False #True
 
     print(f"  Cross-sector overlap: arch={args.arch}, L={args.L}, Nmax={args.Nmax}")
     print(f"  Training sectors: {sectors}")
@@ -203,11 +203,13 @@ def main():
                                    lr=args.lr, epochs=args.epochs, device=device)
         models.append(model)
         print(f"  ED ground energy: {ed_energy:.6f}")
+        ed_nn_overlap = compute_ed_nn_overlap(model, x, y, device=device, target="logabs")
+        print(f"  ED-vs-NN overlap: {ed_nn_overlap:.8e}")
         print()
 
     # Compute overlap matrix
     print("--- Computing 3x3 overlap matrix ---")
-    overlap = compute_overlap_matrix(models, sectors, all_basis_by_sector, device, args.batch_size, global_Nmax=args.Nmax)
+    overlap = compute_overlap_matrix(models, sectors, all_basis_by_sector, device, global_Nmax=args.Nmax, LocalNorm=LocalNorm)
 
     # Print result
     print()
