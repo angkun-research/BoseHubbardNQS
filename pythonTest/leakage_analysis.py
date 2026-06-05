@@ -167,6 +167,7 @@ def compute_sector_probabilities(model, L, Nmax, device, batch_size=4096):
         logpsi_all:        np.ndarray of log-amplitudes for all states
         all_states:        np.ndarray of all occupation tuples
         ntot_all:          np.ndarray of total particle numbers
+        Z_all:             float  (logsumexp(2*logpsi) over all states)
     """
     print("=" * 60)
     print("  SECTOR PROBABILITY ANALYSIS")
@@ -210,119 +211,36 @@ def compute_sector_probabilities(model, L, Nmax, device, batch_size=4096):
     total_prob = sum(sector_probs.values())
     print(f"\n  Sum P(N') = {total_prob:.8f}  (should be 1.0)")
 
-    return sector_probs, states_by_sector, logpsi_all, all_states, ntot_all
+    return sector_probs, states_by_sector, logpsi_all, all_states, ntot_all, Z_all
 
 
 def compute_leakage_fraction(model, L, Nmax, train_Ntot, device, batch_size=4096):
-    """Return total probability leakage outside the training sector.
+    """DEPRECATED: triggers full model evaluation. Use compute_sector_probabilities + _compute_leakage_from_probs.
 
-    leakage = 1.0 - P(N_train)
-
-    Args:
-        model, L, Nmax, train_Ntot, device, batch_size: see compute_sector_probabilities
-
-    Returns:
-        leakage:   float
-        sector_probs: dict {N': probability}
+    Kept for backward-compatible API only.
     """
     sector_probs, *_ = compute_sector_probabilities(
         model, L, Nmax, device, batch_size
     )
-    P_train = sector_probs.get(train_Ntot, 0.0)
-    leakage = 1.0 - P_train
+    leakage = _compute_leakage_from_probs(sector_probs, train_Ntot)
     print(f"\n  === LEAKAGE FRACTION: {leakage:.6f}  ({leakage*100:.4f}%) ===")
     return leakage, sector_probs
 
 
 def compute_sectored_overlap(model, L, Nmax, train_Ntot, true_basis, true_state, device, batch_size=4096):
-    """Compute overlap of the model's amplitude with the ED ground state, sector by sector.
+    """DEPRECATED: triggers full model evaluation. Use compute_sector_probabilities + _compute_sectored_overlap_from_probs.
 
-    For each sector N':
-        overlap(N') = | < psi_model|_N'  |  phi_ED|_N' > |
-                      -------------------------
-                      ||psi_model|_N'|| * ||phi_ED|_N'||
-
-    For N' == train_Ntot: measures fidelity within the training sector.
-    For N' != train_Ntot: phi_ED has no amplitude -> overlap = 0.0 (reported as None).
-
-    Additionally reports the model's norm restricted to each sector, which
-    should equal sqrt(P(N')).
-
-    Args:
-        model:       trained PyTorch nn.Module
-        L, Nmax:     lattice parameters
-        train_Ntot:  total particle number used in training
-        true_basis:  list of occupation tuples (ED training sector only)
-        true_state:  ED ground-state eigenvector (shape = |training sector|)
-        device:      torch device
-        batch_size:  chunk size
-
-    Returns:
-        sectored_overlap:   dict {N': float or None}
-        sector_model_norms: dict {N': model L2 norm restricted to sector}
-        full_overlap:       float  (total fidelity)
+    Kept for backward-compatible API only.
     """
-    # Reuse sector probabilities (also gives logpsi_all)
-    sector_probs, states_by_sector, logpsi_all, all_states, _ = compute_sector_probabilities(
+    sector_probs, states_by_sector, logpsi_all, all_states, _, Z_all = compute_sector_probabilities(
         model, L, Nmax, device, batch_size
     )
-    Z_all = _sp_logsumexp(2.0 * logpsi_all)
+    sectored_overlap, sector_model_norms, full_overlap = _compute_sectored_overlap_from_probs(
+        sector_probs, states_by_sector, logpsi_all, Z_all,
+        train_Ntot, true_basis, true_state, all_states,
+    )
 
-    # Build lookup: true_basis state tuple -> true amplitude
-    true_amp_map = {}
-    for state_tuple, amp in zip(true_basis, true_state):
-        true_amp_map[tuple(state_tuple)] = amp
-
-    # Training sector indices into all_states
-    train_indices = states_by_sector[train_Ntot]
-    train_states = all_states[train_indices]
-    train_state_tuples = [tuple(row) for row in train_states]
-
-    # Model's normalized amplitude in training sector (full normalization)
-    train_logpsi = logpsi_all[train_indices]
-    train_amp_model = np.exp(train_logpsi - 0.5 * Z_all)
-
-    # Build true amplitude vector in the same ordering as train_amp_model
-    train_amp_true = np.zeros(len(train_indices), dtype=np.float64)
-    for i, s in enumerate(train_state_tuples):
-        if s in true_amp_map:
-            train_amp_true[i] = true_amp_map[s]
-
-    true_norm = np.linalg.norm(train_amp_true)
-
-    # Full fidelity
-    if true_norm > 0:
-        model_norm = np.linalg.norm(train_amp_model)
-        full_overlap = float(np.abs(np.dot(train_amp_model, train_amp_true))
-                           / (model_norm * true_norm))
-    else:
-        full_overlap = float("nan")
-
-    # Sector-by-sector
-    max_ntot = L * Nmax
-    sectored_overlap = {}
-    sector_model_norms = {}
-
-    for n in range(max_ntot + 1):
-        idx = states_by_sector[n]
-        logpsi_n = logpsi_all[idx]
-
-        # Model's L2 norm in this sector
-        sector_model_norms[n] = float(np.sqrt(np.exp(_sp_logsumexp(2.0 * logpsi_n) - Z_all)))
-
-        if n == train_Ntot:
-            # Overlap within training sector
-            if true_norm > 0:
-                model_norm_n = np.linalg.norm(train_amp_model)
-                sectored_overlap[n] = float(np.abs(np.dot(train_amp_model, train_amp_true))
-                                            / (model_norm_n * true_norm))
-            else:
-                sectored_overlap[n] = None
-        else:
-            # ED ground state has no amplitude outside training sector
-            sectored_overlap[n] = None
-
-    # Summary
+    # Summary output (preserves original behavior)
     print(f"\n  === OVERLAP ANALYSIS ===")
     if not np.isnan(full_overlap):
         print(f"  Full fidelity:               {full_overlap:.8e}")
@@ -384,30 +302,19 @@ def _compute_sectored_overlap_from_probs(
         full_overlap = float("nan")
 
     # Sector-by-sector
-    max_ntot = len(states_by_sector) - 1  # N' ranges 0..max
-    # Actually compute max_ntot from the keys we have
+    # Derive norms from sector_probs (sqrt(P) == model L2 norm per sector)
     all_sectors = sorted(states_by_sector.keys())
     max_ntot = max(all_sectors) if all_sectors else 0
+    sector_model_norms = {n: float(np.sqrt(sector_probs.get(n, 0.0))) for n in range(max_ntot + 1) if n in states_by_sector}
 
     sectored_overlap = {}
-    sector_model_norms = {}
-
     for n in range(max_ntot + 1):
         if n not in states_by_sector:
             continue
-        idx = states_by_sector[n]
-        logpsi_n = logpsi_all[idx]
 
-        # Model's L2 norm in this sector
-        sector_model_norms[n] = float(np.sqrt(np.exp(_sp_logsumexp(2.0 * logpsi_n) - Z_all)))
-
-        if n == train_Ntot:
-            if true_norm > 0:
-                model_norm_n = np.linalg.norm(train_amp_model)
-                sectored_overlap[n] = float(np.abs(np.dot(train_amp_model, train_amp_true))
-                                            / (model_norm_n * true_norm))
-            else:
-                sectored_overlap[n] = None
+        if n == train_Ntot and true_norm > 0:
+            sectored_overlap[n] = float(np.abs(np.dot(train_amp_model, train_amp_true))
+                                        / (sector_model_norms[n] * true_norm))
         else:
             sectored_overlap[n] = None
 
@@ -561,10 +468,9 @@ def main():
               "Consider using --Nmax < 8 for a smaller basis.\n")
 
     # ── Sector probability analysis (SINGLE evaluation) ───────────────
-    sector_probs, states_by_sector, logpsi_all, all_states, ntot_all = compute_sector_probabilities(
+    sector_probs, states_by_sector, logpsi_all, all_states, ntot_all, Z_all = compute_sector_probabilities(
         model, args.L, args.Nmax, device, args.batch_size,
     )
-    Z_all = _sp_logsumexp(2.0 * logpsi_all)
 
     # ── Leakage fraction (from pre-computed data) ─────────────────
     leakage = _compute_leakage_from_probs(sector_probs, args.train_Ntot)
