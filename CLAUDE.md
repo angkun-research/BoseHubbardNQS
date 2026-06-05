@@ -21,6 +21,8 @@ Both target the same physics: finding ground states of `H = -t sum_<ij> (b_i^dag
 | `pythonTest/BoseHubbardED.py` | Exact diagonalization: basis generation, Hamiltonian building, `eigsh` solver, observables (density profile, one-body density matrix) |
 | `pythonTest/NeuralNetworkClass.py` | NN architectures: FCNet, JastrowNet, Conv1DNet, RBMNet |
 | `pythonTest/TrainEDstates.py` | Training loop: creates ED dataset, trains model, evaluates overlap |
+| `pythonTest/TrainEDstatesFull.py` | Full-basis training: trains on all `(Nmax+1)^L` states simultaneously (ED log-amplitude in training sector, `log_zero` elsewhere); weighted MSE; reports full-space and sector-only overlap |
+| `pythonTest/cross_sector_overlap.py` | Inter-sector overlap matrix: trains models on Ntot = N-1, N, N+1 separately, then computes K×K overlap matrix. Supports local (per-sector) or global normalization. Includes `compute_ed_nn_overlap` helper for ED-vs-NN fidelity |
 | `pythonTest/utils.py` | GPU device selection via nvidia-smi |
 | `pythonTest/leakage_analysis.py` | Measures `P(N')` across all `(Nmax+1)^L` occupation states; reports leakage fraction, sectored overlap, and plots distribution |
 | `example/BoseHubbardITensor.jl` | ITensor-based DMRG reference for validation |
@@ -51,6 +53,13 @@ The `julia-local` script sets up the Python virtualenv before launching Julia. R
 - The Julia bridge (`spin_nn.jl`) lazy-loads the Python module via `PythonCall` and caches it in `_pynet`.
 - ED uses `scipy.sparse.linalg.eigsh` for the lowest eigenpair; Hilbert space dimension grows combinatorially with L, Ntot, Nmax.
 - DMRG reference (`example/BoseHubbardITensor.jl`) produces the same ground energy (-7.45979) as ED for L=8, Ntot=8, Nmax=8, t=1, U=2.
+
+### Full-space and cross-sector training
+
+The project now supports two approaches beyond single-sector training:
+
+- **Full-basis training** (`TrainEDstatesFull.py`): trains on all `(Nmax+1)^L` occupation states with weighted MSE (inside sector weight > outside sector weight). The model learns both the target sector and suppresses leakage. Default `log_zero = -3.0` sets the target for wrong sectors; `outside_weight = 0.2` controls regularization strength.
+- **Cross-sector analysis** (`cross_sector_overlap.py`): trains separate models on Ntot = N-1, N, N+1 and measures their inter-overlap matrix. This tests how well a model trained on a specific particle number generalizes to neighboring sectors — a probe of U(1) symmetry breaking.
 
 ## Training & Evaluation Results
 
@@ -93,6 +102,40 @@ for arch in FCNet JastrowNet Conv1DNet RBMNet; do
     .venv/bin/python pythonTest/leakage_analysis.py --model data/${arch}_net.pt --architecture $arch \
         --L 8 --Nmax 8 --train_Ntot 8 --output fig_leakage_${arch}.pdf
 done
+```
+
+### Cross-Sector Overlap
+
+`cross_sector_overlap.py` trains separate models on Ntot = N-1, N, N+1 (for unit filling N = L) and computes the K×K inter-sector overlap matrix `overlap[i,j] = |⟨ψᵢ|ψ⵽⟩|`.
+
+#### Key features
+
+- **Local vs global normalization**: Default is global (across all sectors). Set `LocalNorm = True` in `main()` for per-sector normalization.
+- **ED-vs-NN fidelity**: `compute_ed_nn_overlap()` reports the overlap between the NN's prediction and the ED ground state for each training sector.
+
+#### CLI usage
+
+```bash
+# Default: L=4, Nmax=4, sectors [N-1, N, N+1], global normalization
+.venv/bin/python pythonTest/cross_sector_overlap.py --arch FCNet --L 4 --Nmax 4 --epochs 1000
+
+# Unit filling with local normalization (edit LocalNorm in main)
+.venv/bin/python pythonTest/cross_sector_overlap.py --arch Conv1DNet --L 6 --Nmax 3
+```
+
+### Full-Space Training
+
+`TrainEDstatesFull.py` trains a single model on **all** `(Nmax+1)^L` Fock states simultaneously. The target is the ED log-amplitude within the training sector and `log_zero` (default -3.0) for wrong sectors. A weighted MSE (inside vs outside) controls how much the model is pushed toward zero outside the training sector.
+
+#### CLI usage
+
+```bash
+# Small test
+.venv/bin/python pythonTest/TrainEDstatesFull.py --arch FCNet --L 4 --Nmax 4 --train_Ntot 4 --epochs 300
+
+# Larger system with custom outside weight
+.venv/bin/python pythonTest/TrainEDstatesFull.py --arch FCNet --L 6 --Nmax 2 --train_Ntot 6 \
+    --epochs 1000 --outside_weight 0.1 --log_zero -5.0 --save_model data/full_fcnet.pt
 ```
 
 ### Interpreting leakage
