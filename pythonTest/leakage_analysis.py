@@ -104,9 +104,11 @@ def generate_all_basis(L, Nmax):
 
 def _one_hot_buffer(batch_states, n_sites, nmax, buf):
     """In-place one-hot encoding into pre-allocated buffer."""
-    channels = nmax + 1
+    bs = batch_states.shape[0]
+    buf.fill(0.0)  # clear previous batch contents
+    rows = np.arange(bs)
     for s in range(n_sites):
-        buf[:, s, batch_states[:, s]] = 1.0
+        buf[rows, s, batch_states[:, s]] = 1.0  # row-wise assignment
     return buf
 
 

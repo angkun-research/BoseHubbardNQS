@@ -212,7 +212,7 @@ def main():
 
     parser.add_argument("--hidden_dim", type=int, default=128)
     parser.add_argument("--lr", type=float, default=1e-3)
-    parser.add_argument("--epochs", type=int, default=300)
+    parser.add_argument("--epochs", type=int, default=10000)
     parser.add_argument("--inside_weight", type=float, default=1.0)
     parser.add_argument("--outside_weight", type=float, default=0.2)
     parser.add_argument("--log_zero", type=float, default=-3.0)

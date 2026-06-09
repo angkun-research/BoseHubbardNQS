@@ -15,6 +15,7 @@ Usage:
 import argparse
 
 import numpy as np
+from scipy.special import logsumexp as _sp_logsumexp
 import torch
 
 from NeuralNetworkClass import FCNet, JastrowNet, Conv1DNet, RBMNet
@@ -99,13 +100,15 @@ def compute_overlap_matrix(models, sector_list, all_basis_by_sector, device, glo
         print("  Using local (per-sector) normalization for overlap.")
         for i in range(K):
             lp = logpsi_raw[i][i]
-            Z.append(float(np.log(np.sum(np.exp(2.0 * lp)))))
+            #Z.append(float(np.log(np.sum(np.exp(2.0 * lp)))))
+            Z.append(float(_sp_logsumexp(2.0 * lp)))
     else:
         print("  Using global normalization across all sectors for overlap (not recommended).")
         # Global normalization across all sectors (not recommended, but included for comparison)
         for i in range(K):
             all_lp = np.concatenate([logpsi_raw[i][j] for j in range(K)])
-            Z.append(float(np.log(np.sum(np.exp(2.0 * all_lp)))))
+            #Z.append(float(np.log(np.sum(np.exp(2.0 * all_lp)))))
+            Z.append(float(_sp_logsumexp(2.0 * all_lp)))
 
     # Compute overlap(i,j) = |<psi_i_j|psi_j_j>| / (||psi_i_j|| * ||psi_j_j||)
     # where each vector is normalized using its own training sector Z.
