@@ -149,10 +149,28 @@ def evaluate_logpsi_chunks(model, all_states, device, batch_size=4096):
     return logpsi_all
 
 
-# ── Core analysis ──────────────────────────────────────────────────────────
+def apply_sector_filter(logpsi, ntot, N0=8, sigma=1.0, filter_type="gaussian"):
+    """Apply a particle-number filter to log-amplitudes in numpy."""
+    if filter_type == "none" or filter_type is None:
+        return logpsi
 
-def compute_sector_probabilities(model, L, Nmax, device, batch_size=4096):
+    if filter_type == "gaussian":
+        # f(N) = exp(-(N-N0)^2 / (2*sigma^2)) -> log f = -(N-N0)^2 / (2*sigma^2)
+        log_f = - ((ntot - N0)**2) / (2 * sigma**2)
+    elif filter_type == "delta":
+        # Hard constraint: only keep N == N0. Use -1e9 as log(0).
+        log_f = np.where(ntot == N0, 0.0, -1e9)
+    elif filter_type == "lorentzian":
+        # f(N) = 1 / (1 + ((N-N0)/sigma)^2) -> log f = -log(1 + ...)
+        log_f = - np.log(1 + ((ntot - N0)**2 / sigma**2))
+    else:
+        raise ValueError(f"Unknown filter type: {filter_type}")
+
+    return logpsi + log_f
+
+def compute_sector_probabilities(model, L, Nmax, device, batch_size=4096, filter_type="none", filter_N0=None, filter_sigma=1.0):
     """Compute P(N') = sum_{s: sum(n_i)=N'} P(s) for every total particle number sector.
+
 
     Uses full-basis normalization:
         P(s) = exp(2*logpsi(s) - Z),  Z = logsumexp_i(2*logpsi(i))  over all i.
@@ -192,6 +210,12 @@ def compute_sector_probabilities(model, L, Nmax, device, batch_size=4096):
     logpsi_all = evaluate_logpsi_chunks(model, all_states, device, batch_size)
     t1 = _time.perf_counter()
     print(f"  Evaluation time: {t1 - t0:.1f}s  ({total / (t1 - t0):,.0f} states/s)")
+
+    # --- Apply post-training filtering ---
+    if filter_type != "none":
+        n0 = filter_N0 if filter_N0 is not None else L * Nmax // 2 # Fallback
+        print(f"  Applying {filter_type} filter (N0={n0}, sigma={filter_sigma}) ...")
+        logpsi_all = apply_sector_filter(logpsi_all, ntot_all, N0=n0, sigma=filter_sigma, filter_type=filter_type)
 
     # Full normalization constant Z = logsumexp(2*logpsi)
     Z_all = _sp_logsumexp(2.0 * logpsi_all)
@@ -423,6 +447,13 @@ def main():
                         help="Skip overlap computation (no ED ground state needed)")
     parser.add_argument("--hidden_dim", type=int, default=128,
                         help="Hidden dimension (FCNet/Conv1DNet) or n_hidden (RBMNet)")
+    parser.add_argument("--filter_type", type=str, default="none",
+                        choices=["none", "gaussian", "delta", "lorentzian"],
+                        help="Post-training amplitude filter to shape leakage (default: none)")
+    parser.add_argument("--filter_N0", type=int, default=None,
+                        help="Center of the sector filter (default: train_Ntot)")
+    parser.add_argument("--filter_sigma", type=float, default=1.0,
+                        help="Width of the sector filter (default: 1.0)")
     args = parser.parse_args()
 
     # ── Load or train model ──────────────────────────────────────────
@@ -472,6 +503,7 @@ def main():
     # ── Sector probability analysis (SINGLE evaluation) ───────────────
     sector_probs, states_by_sector, logpsi_all, all_states, ntot_all, Z_all = compute_sector_probabilities(
         model, args.L, args.Nmax, device, args.batch_size,
+        filter_type=args.filter_type, filter_N0=args.filter_N0, filter_sigma=args.filter_sigma
     )
 
     # ── Leakage fraction (from pre-computed data) ─────────────────

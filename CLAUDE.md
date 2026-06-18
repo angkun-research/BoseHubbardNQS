@@ -23,6 +23,7 @@ Both target the same physics: finding ground states of `H = -t sum_<ij> (b_i^dag
 | `pythonTest/TrainEDstates.py` | Training loop: creates ED dataset, trains model, evaluates overlap |
 | `pythonTest/TrainEDstatesFull.py` | Full-basis training: trains on all `(Nmax+1)^L` states simultaneously (ED log-amplitude in training sector, `log_zero` elsewhere); weighted MSE; reports full-space and sector-only overlap |
 | `pythonTest/cross_sector_overlap.py` | Inter-sector overlap matrix: trains models on Ntot = N-1, N, N+1 separately, then computes K×K overlap matrix. Supports local (per-sector) or global normalization. Includes `compute_ed_nn_overlap` helper for ED-vs-NN fidelity |
+| `pythonTest/TrainEDstates3Sector.py` | Trains a single model on Ntot = N-1, N, N+1 simultaneously; evaluates per-sector fidelity |
 | `pythonTest/utils.py` | GPU device selection via nvidia-smi |
 | `pythonTest/leakage_analysis.py` | Measures `P(N')` across all `(Nmax+1)^L` occupation states; reports leakage fraction, sectored overlap, and plots distribution |
 | `example/BoseHubbardITensor.jl` | ITensor-based DMRG reference for validation |
@@ -59,7 +60,7 @@ The `julia-local` script sets up the Python virtualenv before launching Julia. R
 The project now supports two approaches beyond single-sector training:
 
 - **Full-basis training** (`TrainEDstatesFull.py`): trains on all `(Nmax+1)^L` occupation states with weighted MSE (inside sector weight > outside sector weight). The model learns both the target sector and suppresses leakage. Default `log_zero = -3.0` sets the target for wrong sectors; `outside_weight = 0.2` controls regularization strength.
-- **Cross-sector analysis** (`cross_sector_overlap.py`): trains separate models on Ntot = N-1, N, N+1 and measures their inter-overlap matrix. This tests how well a model trained on a specific particle number generalizes to neighboring sectors — a probe of U(1) symmetry breaking.
+- **Multi-sector training** (`TrainEDstates3Sector.py`): trains a single model on three adjacent sectors (N-1, N, N+1) simultaneously to evaluate the model's ability to capture multiple ground states and measures fidelity within each sector using local normalization.
 
 ## Training & Evaluation Results
 
@@ -138,8 +139,8 @@ done
     --epochs 1000 --outside_weight 0.1 --log_zero -5.0 --save_model data/full_fcnet.pt
 ```
 
-### Interpreting leakage
-
+### Interpreting leakage and Symmetry Shaping
+- **Post-training filtering**: `leakage_analysis.py` supports applying a filter $f(N)$ (Gaussian, Lorentzian, or Delta/Hard-constraint) to the raw model output before normalization via CLI flags `--filter_type`, `--filter_N0`, and `--filter_sigma`. This allows for manual control of amplitude concentration around a target sector $N_0$.
 - **Low leakage** (< 1%) means the model's capacity is concentrated in the training sector — the unconstrained architecture naturally respects the U(1) symmetry despite no explicit constraint.
 - **High leakage** means the model wastes amplitude on wrong sectors. This does not necessarily mean poor physics: if the model still achieves high fidelity on the training sector, leakage is harmless capacity waste.
 - The leakage pattern across sectors is itself a diagnostic (Benedetti et al.): organized leakage (e.g. symmetric peaks) vs random suggests how the ansatz distributes capacity.
