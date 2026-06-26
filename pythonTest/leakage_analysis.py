@@ -212,10 +212,10 @@ def compute_sector_probabilities(model, L, Nmax, device, batch_size=4096, filter
     print(f"  Evaluation time: {t1 - t0:.1f}s  ({total / (t1 - t0):,.0f} states/s)")
 
     # --- Apply post-training filtering ---
-    if filter_type != "none":
-        n0 = filter_N0 if filter_N0 is not None else L * Nmax // 2 # Fallback
-        print(f"  Applying {filter_type} filter (N0={n0}, sigma={filter_sigma}) ...")
-        logpsi_all = apply_sector_filter(logpsi_all, ntot_all, N0=n0, sigma=filter_sigma, filter_type=filter_type)
+    #if filter_type != "none":
+    n0 = filter_N0 if filter_N0 is not None else L * Nmax // 2 # Fallback
+    print(f"  Applying {filter_type} filter (N0={n0}, sigma={filter_sigma}) ...")
+    logpsi_all = apply_sector_filter(logpsi_all, ntot_all, N0=n0, sigma=filter_sigma, filter_type=filter_type)
 
     # Full normalization constant Z = logsumexp(2*logpsi)
     Z_all = _sp_logsumexp(2.0 * logpsi_all)
