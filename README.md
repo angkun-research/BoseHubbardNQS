@@ -13,7 +13,7 @@ python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 ```
 
-The Julia wrapper uses this same Python environment through `PythonCall`. The helper script [julia-local](/Users/angkunwu/BoseHubbardNQS/julia-local) sets:
+The Julia wrapper uses this same Python environment through `PythonCall`. The helper script [julia-local] sets:
 
 - `JULIA_CONDAPKG_BACKEND=Null`
 - `JULIA_PYTHONCALL_EXE=.venv/bin/python`
