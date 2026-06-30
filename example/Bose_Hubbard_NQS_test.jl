@@ -1,7 +1,8 @@
 using BoseHubbardNQS
 
 # Example usage
-MODEL_PATH = "data/bose_hubbard_nqs.pt"
+#MODEL_PATH = "data/bose_hubbard_nqs.pt"
+MODEL_PATH = normpath(joinpath(@__DIR__, "..", "data", "bose_hubbard_nqs.pt"))
 
 L = 8
 Nmax = 8
