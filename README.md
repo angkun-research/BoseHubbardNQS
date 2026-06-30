@@ -123,3 +123,16 @@ The example file also shows how to:
 - convert the raw network output into normalized amplitudes and probabilities.
 
 Important: the Julia load arguments must match the architecture and dimensions used when training the model, for example `arch="FCNet"`, `n_sites=8`, `nmax=8`, and `hidden_dim=128`.
+
+
+
+## Install it as a julia module for other projects
+Download the repo to the root (/home/BoseHubbardNQS/). Open Julia from root and install the module to julia global environment
+```julia
+]
+dev ~/BoseHubbardNQS
+```
+Launch julia from root
+```bash
+./BoseHubbardNQS/julia-local BoseHubbardNQS/example/Bose_Hubbard_NQS_test.jl
+```
