@@ -5,7 +5,9 @@ from torch.utils.data import TensorDataset, DataLoader
 
 from BoseHubbardED import exact_ground_state, basis_to_one_hot
 from NeuralNetworkClass import FCNet,JastrowNet, Conv1DNet, RBMNet
+from NeuralNetworkClass import save_model
 from utils import pick_best_device
+from pathlib import Path
 
 def make_ed_dataset(L, Ntot, Nmax, t, U, mu=0.0, pbc=True, target="amplitude", eps=1e-12):
     energy, psi0, basis, H = exact_ground_state(
@@ -164,3 +166,6 @@ if __name__ == "__main__":
     single_state_eval_logabs(teststate0, logZ)
     single_state_eval_logabs(teststate1, logZ)
     single_state_eval_logabs(teststate2, logZ)
+
+    MODEL_PATH = Path("data/bose_hubbard_nqs.pt")
+    save_model(MODEL_PATH, model, arch_name, L, Nmax, hidden_dim)

@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
+from pathlib import Path
 
 def basis_to_one_hot(basis, n_sites, nmax):
     """
@@ -118,3 +119,17 @@ class RBMNet(nn.Module):
         v = v.view(v.size(0), -1)
         prob_unnorm = -self.free_energy(v) #torch.exp(-self.free_energy(v))
         return prob_unnorm
+    
+
+def save_model(path, model, arch, n_sites, nmax, hidden_dim=128, extra=None):
+    ckpt = {
+        "state_dict": model.state_dict(),
+        "arch": arch,
+        "n_sites": int(n_sites),
+        "nmax": int(nmax),
+        "hidden_dim": int(hidden_dim),
+    }
+    if extra is not None:
+        ckpt["extra"] = extra
+    torch.save(ckpt, path)
+    print(f"saved model to {Path(path).resolve()}")
