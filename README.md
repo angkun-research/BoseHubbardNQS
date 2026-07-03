@@ -3,6 +3,8 @@ Neural network quantum states for bose hubbard model
 
 ## Usage
 
+Everything here should be run under the project root directory.
+
 ### 1. Create the local Python environment
 
 This project expects a local virtual environment in `.venv/`.
@@ -33,7 +35,7 @@ The training script is [pythonTest/TrainEDstates.py]. It:
 1. builds an exact-diagonalization dataset for the Bose-Hubbard model,
 2. trains one of the neural-network architectures,
 3. evaluates overlap with the ED ground state,
-4. saves the trained model to `data/bose_hubbard_nqs.pt`.
+4. saves the trained model to `data/bose_hubbard_nqs.pt`. Note that we need to create the folder `data/` first.
 
 Run it with:
 
@@ -127,7 +129,9 @@ Important: the Julia load arguments must match the architecture and dimensions u
 
 
 ## Install it as a julia module for other projects
-Download the repo to the root (/home/BoseHubbardNQS/). Open Julia from root and install the module to julia global environment
+
+To use it beyond the project root:
+Download the repo to the root (/home/BoseHubbardNQS/). Open Julia from home root and install the module to julia global environment
 ```julia
 ]
 dev ~/BoseHubbardNQS
