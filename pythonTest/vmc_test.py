@@ -95,6 +95,22 @@ def main():
     # Initialize walkers
     states = [generate_initial_state(args.L, args.Ntot, args.Nmax) for _ in range(args.n_walkers)]
 
+    # Before VMC burn-in
+    _, _, states, _ = Obtain_Sampling_batch(
+        psi=model,
+        L=args.L,
+        Nmax=args.Nmax,
+        initial_states=states,
+        n_steps=args.burnin_steps,
+        burnin=True,
+        print_rate=False,
+        t=args.t,
+        U=args.U,
+        mu=args.mu,
+        pbc=args.pbc,
+        device=device,
+    )
+
     for epoch in range(1, args.epochs + 1):
         # Burn-in
         _, _, states, _ = Obtain_Sampling_batch(
