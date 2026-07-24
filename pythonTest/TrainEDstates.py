@@ -13,6 +13,7 @@ def make_ed_dataset(L, Ntot, Nmax, t, U, mu=0.0, pbc=True, target="amplitude", e
     energy, psi0, basis, H = exact_ground_state(
         L=L, Ntot=Ntot, Nmax=Nmax, t=t, U=U, mu=mu, pbc=pbc
     )
+    print(f"ED ground state energy: {energy:.6e}")
     x = basis_to_one_hot(basis, n_sites=L, nmax=Nmax)
 
     if target == "amplitude":
@@ -111,11 +112,12 @@ if __name__ == "__main__":
     DEVICE = pick_best_device()
     print(f"Using device: {DEVICE}")
 
-    L = 8
-    Nmax = 8
-    Ntot = 8
+    L = 3 #8
+    Nmax = 3 #8
+    Ntot = 3 #8
     t = 1.0
-    U = 2.0
+    U_model = 3.3578
+    U = U_model/2 #2.0
     mu = 0.0
     pbc = True
 
