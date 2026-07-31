@@ -133,3 +133,156 @@ def save_model(path, model, arch, n_sites, nmax, hidden_dim=128, extra=None):
         ckpt["extra"] = extra
     torch.save(ckpt, path)
     print(f"saved model to {Path(path).resolve()}")
+
+
+
+class Conv1DPoolNet(nn.Module):
+    def __init__(self, n_sites, channels, hidden_dim=64, kernel_size=3):
+        super().__init__()
+        self.kernel_size = kernel_size
+        self.conv = nn.Sequential(
+            nn.Conv1d(channels, hidden_dim, kernel_size=kernel_size, padding=kernel_size//2, padding_mode='circular'),
+            nn.SiLU(),
+            nn.AvgPool1d(kernel_size=2, stride=2),
+            nn.Conv1d(hidden_dim, hidden_dim, kernel_size=kernel_size, padding=kernel_size//2, padding_mode='circular'),
+            nn.SiLU(),
+            nn.AvgPool1d(kernel_size=2, stride=2),
+            nn.Conv1d(hidden_dim, hidden_dim, kernel_size=kernel_size, padding=kernel_size//2, padding_mode='circular'),
+            nn.SiLU(),
+            nn.AdaptiveAvgPool1d(1),
+            nn.Flatten(),
+            nn.Linear(hidden_dim * 1, hidden_dim),
+            nn.SiLU(),
+            nn.Linear(hidden_dim, 1),
+        )
+
+    def forward(self, x):
+        # x: (batch, n_sites, Channels)
+        x = x.transpose(1, 2)  # (batch, Channels, n_sites)
+        x = self.conv(x)  # (batch, 1)
+        return x.squeeze(-1)
+
+    
+
+class TransformerNet(nn.Module):
+    def __init__(self, n_sites, channels, hidden_dim=256):
+        super().__init__()
+        self.input_proj = nn.Linear(channels, hidden_dim)
+
+        self.transformer = nn.TransformerEncoderLayer(
+            d_model=hidden_dim,
+            nhead=4,
+            dim_feedforward=hidden_dim * 2,
+            activation='relu',
+            batch_first=True,
+        )
+        self.fc = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(hidden_dim * n_sites, hidden_dim),
+            nn.SiLU(),
+            nn.Linear(hidden_dim, 1),
+        )
+
+    def forward(self, x):
+        x = self.input_proj(x)     # [B, n_sites, hidden_dim]
+        x = self.transformer(x)    # [B, n_sites, hidden_dim]
+        x = self.fc(x)            # [B, 1]
+        return x.squeeze(-1)
+
+class ConvTransformer(nn.Module):
+    def __init__(self, n_sites, channels, hidden_dim=256, kernel_size=3):
+        super().__init__()
+        self.conv = nn.Sequential(
+            nn.Conv1d(
+                channels,
+                hidden_dim,
+                kernel_size=kernel_size,
+                padding=kernel_size // 2,
+                padding_mode='circular',
+            ),
+            nn.SiLU(),
+        )
+        self.transformer = nn.TransformerEncoderLayer(
+            d_model=hidden_dim,
+            nhead=4,
+            dim_feedforward=hidden_dim * 2,
+            activation='relu',
+            batch_first=True,
+        )
+        self.fc = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(hidden_dim * n_sites, hidden_dim),
+            nn.SiLU(),
+            nn.Linear(hidden_dim, 1),
+        )
+
+    def forward(self, x):
+        # x: (batch, n_sites, Channels)
+        x = x.transpose(1, 2)  # (batch, Channels, n_sites)
+        x = self.conv(x)          # [B, hidden_dim, L]
+        x = x.transpose(1, 2)   # [B, L, hidden_dim]
+        x = self.transformer(x)   # [B, L, hidden_dim]
+        x = self.fc(x) 
+        return x.squeeze(-1)
+
+class ViTNet(nn.Module):
+    """
+    Minimal Vision-Transformer-like model for NQS.
+
+    Input:
+      x with shape [B, L, C] (one-hot occupations)
+      or shape [B, L] (integer occupations 0..Nmax)
+
+    Output:
+      scalar per sample:
+        - log-amplitude if return_log=True
+        - amplitude if return_log=False
+    """
+    def __init__(
+        self,
+        n_sites: int,
+        channels: int,
+        hidden_dim: int = 64,
+        nhead: int = 4,
+        num_layers: int = 2,
+        mlp_ratio: float = 2.0,
+        dropout: float = 0.0,
+    ):
+        super().__init__()
+        self.n_sites = n_sites
+        self.channels = channels
+
+        self.token_embed = nn.Linear(self.channels, hidden_dim)
+        self.cls_token = nn.Parameter(torch.zeros(1, 1, hidden_dim))
+        self.pos_embed = nn.Parameter(torch.zeros(1, n_sites + 1, hidden_dim))
+
+        enc_layer = nn.TransformerEncoderLayer(
+            d_model=hidden_dim,
+            nhead=nhead,
+            dim_feedforward=int(hidden_dim * mlp_ratio),
+            dropout=dropout,
+            activation="gelu",
+            batch_first=True,
+            norm_first=True,
+        )
+        self.encoder = nn.TransformerEncoder(enc_layer, num_layers=num_layers,
+            enable_nested_tensor=False)  # disable nested tensor for compatibility
+
+        self.head = nn.Sequential(
+            nn.LayerNorm(hidden_dim),
+            nn.Linear(hidden_dim, 1),
+        )
+
+        nn.init.normal_(self.cls_token, std=0.02)
+        nn.init.normal_(self.pos_embed, std=0.02)
+
+    def forward(self, x, return_log: bool = True):
+        B, L, C = x.shape
+
+        tok = self.token_embed(x)                      # [B, L, d_model]
+        cls = self.cls_token.expand(B, -1, -1)        # [B, 1, d_model]
+        h = torch.cat([cls, tok], dim=1) + self.pos_embed[:, :L+1, :]
+        h = self.encoder(h)                            # [B, L+1, d_model]
+        log_amp = self.head(h[:, 0]).squeeze(-1)      # use CLS token
+
+        return log_amp
