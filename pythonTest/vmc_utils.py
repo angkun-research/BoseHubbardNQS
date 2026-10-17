@@ -155,6 +155,11 @@ def compute_log_psi_jacobian_vmap(psi, samples_onehot, device):
     Jacobian of log|Psi| w.r.t. parameters, assuming model output is already log|Psi|.
     """
     x = torch.from_numpy(samples_onehot).float().to(device)
+    if x.is_cuda:
+        # Initialize the backward thread's context before jacrev uses cuBLAS.
+        with torch.enable_grad():
+            warmup = x.new_zeros((), requires_grad=True)
+            torch.autograd.grad(warmup.square(), warmup)
     params_dict = {k: v for k, v in psi.named_parameters() if v.requires_grad}
     param_names = list(params_dict.keys())
 

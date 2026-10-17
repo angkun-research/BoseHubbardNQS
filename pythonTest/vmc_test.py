@@ -75,7 +75,7 @@ def main():
         if args.native_opt == "adam":
             native_optimizer = torch.optim.Adam(model.parameters(), lr=native_lr)
         else:
-            native_optimizer = torch.optim.SGD(model.parameters(), lr=native_lr, momentum=0.9)
+            native_optimizer = torch.optim.SGD(model.parameters(), lr=native_lr)
         print(f"Using native optimizer: {args.native_opt}, lr={native_lr}")
     else:
         print(f"Using SR optimizer: lr={args.lr}, tau={args.tau}")
