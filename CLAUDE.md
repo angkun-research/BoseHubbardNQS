@@ -6,21 +6,28 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Neural network quantum states (NQS) for the Bose-Hubbard model. The project has two parallel implementations:
 
-- **Julia** (`src/`): A `BoseHubbardNQS` module wrapping a Python neural network via `PythonCall.jl`. Loads saved PyTorch models and evaluates wavefunction amplitudes for spin configurations.
-- **Python** (`pythonTest/`): Full training pipeline — exact diagonalization (ED) of the Bose-Hubbard Hamiltonian, multiple NN architectures (FCNet, JastrowNet, Conv1DNet, RBMNet), and training/evaluation utilities.
+- **Julia** (`src/`): A `BoseHubbardNQS` module wrapping a Python neural network via `PythonCall.jl`. Loads saved PyTorch models and evaluates log amplitudes for boson occupation configurations. Julia integration was not changed or revalidated during the October 30, 2026 documentation update.
+- **Python** (`pythonTest/`): ED-supervised training, batched CPU/GPU variational Monte Carlo (VMC), multiple NN architectures, and training/evaluation utilities. The VMC CLI supports FCNet, JastrowNet, Conv1DNet, and RBMNet; separate ED experiments exercise pooling and transformer architectures.
 
 Both target the same physics: finding ground states of `H = -t sum_<ij> (b_i^dag b_j + h.c.) + sum_i [U n_i (n_i-1) - mu n_i]`.
+
+`U` here is half of the interaction parameter in the common `(U_model/2) n(n-1)` convention. Current usage is documented in [README.md](README.md); measured eight- and sixteen-site VMC results and reproduction instructions are in [docs/VMC_BENCHMARKS.md](docs/VMC_BENCHMARKS.md). That benchmark uses unchanged Python source at commit `682c473`.
 
 ## Key Files
 
 | File | Role |
 |------|------|
-| `src/BoseHubbardNQS.jl` | Julia module entry point; exports `load_nn`, `nn_value`, `ansatz_amplitude` |
-| `src/spin_nn.jl` | Julia-Python bridge: loads `.pt` models and calls `predict_scalar` |
-| `src/python/simple_spin_nn.py` | Simple SpinNet definition, train/save/load/predict functions (Julia bridge target) |
+| `src/BoseHubbardNQS.jl` | Julia module entry point; exports `load_nn`, `nn_value`, `ansatz_log_amplitude` |
+| `src/Bose_Hubbard_NQS.jl` | Active Julia-Python bridge; loads metadata-bearing `.pt` checkpoints and calls `predict_scalar` |
+| `src/python/Bose_Hubbard_NQS.py` | Python model loader and scalar log-amplitude inference used by the active Julia bridge |
+| `src/spin_nn.jl`, `src/python/simple_spin_nn.py` | Legacy spin-network bridge and model; not included by the active module |
 | `pythonTest/BoseHubbardED.py` | Exact diagonalization: basis generation, Hamiltonian building, `eigsh` solver, observables (density profile, one-body density matrix) |
 | `pythonTest/NeuralNetworkClass.py` | NN architectures: FCNet, JastrowNet, Conv1DNet, RBMNet |
 | `pythonTest/TrainEDstates.py` | Training loop: creates ED dataset, trains model, evaluates overlap |
+| `pythonTest/TrainVMCstates.py` | Batched VMC training CLI; SR or native energy-gradient updates; saves an inference checkpoint with settings and energy history |
+| `pythonTest/vmc_utils_gpu.py` | Tensor sampler, local energies, Jacobians, SR solve, and native updates on the model's device |
+| `pythonTest/vmc_utils.py` | Scalar/reference VMC utilities |
+| `pythonTest/vmc_gpu_test.py` | Four regression tests (`--self-test`) and a VMC runner; use `--skip-ed` in large-system training mode |
 | `pythonTest/TrainEDstatesFull.py` | Full-basis training: trains on all `(Nmax+1)^L` states simultaneously (ED log-amplitude in training sector, `log_zero` elsewhere); weighted MSE; reports full-space and sector-only overlap |
 | `pythonTest/cross_sector_overlap.py` | Inter-sector overlap matrix: trains models on Ntot = N-1, N, N+1 separately, then computes K×K overlap matrix. Supports local (per-sector) or global normalization. Includes `compute_ed_nn_overlap` helper for ED-vs-NN fidelity |
 | `pythonTest/TrainEDstates3Sector.py` | Trains a single model on Ntot = N-1, N, N+1 simultaneously; evaluates per-sector fidelity |
@@ -33,14 +40,16 @@ Both target the same physics: finding ground states of `H = -t sum_<ij> (b_i^dag
 
 ### Julia
 ```bash
-./julia-local -e 'using BoseHubbardNQS; println(load_nn())'
+./julia-local -e 'using BoseHubbardNQS; println(load_nn("data/bose_hubbard_nqs.pt"))'
 ```
-The `julia-local` script sets up the Python virtualenv before launching Julia. Run with `--project=.` to use the local Manifest.toml.
+The `julia-local` script selects the existing `.venv/bin/python` for PythonCall and passes `--project=.` to Julia; it does not create or install the Python environment. Run from the repository root. The checkpoint must exist before loading. The existing Julia Bose-Hubbard example hardcodes eight-site dimensions, which differ from the current three-site ED training defaults.
 
 ### Python
 ```bash
 .venv/bin/python pythonTest/TrainEDstates.py
 .venv/bin/python pythonTest/BoseHubbardED.py   # ED only, no training
+.venv/bin/python pythonTest/TrainVMCstates.py --L 4 --Ntot 4 --Nmax 4 --epochs 100 --device cuda:0 --ed-reference --output data/vmc_L4.pt
+.venv/bin/python pythonTest/vmc_gpu_test.py --self-test --device cpu
 ```
 
 ### Dependencies
@@ -51,9 +60,11 @@ The `julia-local` script sets up the Python virtualenv before launching Julia. R
 ## Architecture Notes
 
 - Basis states use one-hot encoding: shape `(batch, n_sites, nmax+1)`.
-- The Julia bridge (`spin_nn.jl`) lazy-loads the Python module via `PythonCall` and caches it in `_pynet`.
-- ED uses `scipy.sparse.linalg.eigsh` for the lowest eigenpair; Hilbert space dimension grows combinatorially with L, Ntot, Nmax.
-- DMRG reference (`example/BoseHubbardITensor.jl`) produces the same ground energy (-7.45979) as ED for L=8, Ntot=8, Nmax=8, t=1, U=2.
+- The active Julia bridge (`Bose_Hubbard_NQS.jl`) lazy-loads `Bose_Hubbard_NQS.py` via `PythonCall` and caches it in `_bhnet`.
+- ED allocates a dense Hamiltonian before calling `scipy.sparse.linalg.eigsh` on its CSR conversion. Hilbert space dimension grows combinatorially; avoid large-system ED allocations. `TrainVMCstates.py` computes ED only with `--ed-reference`.
+- Dense parameter-space SR requires O(P²) storage for P parameters. `--evaluation_batch_size` chunks network/Jacobian evaluation but does not bound the SR matrix or all retained autograd state. `--update_method native --optimizer adam` avoids that solve.
+- VMC proposals conserve particle number. This constrains sampled states, not the network's amplitudes outside the sampled sector.
+- Historically, the DMRG reference (`example/BoseHubbardITensor.jl`) was reported to match ED energy (-7.45979) for L=8, Ntot=8, Nmax=8, t=1, U=2. This Julia result was not rerun for the October 2026 documentation update.
 
 ### Full-space and cross-sector training
 
@@ -63,6 +74,8 @@ The project now supports two approaches beyond single-sector training:
 - **Multi-sector training** (`TrainEDstates3Sector.py`): trains a single model on three adjacent sectors (N-1, N, N+1) simultaneously to evaluate the model's ability to capture multiple ground states and measures fidelity within each sector using local normalization.
 
 ## Training & Evaluation Results
+
+Historical ED-supervised results below are retained for context; they were not rerun for the October 30, 2026 documentation update. They are separate from the new VMC benchmarks and do not describe the current `TrainEDstates.py` defaults. Entries for configurations outside Ntot=8 use a normalization from the training sector and must not be interpreted as globally normalized probabilities.
 
 Physics: L=8, Ntot=8, Nmax=8, t=1.0, U=2.0, lr=1e-3, epochs=10000, target=logabs.
 
@@ -202,7 +215,7 @@ The normalization ensures `∑_s exp(2 * normalized_logpsi[s]) = 1`. The loss is
 L = mean( (normalize(logpsi) - normalize(log_phi_true))^2 )
 ```
 
-This is **not** `|ψ(s) - φ(s)|²` — it is `|exp(log|ψ|/Z) - exp(log|φ|/Z_true)|²` after exponentiation and L2 normalization. The `*2` inside `logsumexp` converts log-amplitude to log-probability (`|ψ|² = exp(2*log|ψ|)`), and `/2` converts back.
+This is MSE between normalized log amplitudes. No exponentiation occurs in this loss; it is not amplitude-space MSE. The `*2` inside `logsumexp` converts log-amplitude to log-probability (`|ψ|² = exp(2*log|ψ|)`), and `/2` converts back.
 
 ### Overlap (fidelity)
 
