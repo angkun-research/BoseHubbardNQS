@@ -1,0 +1,1007 @@
+{
+  "status": "partial_template",
+  "title": "Bose\u2013Hubbard NQS: Two dimensions",
+  "sources": [
+    "benchmarks/results/2026-10-31-cylinder-pilots/cylinder-supervised-independent.json",
+    "benchmarks/results/2026-10-31-cylinder-pilots/FCNet64d3-cylinder-supervised-independent.json",
+    "benchmarks/results/2026-10-31-cylinder-pilots/Transformer64-cylinder-supervised-independent.json",
+    "benchmarks/results/jastrow-cylinder-followup.json",
+    "benchmarks/results/dmrg-3x3-cylinder-validation-physical-geometry.json",
+    "benchmarks/results/dmrg-4x4-cylinder-chi-sensitivity.json",
+    "benchmarks/results/dmrg-6x4-cylinder-validation.json",
+    "slides/selection.json",
+    "slides/assemble_results.py",
+    "BoseNQS05-29-2026.pdf",
+    "BoseNQS06-05-2026.pdf",
+    "BoseNQS07-07-2026.pdf",
+    "BoseNQS07-31-2026.pdf",
+    "benchmarks/results/2026-10-31-vmc-refinement/Conv-stageC-4x4-independent-assessment.json",
+    "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-4x4-stageC-seed654.json",
+    "benchmarks/results/2026-10-31-vmc-refinement/Conv-stageC-6x4-independent-assessment.json",
+    "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-6x4-stageC-seed654.json",
+    "benchmarks/results/dmrg-nqs-4x4-6x4-central-strip.json",
+    "benchmarks/results/ed-cutoff-wavefunction-check.json",
+    "benchmarks/results/2026-10-31-exact-jastrow-sr/report.json",
+    "benchmarks/results/2026-10-31-exact-jastrow-orbit-sr/report.json",
+    "benchmarks/results/2026-10-31-all-model-refinement/checker-width-qualification.json",
+    "benchmarks/results/2026-10-31-all-model-refinement/checker-jastrow-orbit-qualification-review.json",
+    "benchmarks/results/2026-10-31-vmc-refinement/Conv2DNet-4x4-stageB-assessment.json",
+    "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-4x4-stageB-seed321.json",
+    "benchmarks/results/2026-10-31-vmc-refinement/Conv2DNet-6x4-stageB-assessment.json",
+    "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-6x4-stageB-seed321.json"
+  ],
+  "slides": [
+    {
+      "kind": "title",
+      "title": "Bose\u2013Hubbard NQS\nTwo dimensions",
+      "subtitle": "ED qualification, VMC and matched DMRG benchmarks",
+      "date": "10-31-2026"
+    },
+    {
+      "kind": "lattice",
+      "title": "Hamiltonian",
+      "lines": [
+        "$H=-t\\sum_{\\langle i,j\\rangle}(b_i^\\dagger b_j+b_j^\\dagger b_i)+\\frac{U}{2}\\sum_i n_i(n_i-1)-\\mu\\sum_i n_i$",
+        "$t=1,\\quad U=16.74,\\quad\\mu=0$",
+        "$N_{\\rm tot}=L_xL_y,\\quad 0\\leq n_i\\leq4$",
+        "Open long axis; periodic short axis"
+      ],
+      "fontsize": 40,
+      "y": 0.8,
+      "step": 0.16,
+      "footer": "The 2D interaction uses U/2; the earlier 1D slides used U multiplying n(n\u22121). Width-four cylinders are finite benchmarks."
+    },
+    {
+      "kind": "equations",
+      "title": "Fixed particle number",
+      "lines": [
+        "$\\Psi_{\\theta,N}(\\mathbf{n})\\propto\\delta_{\\sum_i n_i,N}\\,e^{f_\\theta(\\mathbf{n})}$",
+        "$P_{\\theta,N}(\\mathbf{n})=|\\Psi_{\\theta,N}(\\mathbf{n})|^2$",
+        "Particle-conserving sampling stays in the selected sector.",
+        "The neural output itself is unconstrained outside that sector."
+      ],
+      "fontsize": 43,
+      "step": 0.14,
+      "footer": "All overlaps and VMC expectations use canonical-sector normalization; no full-Fock-space leakage curve is claimed."
+    },
+    {
+      "kind": "table",
+      "title": "Reference benchmarks",
+      "columns": [
+        "Cylinder",
+        "Fixed-N dimension",
+        "Reference",
+        "Ground energy / t"
+      ],
+      "rows": [
+        [
+          "3\u00d73",
+          "19,855",
+          "ED",
+          "\u22124.3856967508"
+        ],
+        [
+          "4\u00d74",
+          "183,424,355",
+          "DMRG, \u03c7=128",
+          "\u22127.6716735317"
+        ],
+        [
+          "6\u00d74",
+          "7,030,166,054,250",
+          "DMRG, \u03c7=128",
+          "\u221212.2174736711"
+        ]
+      ],
+      "widths": [
+        0.16,
+        0.31,
+        0.25,
+        0.28
+      ],
+      "footer": "Nmax=4, unit filling. No ED is attempted beyond 3\u00d73. Tiny-cylinder DMRG/ED energy difference: 4.27\u00d710\u207b\u00b9\u2070 t."
+    },
+    {
+      "kind": "table",
+      "title": "Check the references",
+      "fontsize": 32,
+      "columns": [
+        "Check",
+        "Observed difference / conclusion"
+      ],
+      "rows": [
+        [
+          "3\u00d73: DMRG versus ED",
+          "Energy: 4.27\u00d710\u207b\u00b9\u2070 t; full \u03c1: 3.08\u00d710\u207b\u2079"
+        ],
+        [
+          "4\u00d74: \u03c7128 \u2192 \u03c7256 spot",
+          "Energy/site: 1.64\u00d710\u207b\u2076 t"
+        ],
+        [
+          "4\u00d74 \u2192 6\u00d74, fixed \u03c7128",
+          "Central energy: 1.6%; NN G: 3\u20134%"
+        ],
+        [
+          "Occupation cutoff",
+          "Matched Nmax=4; larger-size cutoff convergence untested"
+        ]
+      ],
+      "widths": [
+        0.42,
+        0.58
+      ],
+      "footer": "Tiny ED also has analytic-limit and independent ladder-operator checks. Finite-\u03c7 and finite-size effects are separate from Monte Carlo SEM; modest length changes do not establish bulk convergence."
+    },
+    {
+      "kind": "architecture",
+      "title": "Neural networks",
+      "items": [
+        {
+          "name": "FCNet",
+          "layers": [
+            "Site one-hot input",
+            "Flatten",
+            "Dense + tanh \u00d7 depth",
+            "Scalar log amplitude"
+          ],
+          "note": "Width and depth can grow\nwith system size."
+        },
+        {
+          "name": "Conv2DNet",
+          "layers": [
+            "2D one-hot grid",
+            "3\u00d73 Conv2D + SiLU",
+            "Flatten + dense + SiLU",
+            "Scalar log amplitude"
+          ],
+          "note": "Circular y padding; open x.\nDense head breaks exact translations."
+        },
+        {
+          "name": "JastrowNet",
+          "layers": [
+            "Onsite occupation table",
+            "Shared occupation pair tables",
+            "Sum over all site pairs",
+            "Scalar log amplitude"
+          ],
+          "note": "All pair distances included.\nCylinder sharing configurable."
+        },
+        {
+          "name": "RBMNet",
+          "layers": [
+            "Site one-hot input",
+            "Binary hidden units",
+            "Visible bias + softplus sum",
+            "Scalar log amplitude"
+          ],
+          "note": "Hidden-unit count controls\nmodel capacity."
+        }
+      ],
+      "footer": "All five ansatzes represent real positive amplitudes for the untwisted hopping model."
+    },
+    {
+      "kind": "architecture",
+      "title": "Simplest Transformer",
+      "items": [
+        {
+          "name": "Tokens and positions",
+          "code": "occupation_embedding(n)\n+ learned_x_embedding(x)\n+ learned_y_embedding(y)\n\nOne token per physical site\nGlobal attention over sites",
+          "code_size": 25,
+          "note": "Learned positions carry rectangular geometry."
+        },
+        {
+          "name": "One encoder block",
+          "code": "TransformerEncoderLayer(\n    d_model=64, nhead=1,\n    dim_feedforward=128,\n    dropout=0,\n    activation=\"relu\")\n\nMean pool \u2192 linear scalar",
+          "code_size": 25,
+          "note": "Width 64 used for cylinder qualification."
+        }
+      ],
+      "footer": "No phase/sign output is needed here. Neither mean pooling nor learned positions guarantee lattice translation symmetry."
+    },
+    {
+      "kind": "table",
+      "title": "Compare: ED-supervised fitting",
+      "subtitle": "3\u00d73 cylinder; Adam + normalized log-MSE; width 32; original Jastrow",
+      "columns": [
+        "Model",
+        "Log-MSE",
+        "Absolute overlap",
+        "Energy error/site"
+      ],
+      "rows": [
+        [
+          "FC",
+          "0.009069",
+          "0.997904",
+          "0.0087"
+        ],
+        [
+          "Jastrow",
+          "0.09133",
+          "0.988193",
+          "0.0464"
+        ],
+        [
+          "Conv2D",
+          "0.01471",
+          "0.994808",
+          "0.0223"
+        ],
+        [
+          "RBM",
+          "0.03577",
+          "0.992503",
+          "0.0317"
+        ],
+        [
+          "Transformer",
+          "0.2346",
+          "0.986871",
+          "0.0609"
+        ]
+      ],
+      "highlight_rows": [
+        2,
+        5
+      ],
+      "footer": "Working overlap criterion: |\u27e8\u03c8NQS|\u03c8ED\u27e9| \u2265 0.99 (unsquared). Energy/variance are separate diagnostics; failed rows remain visible."
+    },
+    {
+      "kind": "equations",
+      "title": "Supervised objective",
+      "lines": [
+        "$\\widetilde{f}_\\theta(\\mathbf{n})=f_\\theta(\\mathbf{n})-\\frac{1}{2}\\log\\sum_{\\mathbf{n}\\in\\mathcal{H}_N}e^{2f_\\theta(\\mathbf{n})}$",
+        "$\\mathcal{L}_{\\log}=\\frac{1}{D_N}\\sum_{\\mathbf{n}\\in\\mathcal{H}_N}[\\widetilde{f}_\\theta(\\mathbf{n})-\\log\\Psi_{\\rm ED}(\\mathbf{n})]^2$",
+        "$F_{\\rm abs}=|\\langle\\Psi_\\theta|\\Psi_{\\rm ED}\\rangle|,\\qquad\\mathcal{L}_{\\rm infidelity}=1-F_{\\rm abs}^2$",
+        "Log-MSE is primary; infidelity refinement is a separate diagnostic."
+      ],
+      "fontsize": 42,
+      "step": 0.16,
+      "footer": "The ED targets are strictly positive in these sectors; no 3\u00d73-cylinder amplitudes are clamped by the chosen 10\u207b\u00b9\u00b2 floor."
+    },
+    {
+      "kind": "table",
+      "title": "Capacity and loss checks",
+      "columns": [
+        "Candidate",
+        "Objective / optimizer",
+        "Absolute overlap",
+        "Overlap gate"
+      ],
+      "rows": [
+        [
+          "FC64, 2 layers",
+          "Adam fit \u2192 width lift",
+          "0.997904",
+          "pass"
+        ],
+        [
+          "RBM64",
+          "Adam fit \u2192 widening",
+          "0.992508",
+          "pass"
+        ],
+        [
+          "Transformer64",
+          "log-MSE / Adam",
+          "0.990323",
+          "pass"
+        ],
+        [
+          "Original Jastrow",
+          "infidelity / Adam",
+          "0.998775",
+          "pass"
+        ],
+        [
+          "Boundary Jastrow",
+          "log-MSE / Adam",
+          "0.987485",
+          "below gate"
+        ],
+        [
+          "Boundary Jastrow",
+          "infidelity / Adam",
+          "0.998814",
+          "pass"
+        ]
+      ],
+      "fontsize": 29,
+      "highlight_rows": [
+        5
+      ],
+      "footer": "3\u00d73 cylinder. FC/RBM enlarged from qualified states, with independent raw-ED checks. Jastrow's primary log-MSE misses remain explicit; optional infidelity passes do not replace them."
+    },
+    {
+      "kind": "equations",
+      "title": "Variational Monte Carlo",
+      "lines": [
+        "$E_\\theta=\\sum_{\\mathbf{n}\\in\\mathcal{H}_N}P_{\\theta,N}(\\mathbf{n})E_{\\rm loc}(\\mathbf{n})$",
+        "$E_{\\rm loc}(\\mathbf{n})=\\sum_{\\mathbf{n}\\prime}H_{\\mathbf{n},\\mathbf{n}\\prime}\\,\\frac{\\Psi_\\theta(\\mathbf{n}\\prime)}{\\Psi_\\theta(\\mathbf{n})}$",
+        "$\\nabla_\\theta E=2\\langle(E_{\\rm loc}-\\overline{E})\\,\\nabla_\\theta\\log\\Psi_\\theta\\rangle$",
+        "Equilibrate fresh walkers before updates; assess frozen checkpoints."
+      ],
+      "fontsize": 44,
+      "step": 0.15,
+      "footer": "Retained configurations are correlated. Proposal spacing, burn-in, independent evaluation chains and time-block statistics are recorded."
+    },
+    {
+      "kind": "equations",
+      "title": "Stochastic reconfiguration",
+      "lines": [
+        "$O_k=\\partial_{\\theta_k}\\log\\Psi_\\theta,\\quad S_{kl}=\\langle(O_k-\\overline{O}_k)(O_l-\\overline{O}_l)\\rangle$",
+        "$f_k=\\langle(O_k-\\overline{O}_k)(E_{\\rm loc}-\\overline{E})\\rangle$",
+        "$\\Delta\\boldsymbol{\\theta}=-\\eta\\,(S+\\tau I)^{-1}\\mathbf{f}$",
+        "VMC: SR direction applied with native SGD; no Adam on top."
+      ],
+      "fontsize": 42,
+      "step": 0.16,
+      "footer": "S is the log-derivative covariance / quantum metric, not generally the energy Hessian. Learning rate absorbs the conventional factor of two."
+    },
+    {
+      "kind": "table",
+      "title": "VMC accuracy targets",
+      "columns": [
+        "Observable",
+        "Point difference",
+        "Conditional SEM limit"
+      ],
+      "rows": [
+        [
+          "Energy / site",
+          "\u22641% of |DMRG|",
+          "\u22640.25% of |DMRG|"
+        ],
+        [
+          "Central NN Gx, Gy",
+          "\u22645% of |DMRG|",
+          "\u22642.5% of |DMRG|"
+        ],
+        [
+          "Central mean density",
+          "\u22640.01",
+          "\u22640.005"
+        ]
+      ],
+      "footer": "Central strip = two middle x columns. Form composite observables before blocking. Point and precision criteria must both pass; a large error bar cannot earn a pass."
+    },
+    {
+      "kind": "table",
+      "title": "Tighten Conv2D VMC",
+      "fontsize": 32,
+      "columns": [
+        "Cylinder",
+        "Continuation",
+        "Energy/site \u00b1 SEM",
+        "DMRG gap"
+      ],
+      "rows": [
+        [
+          "4\u00d74",
+          "B: +400 updates",
+          "-0.472967 \u00b1 0.000772",
+          "1.36%"
+        ],
+        [
+          "4\u00d74",
+          "C: +500 updates",
+          "-0.476041 \u00b1 0.000546",
+          "0.72%"
+        ],
+        [
+          "6\u00d74",
+          "B: +400 updates",
+          "-0.499447 \u00b1 0.000963",
+          "1.89%"
+        ],
+        [
+          "6\u00d74",
+          "C: +500 updates",
+          "-0.506217 \u00b1 0.000517",
+          "0.56%"
+        ]
+      ],
+      "widths": [
+        0.14,
+        0.29,
+        0.38,
+        0.19
+      ],
+      "footer": "Same Conv32 architecture. Stage B: M=1024; C: M=2048 with decreasing learning rate and SR shift. Fresh walkers equilibrated for 4096 proposals. B uses seed321; C independent confirmation seed654."
+    },
+    {
+      "kind": "table",
+      "title": "Compare: 4\u00d74 cylinder",
+      "fontsize": 31,
+      "columns": [
+        "Model",
+        "Parameters",
+        "Energy/site \u00b1 SEM",
+        "Gap",
+        "Summary gate"
+      ],
+      "rows": [
+        [
+          "Conv2D",
+          "17921",
+          "-0.476041 \u00b1 0.000546",
+          "0.72%",
+          "pass"
+        ]
+      ],
+      "widths": [
+        0.18,
+        0.15,
+        0.33,
+        0.12,
+        0.22
+      ],
+      "highlight_rows": [],
+      "footer": "Energy table: independent seed654, CPU float64. Gate requires both seeds321/654 to pass energy, central density and both NN directions. Reference: matched \u03c7=128 DMRG; not an all-distance correlation gate."
+    },
+    {
+      "kind": "table",
+      "title": "Compare: 6\u00d74 cylinder",
+      "fontsize": 31,
+      "columns": [
+        "Model",
+        "Parameters",
+        "Energy/site \u00b1 SEM",
+        "Gap",
+        "Summary gate"
+      ],
+      "rows": [
+        [
+          "Conv2D",
+          "26113",
+          "-0.506217 \u00b1 0.000517",
+          "0.56%",
+          "pass"
+        ]
+      ],
+      "widths": [
+        0.18,
+        0.15,
+        0.33,
+        0.12,
+        0.22
+      ],
+      "highlight_rows": [],
+      "footer": "Energy table: independent seed654, CPU float64. Gate requires both seeds321/654 to pass energy, central density and both NN directions. Reference: matched \u03c7=128 DMRG; not an all-distance correlation gate."
+    },
+    {
+      "kind": "plots",
+      "title": "One-body correlations: 4\u00d74",
+      "panels": [
+        {
+          "title": "$G_x$",
+          "xlabel": "Model",
+          "ylabel": "Central NN correlation",
+          "xticks": [
+            1
+          ],
+          "xticklabels": [
+            "Conv2D"
+          ],
+          "series": [
+            {
+              "label": "VMC \u00b1 SEM",
+              "x": [
+                1
+              ],
+              "y": [
+                0.3218176209855157
+              ],
+              "marker": "o",
+              "linestyle": "none",
+              "color": "#3575a2",
+              "yerr": [
+                0.006222003119915123
+              ]
+            }
+          ],
+          "reference_lines": [
+            {
+              "y": 0.3282592451650024,
+              "label": "DMRG \u03c7=128"
+            }
+          ]
+        },
+        {
+          "title": "$G_y$",
+          "xlabel": "Model",
+          "ylabel": "Central NN correlation",
+          "xticks": [
+            1
+          ],
+          "xticklabels": [
+            "Conv2D"
+          ],
+          "series": [
+            {
+              "label": "VMC \u00b1 SEM",
+              "x": [
+                1
+              ],
+              "y": [
+                0.3406477123084276
+              ],
+              "marker": "o",
+              "linestyle": "none",
+              "color": "#3575a2",
+              "yerr": [
+                0.00483459536618426
+              ]
+            }
+          ],
+          "reference_lines": [
+            {
+              "y": 0.34506789217241685,
+              "label": "DMRG \u03c7=128"
+            }
+          ]
+        }
+      ],
+      "footer": "Both endpoints lie inside the central strip; directed bond estimates are averaged per configuration. Errors are max(block, between-chain SEM), conditional on stationarity and independent walkers."
+    },
+    {
+      "kind": "plots",
+      "title": "Density: 4\u00d74",
+      "panels": [
+        {
+          "title": "4\u00d74 cylinder",
+          "xlabel": "Open-axis position x",
+          "ylabel": "$\\langle n\\rangle_y$",
+          "series": [
+            {
+              "label": "DMRG",
+              "x": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.9988800445829139,
+                1.0011199992571302,
+                1.0011199766077916,
+                0.9988799795521652
+              ],
+              "color": "black",
+              "linestyle": "--"
+            },
+            {
+              "label": "Conv2D",
+              "x": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.9998703002929688,
+                0.9986801147460938,
+                1.0038909912109375,
+                0.99755859375
+              ],
+              "color": "#3d9367",
+              "marker": "o",
+              "yerr": [
+                0.0010361001707085602,
+                0.0013150378928375895,
+                0.0014904139327098075,
+                0.0011633080483716847
+              ]
+            }
+          ],
+          "legend_size": 23
+        }
+      ],
+      "footer": "Average over periodic y within each raw sample before blocking; error bars retain covariance. DMRG and VMC use the same local occupation cutoff Nmax=4."
+    },
+    {
+      "kind": "plots",
+      "title": "Occupation fluctuations: 4\u00d74",
+      "panels": [
+        {
+          "title": "4\u00d74 cylinder",
+          "xlabel": "Open-axis position x",
+          "ylabel": "$\\langle n(n-1)\\rangle_y$",
+          "series": [
+            {
+              "label": "DMRG",
+              "x": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.06122912933393804,
+                0.09231288955503564,
+                0.0923127608800795,
+                0.06122905395545489
+              ],
+              "color": "black",
+              "linestyle": "--"
+            },
+            {
+              "label": "Conv2D",
+              "x": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.0608367919921875,
+                0.088592529296875,
+                0.092529296875,
+                0.0597076416015625
+              ],
+              "color": "#3d9367",
+              "marker": "o",
+              "yerr": [
+                0.0025159028478648816,
+                0.002651600316290654,
+                0.002941049010723271,
+                0.0025090482234368986
+              ]
+            }
+          ],
+          "legend_size": 23
+        }
+      ],
+      "footer": "Average over periodic y within each raw sample before blocking; error bars retain covariance. DMRG and VMC use the same local occupation cutoff Nmax=4."
+    },
+    {
+      "kind": "plots",
+      "title": "One-body correlations: 6\u00d74",
+      "panels": [
+        {
+          "title": "$G_x$",
+          "xlabel": "Model",
+          "ylabel": "Central NN correlation",
+          "xticks": [
+            1
+          ],
+          "xticklabels": [
+            "Conv2D"
+          ],
+          "series": [
+            {
+              "label": "VMC \u00b1 SEM",
+              "x": [
+                1
+              ],
+              "y": [
+                0.3458925214539491
+              ],
+              "marker": "o",
+              "linestyle": "none",
+              "color": "#3575a2",
+              "yerr": [
+                0.008139906679413344
+              ]
+            }
+          ],
+          "reference_lines": [
+            {
+              "y": 0.33965453370914067,
+              "label": "DMRG \u03c7=128"
+            }
+          ]
+        },
+        {
+          "title": "$G_y$",
+          "xlabel": "Model",
+          "ylabel": "Central NN correlation",
+          "xticks": [
+            1
+          ],
+          "xticklabels": [
+            "Conv2D"
+          ],
+          "series": [
+            {
+              "label": "VMC \u00b1 SEM",
+              "x": [
+                1
+              ],
+              "y": [
+                0.36869400671072605
+              ],
+              "marker": "o",
+              "linestyle": "none",
+              "color": "#3575a2",
+              "yerr": [
+                0.0064382504174064475
+              ]
+            }
+          ],
+          "reference_lines": [
+            {
+              "y": 0.35925546405111086,
+              "label": "DMRG \u03c7=128"
+            }
+          ]
+        }
+      ],
+      "footer": "Both endpoints lie inside the central strip; directed bond estimates are averaged per configuration. Errors are max(block, between-chain SEM), conditional on stationarity and independent walkers."
+    },
+    {
+      "kind": "plots",
+      "title": "Density: 6\u00d74",
+      "panels": [
+        {
+          "title": "6\u00d74 cylinder",
+          "xlabel": "Open-axis position x",
+          "ylabel": "$\\langle n\\rangle_y$",
+          "series": [
+            {
+              "label": "DMRG",
+              "x": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "y": [
+                0.9987302425527321,
+                1.000840304804552,
+                1.0004295645800978,
+                1.0004295144363717,
+                1.000840255518832,
+                0.9987301181074152
+              ],
+              "color": "black",
+              "linestyle": "--"
+            },
+            {
+              "label": "Conv2D",
+              "x": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "y": [
+                0.9982528686523438,
+                1.0018157958984375,
+                1.0009765625,
+                1.001068115234375,
+                0.998382568359375,
+                0.9995040893554688
+              ],
+              "color": "#3d9367",
+              "marker": "o",
+              "yerr": [
+                0.0012772188232995241,
+                0.0019021253971204318,
+                0.0018834288429415878,
+                0.0016804158367708204,
+                0.0016099503042080296,
+                0.0012506826457093715
+              ]
+            }
+          ],
+          "legend_size": 23
+        }
+      ],
+      "footer": "Average over periodic y within each raw sample before blocking; error bars retain covariance. DMRG and VMC use the same local occupation cutoff Nmax=4."
+    },
+    {
+      "kind": "plots",
+      "title": "Occupation fluctuations: 6\u00d74",
+      "panels": [
+        {
+          "title": "6\u00d74 cylinder",
+          "xlabel": "Open-axis position x",
+          "ylabel": "$\\langle n(n-1)\\rangle_y$",
+          "series": [
+            {
+              "label": "DMRG",
+              "x": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "y": [
+                0.06168513299134948,
+                0.09420082425725057,
+                0.09885151154449795,
+                0.09885147865598176,
+                0.09420064658856236,
+                0.06168503229126182
+              ],
+              "color": "black",
+              "linestyle": "--"
+            },
+            {
+              "label": "Conv2D",
+              "x": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "y": [
+                0.06634521484375,
+                0.102691650390625,
+                0.1030731201171875,
+                0.104278564453125,
+                0.0891265869140625,
+                0.06207275390625
+              ],
+              "color": "#3d9367",
+              "marker": "o",
+              "yerr": [
+                0.003405481133679681,
+                0.0038065350114693205,
+                0.003661588096857956,
+                0.003401978385786496,
+                0.0034723327584688804,
+                0.0030046096731852
+              ]
+            }
+          ],
+          "legend_size": 23
+        }
+      ],
+      "footer": "Average over periodic y within each raw sample before blocking; error bars retain covariance. DMRG and VMC use the same local occupation cutoff Nmax=4."
+    },
+    {
+      "kind": "plots",
+      "title": "Correlations beyond NN",
+      "panels": [
+        {
+          "title": "4\u00d74: central anchor, same y",
+          "xlabel": "Signed separation dx",
+          "ylabel": "$\\langle b_i^\\dagger b_j\\rangle$",
+          "series": [
+            {
+              "label": "DMRG",
+              "x": [
+                -2,
+                -1,
+                1
+              ],
+              "y": [
+                0.1410423452835751,
+                0.32825713900389536,
+                0.3115525294464556
+              ],
+              "color": "black",
+              "linestyle": "--"
+            },
+            {
+              "label": "Conv2D",
+              "x": [
+                -2,
+                -1,
+                1
+              ],
+              "y": [
+                0.1425158470230411,
+                0.34951051869992783,
+                0.3263149865283957
+              ],
+              "color": "#3d9367",
+              "marker": "o",
+              "yerr": [
+                0.014256509704506624,
+                0.01791854844509584,
+                0.018254428578101285
+              ]
+            }
+          ],
+          "legend_size": 22
+        },
+        {
+          "title": "6\u00d74: central anchor, same y",
+          "xlabel": "Signed separation dx",
+          "ylabel": "$\\langle b_i^\\dagger b_j\\rangle$",
+          "series": [
+            {
+              "label": "DMRG",
+              "x": [
+                -3,
+                -2,
+                -1,
+                1,
+                2
+              ],
+              "y": [
+                0.0863122538037351,
+                0.16524800106202137,
+                0.339659012559408,
+                0.33556189648679335,
+                0.1469040445086422
+              ],
+              "color": "black",
+              "linestyle": "--"
+            },
+            {
+              "label": "Conv2D",
+              "x": [
+                -3,
+                -2,
+                -1,
+                1,
+                2
+              ],
+              "y": [
+                0.0838666907084111,
+                0.18057927431167134,
+                0.3480191073876442,
+                0.33321091401104663,
+                0.18515166170075864
+              ],
+              "color": "#3d9367",
+              "marker": "o",
+              "yerr": [
+                0.008106512283928325,
+                0.018847209099695172,
+                0.01768042615852878,
+                0.01910312654907124,
+                0.032330674647845205
+              ]
+            }
+          ],
+          "legend_size": 22
+        }
+      ],
+      "footer": "Raw directed anchor-line estimates with conditional SEM; diagonal excluded. Individual pairs are noisier than central NN averages. The 5% summary target does not apply to this whole curve."
+    },
+    {
+      "kind": "table",
+      "title": "Configurations and budgets",
+      "fontsize": 27,
+      "columns": [
+        "Model and cylinder",
+        "Architecture settings",
+        "Update lineage"
+      ],
+      "rows": [
+        [
+          "Conv2D, 4\u00d74",
+          "hidden_dim=32",
+          "300 + 400 + 500"
+        ],
+        [
+          "Conv2D, 6\u00d74",
+          "hidden_dim=32",
+          "300 + 400 + 500"
+        ]
+      ],
+      "widths": [
+        0.3,
+        0.42,
+        0.28
+      ],
+      "footer": "Architecture-specific optimization budgets; this is an accuracy comparison, not an equal-compute ranking. Warm starts restore inference weights only; optimizers and walkers are fresh."
+    },
+    {
+      "kind": "text",
+      "title": "Takeaways and next steps",
+      "fontsize": 41,
+      "step": 0.14,
+      "lines": [
+        "Conv2D32 meets the summary targets on both cylinders.",
+        "Other architectures are being refined at fixed geometry.",
+        "No bulk critical or thermodynamic convergence is claimed."
+      ],
+      "footer": "Finite cylinders at U/t=16.74 are a building benchmark. No thermodynamic limit, critical exponents, larger-system fidelity or universal architecture ranking is inferred."
+    }
+  ]
+}

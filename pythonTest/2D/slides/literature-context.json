@@ -1,0 +1,39 @@
+{
+  "scope": "Primary sources checked for the physics-focused presentation; no claim that off-sector extension diagnostics are algorithmically novel.",
+  "references": [
+    {
+      "title": "Solving the Quantum Many-Body Problem with Artificial Neural Networks",
+      "authors": "G. Carleo and M. Troyer",
+      "year": 2017,
+      "url": "https://arxiv.org/abs/1606.02318",
+      "doi": "10.1126/science.aag2302",
+      "supports": "Finite-size VMC at the critical TFI point and gapless Heisenberg models; energy accuracy can be high. This is a counterexample to categorical gapless VMC failure, not a guarantee for our bosonic models."
+    },
+    {
+      "title": "Specialising neural-network quantum states for the Bose Hubbard model",
+      "authors": "M. Y. Pei and S. R. Clark",
+      "year": 2024,
+      "url": "https://doi.org/10.1088/1361-6455/ad7e87",
+      "supports": "Fixed-number occupation basis, particle-conserving Metropolis sampling, energy/variance and correlator diagnostics for NQS-VMC. Equations10–12 and surrounding text explicitly describe restricting sampled configurations to N."
+    },
+    {
+      "title": "Autoregressive Neural Quantum States with Quantum Number Symmetries",
+      "authors": "A. Malyshev, J. M. Arrazola and A. I. Lvovsky",
+      "year": 2023,
+      "url": "https://arxiv.org/abs/2310.04166",
+      "supports": "Explicit quantum-number-constrained autoregressive sampling; a different established route to symmetry enforcement, not a proposed architecture change here."
+    },
+    {
+      "title": "Monte Carlo study of the two-dimensional Bose-Hubbard model",
+      "authors": "B. Capogrosso-Sansone et al.",
+      "year": 2008,
+      "url": "https://doi.org/10.1103/PhysRevA.77.015602",
+      "supports": "Square-lattice unit-filling SF–MI transition, U/2 convention, thermodynamic critical coupling and gap behavior; does not imply our small clusters or width4cylinders are already gapless."
+    }
+  ],
+  "derived_here": [
+    "Finite-sector spectral decomposition gives E-E0>=Delta_N*(1-F_abs^2) for nondegenerate ground state.",
+    "Fixed-N data are unchanged by arbitrary additive h(N) with h(N0)=0 in raw log amplitude.",
+    "Full-space overlap with a zero-embedded canonical target equals sqrt(Pfull(N0))*canonicaloverlap."
+  ]
+}

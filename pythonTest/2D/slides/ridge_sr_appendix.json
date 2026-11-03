@@ -1,0 +1,152 @@
+{
+  "title": "Detailed ridge-SR mathematics and MinSR comparison",
+  "references": [
+    "https://www.nature.com/articles/s41567-024-02566-1",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC11392813/"
+  ],
+  "slides": [
+    {
+      "kind": "equations",
+      "title": "Ridge SR: definitions",
+      "lines": [
+        "$\\Psi_\\theta(\\mathbf{n})=e^{f_\\theta(\\mathbf{n})}/\\sqrt{\\sum_{\\mathbf{n}\\in\\mathcal{H}_N}e^{2f_\\theta(\\mathbf{n})}},\\quad p_\\theta=|\\Psi_\\theta|^2$",
+        "$J_{mk}=\\partial_{\\theta_k}f_\\theta(\\mathbf{n}_m),\\quad J\\in\\mathbb{R}^{M\\times P},\\quad\\mathbf{n}_m\\sim p_\\theta$",
+        "$\\overline{J}_k=M^{-1}\\sum_m J_{mk},\\quad (J_c)_{mk}=J_{mk}-\\overline{J}_k$",
+        "$\\overline{E}=M^{-1}\\sum_m E_{{\\rm loc},m},\\quad(E_c)_m=E_{{\\rm loc},m}-\\overline{E}$",
+        "$A=J_c/\\sqrt{M},\\qquad e=E_c/\\sqrt{M}$"
+      ],
+      "footer": "M counts retained configurations, not independent samples. P counts trainable parameters. These formulas use the real, positive-amplitude ansatz and fixed-N sector.",
+      "fontsize": 39,
+      "step": 0.125,
+      "y": 0.79
+    },
+    {
+      "kind": "equations",
+      "title": "Imaginary time and the metric",
+      "lines": [
+        "$\\Delta\\log\\Psi(\\mathbf{n})\\simeq-\\eta\\,[E_{\\rm loc}(\\mathbf{n})-E]$",
+        "$d_{\\rm FS}^2\\simeq\\|A\\,\\Delta\\theta+\\eta e\\|^2$",
+        "$S=A^{\\mathsf{T}}A=J_c^{\\mathsf{T}}J_c/M,\\qquad f=A^{\\mathsf{T}}e=J_c^{\\mathsf{T}}E_c/M$",
+        "$\\nabla_\\theta E\\simeq2f,\\qquad ds^2=\\Delta\\theta^{\\mathsf{T}}S\\,\\Delta\\theta$",
+        "SR matches a linearized variational step to imaginary-time evolution."
+      ],
+      "footer": "First-order wavefunction and second-order distance expansion; Monte Carlo estimates replace expectations. S is the real quantum geometric metric, not the energy Hessian.",
+      "fontsize": 39,
+      "step": 0.125,
+      "y": 0.79
+    },
+    {
+      "kind": "equations",
+      "title": "Ridge SR as least squares",
+      "lines": [
+        "$\\mathcal{L}_\\tau(\\Delta\\theta)=\\|A\\Delta\\theta+\\eta e\\|^2+\\tau\\|\\Delta\\theta\\|^2,\\qquad\\tau>0$",
+        "$A^{\\mathsf{T}}(A\\Delta\\theta+\\eta e)+\\tau\\Delta\\theta=0$",
+        "$(S+\\tau I_P)\\Delta\\theta=-\\eta f$",
+        "$d=\\operatorname{solve}(S+\\tau I_P,f),\\qquad\\theta\\leftarrow\\theta-\\eta d$",
+        "The code assigns d as the gradient to native SGD."
+      ],
+      "footer": "The Euclidean parameter penalty stabilizes ill-conditioned directions and changes the step. No Adam is applied after SR; the learning-rate convention absorbs the energy-gradient factor of two.",
+      "fontsize": 38,
+      "step": 0.125,
+      "y": 0.79
+    },
+    {
+      "kind": "equations",
+      "title": "The exact sample-space solve",
+      "lines": [
+        "$T=AA^{\\mathsf{T}}\\in\\mathbb{R}^{M\\times M}$",
+        "$(A^{\\mathsf{T}}A+\\tau I_P)A^{\\mathsf{T}}=A^{\\mathsf{T}}(AA^{\\mathsf{T}}+\\tau I_M)$",
+        "$d=A^{\\mathsf{T}}\\operatorname{solve}(T+\\tau I_M,e)$",
+        "$d=J_c^{\\mathsf{T}}\\operatorname{solve}(J_cJ_c^{\\mathsf{T}}+M\\tau I_M,E_c)$",
+        "Same full batch and ridge; use the smaller dense system."
+      ],
+      "footer": "For positive tau, this is the same regularized direction in exact arithmetic. Centered sample rank is at most min(P,M−1). No additional sample, parameter or rank truncation is introduced.",
+      "fontsize": 38,
+      "step": 0.125,
+      "y": 0.79
+    },
+    {
+      "kind": "equations",
+      "title": "What ridge does to each mode",
+      "lines": [
+        "$T=U\\,\\operatorname{diag}(\\lambda_i)U^{\\mathsf{T}},\\qquad\\lambda_i\\geq0$",
+        "$d=A^{\\mathsf{T}}U\\,\\operatorname{diag}[(\\lambda_i+\\tau)^{-1}]\\,U^{\\mathsf{T}}e$",
+        "$A\\Delta\\theta=-\\eta U\\,\\operatorname{diag}[\\lambda_i/(\\lambda_i+\\tau)]\\,U^{\\mathsf{T}}e$",
+        "$\\lambda_i\\gg\\tau:\\ \\lambda_i/(\\lambda_i+\\tau)\\simeq1;\\quad\\lambda_i\\ll\\tau:\\ \\lambda_i/(\\lambda_i+\\tau)\\simeq\\lambda_i/\\tau$",
+        "Small-curvature directions are smoothly damped, not estimated reliably by assumption."
+      ],
+      "footer": "The ridge trades step fidelity for stability. A small sampled linearized step does not guarantee a small nonlinear wavefunction change or successful optimization.",
+      "fontsize": 36,
+      "step": 0.125,
+      "y": 0.79
+    },
+    {
+      "kind": "equations",
+      "title": "Relation to published MinSR",
+      "lines": [
+        "$d_{\\rm MinSR}=A^+e=A^{\\mathsf{T}}T^+e$",
+        "$c=r_{\\rm pinv}\\max_i|\\lambda_i|+a_{\\rm pinv}$",
+        "$g_{\\rm soft}(\\lambda)=\\{\\lambda[1+(c/|\\lambda|)^6]\\}^{-1}\\quad(\\lambda>0)$",
+        "$d_{\\rm soft}=A^{\\mathsf{T}}U\\,\\operatorname{diag}[g_{\\rm soft}(\\lambda_i)]\\,U^{\\mathsf{T}}e$",
+        "Our ridge uses 1/(λ+τ); the optional comparison uses the published soft filter."
+      ],
+      "footer": "Chen & Heyl, Nature Physics 20, 1476–1481 (2024), doi:10.1038/s41567-024-02566-1, Methods Eqs.20–23. Zero modes require explicit handling; actual SGD update is −ηd.",
+      "fontsize": 37,
+      "step": 0.125,
+      "y": 0.79
+    },
+    {
+      "kind": "table",
+      "title": "Cost, storage and precision",
+      "columns": [
+        "Dense formulation",
+        "Matrix to solve",
+        "Matrix algebra cost"
+      ],
+      "rows": [
+        [
+          "Parameter space",
+          "P × P",
+          "O(MP² + P³)"
+        ],
+        [
+          "Sample space",
+          "M × M",
+          "O(PM² + M³)"
+        ],
+        [
+          "Full Jacobian retained",
+          "M × P",
+          "O(MP) storage"
+        ],
+        [
+          "Numerical precision",
+          "Gram + solve: float64",
+          "Model derivatives may originate in float32"
+        ]
+      ],
+      "widths": [
+        0.31,
+        0.29,
+        0.4
+      ],
+      "fontsize": 31,
+      "footer": "Costs exclude sampling and neural differentiation. Linear in P only at fixed M in the sample-space branch. Same-batch CPU audit: P=3681, M=256, primal/dual relative direction error 1.5×10⁻¹¹; not a long-run convergence proof."
+    },
+    {
+      "kind": "equations",
+      "title": "Comparison with the 1D routine",
+      "lines": [
+        "$\\text{1D:}\\quad(J^{\\mathsf{T}}J+\\lambda_{\\rm sum}I)d=J^{\\mathsf{T}}E_c$",
+        "$\\text{2D:}\\quad(J_c^{\\mathsf{T}}J_c/M+\\tau I)d=J_c^{\\mathsf{T}}E_c/M$",
+        "$J^{\\mathsf{T}}J=J_c^{\\mathsf{T}}J_c+M\\overline{J}^{\\mathsf{T}}\\overline{J}$",
+        "$\\tau=\\lambda_{\\rm sum}/M\\quad\\text{matches ridge units; centering still differs.}$",
+        "1D CPU code solves in float64; 2D solves on the training device in float64."
+      ],
+      "footer": "Changes to centering, ridge units and device are separate from Jacobian vectorization. The user accepted the 2D formulation. Gauge shifts can affect parameter differences without changing normalized-state tangents.",
+      "fontsize": 37,
+      "step": 0.125,
+      "y": 0.79
+    }
+  ]
+}

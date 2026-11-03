@@ -1,0 +1,44 @@
+{
+  "status": "VERIFIED_DOCUMENTATION_CLEANUP_AND_JULIA_PREPARATION",
+  "recorded_at": "2026-11-03T01:55:45.890797+00:00",
+  "CPU_tests": {
+    "passed": 125,
+    "seconds": 24.541,
+    "log": "docs/cpu-regression.log"
+  },
+  "CLI_help_passed": [
+    "train.py",
+    "train_ed.py",
+    "evaluate.py"
+  ],
+  "API_example_status": "PASSED_EXACT_API_MD_CPU_CODE_FENCE",
+  "current_API_code_fence_matches_validated_example": true,
+  "missing_local_document_links": [],
+  "changed_protected_inputs": [],
+  "core_1D_Julia_current_PDF_and_present_sources_unchanged": true,
+  "merge_performed": false,
+  "documentation_sha256": {
+    "README.md": "18811b7fa4ea9cd0ea4807c4f8428e984ddb533d9933fbb6ea84e494fb82e268",
+    "STATUS.md": "88c9b0734e872a71c98e7f3bd6288338efbdddb62cd86076d2f11889c0c5af3b",
+    "PLAN.md": "4940eee056df6bcb200cfaf038b21a7b5d0453f0631b72f85776f36f726d1bc7",
+    "BENCHMARKING.md": "bb15d03a4ed269d0e2d80e46f7a2593b194edf0a8eda6d5e07f32b13f14abecf",
+    "benchmarks/README.md": "4f5a90a4c7817f11ada3d6c7d0c9429c465340aba163744f1bb5365786eedf7a",
+    "docs/API.md": "1dd479c81182b3f3eb56d5f39e7a5791566260a4349869337369187d1aaf8d96",
+    "docs/JULIA_PREPARATION.md": "946b239fa677488b31f4e1af2ea8981cd9659aaa0aad6a7232c67aaa26069b18",
+    "docs/CLEANUP.md": "53c4bf024db6605f3219d9100a1d13aeeef8bb4276634eed480b9acb77f9c161"
+  },
+  "cleanup_actions": "docs/cleanup-actions.json",
+  "cleanup_audit": "docs/cleanup-audit.json",
+  "independent_review": "docs/documentation-review.json",
+  "independent_review_status": "APPROVED_API_AND_PARENT_DOCS_PDF_PROVENANCE_UNRESOLVED",
+  "independent_review_sha256": "0f81e89c48a598e46ea860b595e95a18c01fdad4fb7ead57b83667d37b49d725",
+  "intentionally_retired_style_PDFs": [
+    "BoseNQS05-29-2026.pdf",
+    "BoseNQS06-05-2026.pdf",
+    "BoseNQS07-07-2026.pdf",
+    "BoseNQS07-31-2026.pdf"
+  ],
+  "style_reference_resolution": "docs/style-reference-resolution.json",
+  "changed_slide_renderer": "Intentional template-retirement handling only; archived previous source",
+  "outstanding_items": []
+}

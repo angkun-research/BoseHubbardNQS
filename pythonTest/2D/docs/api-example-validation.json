@@ -1,0 +1,166 @@
+{
+  "status": "PASSED_EXACT_API_MD_CPU_CODE_FENCE",
+  "recorded_at": "2026-11-02T06:25:59.347412+00:00",
+  "document": "/home/angkunwu/Documents/BoseHubbardNQS/pythonTest/2D/docs/API.md",
+  "section": "Read-only CPU example",
+  "document_sha256_at_extraction": "91978044871fe87bd446216906a05e206a91fa45899dc55650ca02699888485f",
+  "document_sha256_after_validation": "91978044871fe87bd446216906a05e206a91fa45899dc55650ca02699888485f",
+  "document_unchanged_during_validation": true,
+  "example_python_exact_from_fence": "from pathlib import Path\nimport sys\nimport torch\n\nsys.path.insert(0, str(Path(\"pythonTest/2D\").resolve()))\nfrom models import load_model\nfrom exact_diagonalization import generate_basis\nfrom vmc import occupancy_tensor_to_onehot, local_energy\nfrom observables import one_body_estimators\n\ntorch.set_num_threads(1)\nmodel, meta = load_model(\n    \"outputs/2026-11-01-backup-extension/Hybrid32-2x3-sr500-seed123.pt\",\n    device=\"cpu\",\n)\nmodel = model.double().eval()\nstates = torch.tensor(generate_basis(model.n_sites, meta[\"Ntot\"], model.Nmax))\nwith torch.no_grad():\n    logs = model(occupancy_tensor_to_onehot(states, model.Nmax, torch.float64))\n    weights = torch.softmax(2 * logs, dim=0)\n    density = weights @ states.double()\n    # Here the time/walker axes merely batch all basis rows, not an MC sample.\n    raw_G = one_body_estimators(model, states[:, None, :])[:, 0]\n    G = torch.einsum(\"s,sij->ij\", weights, raw_G)\n    E = weights @ local_energy(model, states, meta[\"t\"], meta[\"U\"], meta[\"mu\"])\nprint(float(E), density.tolist(), G.shape)",
+  "example_sha256": "2fc842a0c5440507422b371944a86afd8d79bbe3c509781674e89eaeb6cfb73b",
+  "checkpoint": "/home/angkunwu/Documents/BoseHubbardNQS/pythonTest/2D/outputs/2026-11-01-backup-extension/Hybrid32-2x3-sr500-seed123.pt",
+  "checkpoint_sha256_before": "c4391350d71395b8f9ee0c7fdbaa1616edcc4bf3e3c5ce01eb2e0128ad0d25ba",
+  "checkpoint_sha256_after": "c4391350d71395b8f9ee0c7fdbaa1616edcc4bf3e3c5ce01eb2e0128ad0d25ba",
+  "checkpoint_unchanged": true,
+  "checkpoint_metadata": {
+    "format_version": 2,
+    "arch": "Conv2DTransformerNet",
+    "Lx": 2,
+    "Ly": 3,
+    "Nmax": 4,
+    "pbc": true,
+    "pbc_x": true,
+    "pbc_y": true,
+    "architecture_settings": {
+      "hidden_dim": 32
+    },
+    "dtype": "float32",
+    "Ntot": 6,
+    "t": 1.0,
+    "U": 16.74,
+    "mu": 0.0,
+    "hamiltonian_convention": "-t*sum_bonds(b_i^dag*b_j+h.c.)+U/2*sum_i(n_i*(n_i-1))-mu*sum_i(n_i)",
+    "bond_convention": "unique_unordered_nearest_neighbors_no_self_bonds",
+    "flattening": "i=y*Lx+x",
+    "output": "real_unnormalized_log_amplitude",
+    "checkpoint_kind": "inference",
+    "parameter_count": 16225,
+    "spatial_symmetries": []
+  },
+  "execution": {
+    "device": "cpu",
+    "forward_dtype": "float64",
+    "threads": 1,
+    "environment_threads": "OMP/MKL/OPENBLAS=1",
+    "no_files_written_by_example": true,
+    "wall_seconds_including_checks": 2.894923138897866
+  },
+  "metrics": {
+    "sector_dimension": 426,
+    "raw_log_output_shape": [
+      426
+    ],
+    "raw_log_output_dtype": "torch.float64",
+    "probability_weighted_energy": -2.580816327644847,
+    "density": [
+      1.0000001125972058,
+      0.9999778057620127,
+      0.9999969846687443,
+      1.0000061005549836,
+      0.9999980093457104,
+      1.0000209870713501
+    ],
+    "onsite_factorial_moment": [
+      0.06339946190311344,
+      0.0633879714722842,
+      0.06337520771344202,
+      0.06342452303770535,
+      0.0633774315962786,
+      0.0634088708053967
+    ],
+    "one_body_shape": [
+      6,
+      6
+    ],
+    "one_body_matrix": [
+      [
+        1.0000001125972058,
+        0.2991117767574244,
+        0.33081828522338036,
+        0.19304454488464334,
+        0.330841048796494,
+        0.1930693542783653
+      ],
+      [
+        0.2991117767574244,
+        0.9999778057620127,
+        0.1931237911419589,
+        0.33094136185060485,
+        0.19323772172691311,
+        0.330770156023286
+      ],
+      [
+        0.33081828522338036,
+        0.19312379114195893,
+        0.9999969846687443,
+        0.29907793586216097,
+        0.33071567626875975,
+        0.1930761222868261
+      ],
+      [
+        0.19304454488464337,
+        0.33094136185060485,
+        0.2990779358621609,
+        1.0000061005549836,
+        0.1930435383890892,
+        0.33094933250457303
+      ],
+      [
+        0.330841048796494,
+        0.19323772172691314,
+        0.3307156762687597,
+        0.1930435383890892,
+        0.9999980093457104,
+        0.2990455479563415
+      ],
+      [
+        0.1930693542783653,
+        0.330770156023286,
+        0.1930761222868261,
+        0.33094933250457303,
+        0.2990455479563415,
+        1.0000209870713501
+      ]
+    ],
+    "checks": {
+      "normalization_error": 8.881784197001252e-16,
+      "density_sum_minus_Ntot_abs": 7.105427357601002e-15,
+      "rho_diagonal_minus_density_max_abs": 0.0,
+      "rho_trace_minus_Ntot_abs": 7.105427357601002e-15,
+      "rho_raw_hermiticity_max_abs": 5.551115123125783e-17,
+      "energy_reconstruction_abs": 4.440892098500626e-16
+    }
+  },
+  "actionable_contract_issues": [
+    {
+      "priority": "correction",
+      "location": "vmc.py module contracts table: local_energy",
+      "current_claim": "Float64 (samples,) local energies",
+      "actual_contract": "local_energy returns model floating dtype on model device, not unconditionally float64; local ratios and onsite arithmetic use that dtype. This example explicitly casts model.double(), so its returned energies are float64.",
+      "evidence": {
+        "CPU_float32_model_one_state_return_dtype": "torch.float32",
+        "source": "vmc.py local_energy: dtype=next(model.parameters()).dtype; occ=block.to(dtype=dtype); result=torch.cat(energies)"
+      }
+    },
+    {
+      "priority": "clarification",
+      "location": "Shared conventions: model forward device/dtype",
+      "actual_contract": "Model forward validates shape and casts input dtype, but does not move an existing input tensor to parameter device. Caller must supply one-hot inputs on model device. VMC _states/evaluate_logs wrappers perform explicit device conversion.",
+      "evidence": "models.py _input returns x.to(dtype=next(model.parameters()).dtype), with no device= argument."
+    },
+    {
+      "priority": "clarification",
+      "location": "Entry points and side effects: training can replace checkpoint/sidecar",
+      "actual_contract": "Cold train.py may replace files; train.py warm-start requires new outputs. train_ed.py and evaluate.py refuse existing destinations. Avoid wording that implies all trainers overwrite.",
+      "evidence": "train_ed.py _output_path rejects path.exists(); train.py _output_path does not, but warm-start validation does."
+    }
+  ],
+  "source_sha256": {
+    "models.py": "b1132c23f8999f1aae789f3248b617f8e8dffa48d1828e2036292355fb0a9daf",
+    "vmc.py": "eba1882cc2bea82f220ad828ed6d46ecfb465de1c1434708ea97ccf9fb54f609",
+    "observables.py": "fd2491b064ad3cc7558b869c84703fa6e436cdbbd807a7a863f09ca59a64adb1",
+    "exact_diagonalization.py": "da46ef21ceb2a56c168ebde9db0be48c50d9721c518bdae48f22f65f0ebb6543",
+    "lattice.py": "d58e10d11afff9f4219a2d8092e3228e8c4e2dcaf25f565c05a3499a0a021e9d"
+  },
+  "scope": "Executed the exact fence verbatim, then separate CPU invariant checks and a one-state dtype probe. No API/core edit, cleanup, training, GPU, Julia, PDF operation or checkpoint mutation. Only docs/api-example-validation.json written."
+}

@@ -1,0 +1,314 @@
+{
+  "sources": [
+    "outputs/dmrg-4x4-cylinder-chi128-spot256/chi128-density.csv",
+    "outputs/dmrg-4x4-cylinder-chi128-spot256/bonds.csv"
+  ],
+  "slides": [
+    {
+      "kind": "observable",
+      "Lx": 4,
+      "Ly": 4,
+      "central_columns": [
+        1,
+        2
+      ],
+      "bonds": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          12
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          13
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          14
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          3,
+          15
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          9
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          7,
+          11
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          8,
+          12
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          9,
+          13
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          10,
+          14
+        ],
+        [
+          11,
+          15
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          13,
+          14
+        ],
+        [
+          14,
+          15
+        ]
+      ],
+      "central_bond_counts": {
+        "x": 4,
+        "y": 8
+      },
+      "observable": "density",
+      "density": [
+        0.9988796814117444,
+        1.0011202933424412,
+        1.001120086283771,
+        0.9988797133307766,
+        0.9988798736223343,
+        1.0011201218094452,
+        1.0011200240680644,
+        0.9988797840676998,
+        0.9988802350960673,
+        1.001119861051586,
+        1.0011199216681497,
+        0.9988801734882133,
+        0.9988803882015094,
+        1.0011197208250486,
+        1.0011198744111807,
+        0.998880247321971
+      ],
+      "title": "Density on the lattice",
+      "lines": [
+        "$\\rho_i=\\langle n_i\\rangle=\\sum_{\\mathbf{n}}p_\\theta(\\mathbf{n})\\,n_i$",
+        "$\\overline{\\rho}(x)=\\frac{1}{L_y}\\sum_y\\rho_{x,y}$",
+        "$\\rho_C=\\frac{1}{|C|}\\sum_{i\\in C}\\rho_i,\\qquad |C|=8$",
+        "$\\sum_i\\rho_i=N_{\\rm tot}=16$"
+      ],
+      "footer": "Actual 4×4 cylinder DMRG density, t=1, U=16.74, Nmax=4. Color scale resolves weak edge/bulk variation; values are mean occupations, not a single occupation configuration."
+    },
+    {
+      "kind": "observable",
+      "Lx": 4,
+      "Ly": 4,
+      "central_columns": [
+        1,
+        2
+      ],
+      "bonds": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          12
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          13
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          14
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          3,
+          15
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          9
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          7,
+          11
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          8,
+          12
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          9,
+          13
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          10,
+          14
+        ],
+        [
+          11,
+          15
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          13,
+          14
+        ],
+        [
+          14,
+          15
+        ]
+      ],
+      "central_bond_counts": {
+        "x": 4,
+        "y": 8
+      },
+      "observable": "nn",
+      "title": "Nearest-neighbor correlations",
+      "lines": [
+        "$G_{ij}=\\langle b_i^\\dagger b_j\\rangle$",
+        "$g_{ij}=\\frac{1}{2}\\langle b_i^\\dagger b_j+b_j^\\dagger b_i\\rangle$",
+        "$\\overline{G}_\\alpha(C)=\\frac{1}{|B_\\alpha(C)|}\\sum_{\\langle i,j\\rangle\\in B_\\alpha(C)}g_{ij}$",
+        "$\\alpha=x,y;\\quad i,j\\in C$"
+      ],
+      "footer": "One-body coherence, not density-density correlation. Both endpoints lie in the strip; dashed links are periodic y bonds. Fixed N gives ⟨b_i⟩=0. Nonzero NN coherence alone does not establish superfluidity or criticality."
+    }
+  ],
+  "estimator_appendix": {
+    "kind": "equations",
+    "title": "Observable estimators in VMC",
+    "fontsize": 36,
+    "y": 0.79,
+    "step": 0.12,
+    "lines": [
+      "$\\rho_i\\simeq\\frac{1}{M}\\sum_m n_i^{(m)},\\quad D_i=\\langle n_i(n_i-1)\\rangle$",
+      "$\\operatorname{Var}(n_i)=D_i+\\rho_i-\\rho_i^2$",
+      "$R_{ij}(\\mathbf{n})=\\sqrt{n_i(n_j+1)}\\,e^{f_\\theta(\\mathbf{n}-\\mathbf{e}_i+\\mathbf{e}_j)-f_\\theta(\\mathbf{n})}$",
+      "$G_{ij}\\simeq M^{-1}\\sum_m R_{ij}(\\mathbf{n}^{(m)}),\\quad i\\ne j;\\qquad G_{ii}=\\rho_i$",
+      "R is zero unless n_i > 0 and n_j < Nmax (row-action estimator).",
+      "Average sites/bonds within each sample, then apply time-block statistics."
+    ],
+    "footer": "The real positive-amplitude ratio preserves total particle number. For bond coherence average R_ij and R_ji; retain raw directed estimates separately. D_i is a factorial moment, not itself the number variance."
+  }
+}

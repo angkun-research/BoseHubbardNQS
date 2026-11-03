@@ -1,0 +1,1 @@
+These are verbatim snapshots before documentation consolidation. They retain historical decisions, abandoned campaigns and old page numbers. Relative links were written for the original 2D root. Use the active root README, STATUS and PLAN for the current project.

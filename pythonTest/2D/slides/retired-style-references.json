@@ -1,0 +1,13 @@
+{
+  "status": "USER_CONFIRMED_INTENTIONAL_REMOVAL",
+  "recorded_at": "2026-11-03T01:55:06.720441+00:00",
+  "user_confirmation": "I removed them. They are just template for slides style.",
+  "role": "visual style templates only; not numerical inputs",
+  "retired_style_references": {
+    "BoseNQS05-29-2026.pdf": "046b476449586208e2436572c45897c01e9a581f4d26f2f72cc245357a20e2bb",
+    "BoseNQS06-05-2026.pdf": "1de30553d8da99313f09521c4fac05c9222cf6ffb5cb830a486e026076d4d4f9",
+    "BoseNQS07-07-2026.pdf": "10da2c3b691f54d315ad37742f2915a0154908d6e0591c9b91296415ce7275db",
+    "BoseNQS07-31-2026.pdf": "fb555c657eb3c49247bb2023929fa9be84d290a4ed1050546f842722e079c8b2"
+  },
+  "accepted_PDF_and_historical_provenance": "Preserved unchanged; hashes retain the original historical inputs. Missing templates are intentional, not data loss."
+}

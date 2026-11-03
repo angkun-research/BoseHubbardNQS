@@ -1,0 +1,76 @@
+{
+  "status": "CHECKED_SLIDES_ONLY_REVISION",
+  "recorded_at": "2026-11-02T05:55:10.370047+00:00",
+  "pdf": "BoseNQS2D-progress-2026-10-31.pdf",
+  "pdf_sha256": "b99edef2269ada748d75fe416f9819e24859e1191be48ec44c7e947d920a81f1",
+  "pages": 55,
+  "main_pages": 29,
+  "section_dividers": [
+    3,
+    8,
+    14,
+    22
+  ],
+  "ED_definition_and_visualization_pages": [
+    6,
+    7
+  ],
+  "supervised_pages": [
+    9,
+    13
+  ],
+  "VMC_pages": [
+    15,
+    21
+  ],
+  "leakage_pages": [
+    23,
+    28
+  ],
+  "moved_ED_construction_page": 31,
+  "measurement_appendix_pages": [
+    32,
+    33,
+    34
+  ],
+  "neutral_gap_page": 21,
+  "normalization_appendix_pages": [
+    35,
+    36
+  ],
+  "cylinder_pages": [
+    47,
+    48
+  ],
+  "hybrid_pages": [
+    50,
+    55
+  ],
+  "all_source_hashes_match": true,
+  "source_count": 179,
+  "unchanged_non_slide_source_count": 162,
+  "non_slide_sources_unchanged_from_prior_snapshot": true,
+  "benchmark_arrays_and_supporting_tables_preserved": true,
+  "new_ED_plot_uses_existing_exact_data": true,
+  "text_outside_page": [],
+  "visual_review_pages": [
+    3,
+    6,
+    7,
+    13,
+    19,
+    21,
+    23,
+    24,
+    27,
+    28,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36
+  ],
+  "visual_review": "Rendered revised pages; title-only dividers, definitions, ED means/one-body heatmap, residuals, gap definition, leakage sequence and measurement equations inspected. FullPDFwordboundschecked.",
+  "previous_PDF_sha256": "d3054e2d6aac941ffdfde5721ce60b9ab8ae53c4d1b364225231273fe2c477bc"
+}

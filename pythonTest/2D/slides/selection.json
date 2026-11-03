@@ -1,0 +1,22 @@
+{
+  "audited": false,
+  "runs": [
+    {
+      "model": "Conv2D",
+      "Lx": 4,
+      "assessment": "benchmarks/results/2026-10-31-vmc-refinement/Conv-stageC-4x4-independent-assessment.json",
+      "updates": "300 + 400 + 500"
+    },
+    {
+      "model": "Conv2D",
+      "Lx": 6,
+      "assessment": "benchmarks/results/2026-10-31-vmc-refinement/Conv-stageC-6x4-independent-assessment.json",
+      "updates": "300 + 400 + 500"
+    }
+  ],
+  "takeaways": [
+    "Conv2D32 meets the summary targets on both cylinders.",
+    "Other architectures are being refined at fixed geometry.",
+    "No bulk critical or thermodynamic convergence is claimed."
+  ]
+}

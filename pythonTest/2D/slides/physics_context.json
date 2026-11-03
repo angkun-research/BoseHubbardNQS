@@ -1,0 +1,89 @@
+{
+  "purpose": {
+    "kind": "text",
+    "title": "What are we testing?",
+    "fontsize": 45,
+    "step": 0.14,
+    "lines": [
+      "1. Is the Bose–Hubbard ED construction correct?",
+      "2. Can basic NQS reproduce its ground state with supervision?",
+      "3. Does stochastic VMC work on small, checkable systems?",
+      "4. What does a fixed-N fit predict in untrained sectors?"
+    ],
+    "footer": "Building and benchmarking a physics tool. Architecture searches and optimizer rankings are separate research directions."
+  },
+  "criticality": {
+    "kind": "equations",
+    "title": "Criticality and finite-size validation",
+    "fontsize": 39,
+    "y": 0.80,
+    "step": 0.135,
+    "lines": [
+      "$\\Delta_N=E_1(N)-E_0(N),\\qquad F_{\\rm abs}=|\\langle\\Psi_0|\\Psi_\\theta\\rangle|$",
+      "$E_\\theta-E_0\\geq\\Delta_N(1-F_{\\rm abs}^2)$",
+      "A closing gap weakens energy as a certificate of fidelity.",
+      "Gaplessness does not imply that variational Monte Carlo must fail.",
+      "Finite tori require their own checks before bulk claims."
+    ],
+    "footer": "Bound assumes a unique ground state and a normalized trial state in the same sector. Use total expectation energy, not energy density or one noisy MC estimate. Carleo & Troyer, Science355,602(2017), demonstrate finite-size NQS-VMC at criticality; no thermodynamic guarantee follows."
+  },
+  "raw_projected": {
+    "kind": "equations",
+    "title": "Raw network and physical state",
+    "fontsize": 40,
+    "y": 0.80,
+    "step": 0.14,
+    "lines": [
+      "$\\widetilde{\\Psi}_\\theta(\\mathbf{n})=e^{f_\\theta(\\mathbf{n})},\\qquad N(\\mathbf{n})=\\sum_i n_i$",
+      "$Z_N=\\sum_{N(\\mathbf{n})=N}e^{2f_\\theta(\\mathbf{n})}$",
+      "$\\Psi_{\\theta,N_0}(\\mathbf{n})=\\delta_{N(\\mathbf{n}),N_0}\\,e^{f_\\theta(\\mathbf{n})}/\\sqrt{Z_{N_0}}$",
+      "The target fixed-N state is zero outside its sector.",
+      "Finite exp(f) is strictly positive, including untrained sectors."
+    ],
+    "footer": "The canonical VMC sampler implements the projected distribution. Here mu=0 is a fixed-sector energy convention; it does not assert that N0 is the grand-canonical ground-state sector."
+  },
+  "leakage_definition": {
+    "kind": "equations",
+    "title": "How do we define leakage?",
+    "fontsize": 36,
+    "y": 0.80,
+    "step": 0.12,
+    "lines": [
+      "$P_{\\rm full}(N)=Z_N/\\sum_{K=0}^{N_{\\max}N_s}Z_K,\\qquad \\ell_{\\rm full}=1-P_{\\rm full}(N_0)$",
+      "$W=\\{N_0-2,\\ldots,N_0+2\\},\\qquad P_W(N)=Z_N/\\sum_{K\\in W}Z_K$",
+      "$\\ell_{\\rm near}=\\sum_{N\\in W,\\ N\\ne N_0}P_{\\rm full}(N)$",
+      "$R_N=Z_N/Z_{N_0},\\qquad \\overline{w}_N=Z_N/d_N$",
+      "$F_{\\rm full}=\\sqrt{P_{\\rm full}(N_0)}\\,F_{N_0}$"
+    ],
+    "footer": "Ns=LxLy=9. Full means the stated truncated local basis0..Nmax, not unbounded Fock space. PW is window-conditional, not global. dN counts configurations. Ffull compares the raw full-space state to the zero-embedded canonical ED vector; overlaps are absolute and unsquared."
+  },
+  "nonidentifiability": {
+    "kind": "equations",
+    "title": "Fixed-sector data cannot fix leakage",
+    "fontsize": 40,
+    "y": 0.80,
+    "step": 0.145,
+    "lines": [
+      "$f'_\\theta(\\mathbf{n})=f_\\theta(\\mathbf{n})+h(N),\\qquad h(N_0)=0$",
+      "$Z'_N=e^{2h(N)}Z_N,\\qquad \\Psi'_{\\theta,N_0}=\\Psi_{\\theta,N_0}$",
+      "All canonical fits and observables stay unchanged.",
+      "RBM visible biases implement a number tilt within the same family.",
+      "Neighboring-sector weights depend on an untrained extension."
+    ],
+    "footer": "This is an exact postprocessing control, not a claim that each finite neural architecture realizes every h. Examples: h=a(N−N0) tilts sectors; h=−lambda(N−N0)^2 suppresses both sides. Distinct projected particle-number states are orthogonal; these weights are not transition probabilities."
+  },
+  "projection": {
+    "kind": "equations",
+    "title": "Projection is an exact control",
+    "fontsize": 41,
+    "y": 0.80,
+    "step": 0.145,
+    "lines": [
+      "$\\Psi^{\\rm projected}_\\theta\\propto P_{N_0}\\widetilde{\\Psi}_\\theta$",
+      "$\\ell^{\\rm projected}_{\\rm full}=0,\\qquad F^{\\rm projected}=F_{N_0}$",
+      "No retraining is needed; canonical predictions are preserved.",
+      "A number penalty on fixed-N training samples is identically zero."
+    ],
+    "footer": "Restricting sampled configurations is standard for U(1) conservation in canonical VMC (Pei & Clark2024). Learning an off-sector penalty requires off-sector examples or sampling; explicit output masks can instead impose it directly. Raw leakage is an extension diagnostic, not an error of projected VMC or proof of wasted capacity."
+  }
+}

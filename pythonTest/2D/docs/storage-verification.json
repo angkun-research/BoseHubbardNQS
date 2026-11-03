@@ -1,0 +1,23 @@
+{
+  "status": "VERIFIED_SMALL_GIT_PACKAGE_WITH_LOCAL_ARTIFACTS_PRESERVED",
+  "recorded_at": "2026-11-03T02:03:39.557569+00:00",
+  "ignored_artifact_directories": [
+    "outputs/",
+    "benchmarks/results/"
+  ],
+  "local_artifacts_preserved": 1346,
+  "local_artifact_bytes": 911409415,
+  "artifact_manifest": "docs/local-artifacts.json",
+  "artifact_hashes_verified_unchanged": true,
+  "generated_artifact_paths_in_index": 0,
+  "local_CPU_suite": "125 tests passed",
+  "source_only_staged_export": "125 tests run,123passed,2optionalhistoricalartifactchecks skipped; no outputs or benchmarkresults copied",
+  "fresh_checkout_test_fixes": [
+    "Optional archival forward test skips only absent artifacts; present hashes/forwards still asserted; recorded paths resolve under local outputs.",
+    "Jastrow checkpoint fixture creates its temporary directory under2Droot without requiring outputs/."
+  ],
+  "production_algorithms_changed": false,
+  "local_data_deleted": false,
+  "commit_or_push_performed": false,
+  "history_rewrite_performed": false
+}

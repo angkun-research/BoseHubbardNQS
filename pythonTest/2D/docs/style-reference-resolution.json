@@ -1,0 +1,14 @@
+{
+  "status": "RESOLVED_INTENTIONAL_STYLE_TEMPLATE_RETIREMENT",
+  "recorded_at": "2026-11-03T01:55:45.890797+00:00",
+  "retirement_manifest": "slides/retired-style-references.json",
+  "user_confirmation": "I removed them. They are just template for slides style.",
+  "full_55_page_render_without_templates": "passed; temporary verification output removed",
+  "other_missing_required_inputs": "still raise FileNotFoundError",
+  "accepted_PDF_and_provenance_unchanged": true,
+  "core_1D_Julia_and_numerical_inputs_unchanged": true,
+  "renderer_sha256": "25c47b5ff832733561a187e83bbaa7c0993527b76442fa72cfd68311e3be87c9",
+  "previous_renderer_archived_at": "outputs/slides-snapshots/b99edef2269ada748d75fe416f9819e24859e1191be48ec44c7e947d920a81f1/build_slides.py",
+  "historical_review_resolution": "The earlier missing-PDF provenance item is intentionally resolved; API/documentation approval remains valid.",
+  "no_merge_performed": true
+}

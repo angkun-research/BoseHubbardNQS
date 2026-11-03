@@ -1,0 +1,83 @@
+{
+  "status": "FINDINGS_PENDING_PROTECTED_PATH_RESTORATION_AND_API",
+  "approved": false,
+  "recorded_at": "2026-11-02T06:15:29.107012+00:00",
+  "blocking_findings": [
+    {
+      "priority": "P1",
+      "issue": "Four currentPDF source PDFs are missing at original hash-bound paths; cannot confirm all179sources unchanged. They are not listed among35allowed cache/PNG deletions. No copies found under repository by original filenames.",
+      "paths": [
+        {
+          "path": "BoseNQS05-29-2026.pdf",
+          "required_sha256": "046b476449586208e2436572c45897c01e9a581f4d26f2f72cc245357a20e2bb"
+        },
+        {
+          "path": "BoseNQS06-05-2026.pdf",
+          "required_sha256": "1de30553d8da99313f09521c4fac05c9222cf6ffb5cb830a486e026076d4d4f9"
+        },
+        {
+          "path": "BoseNQS07-07-2026.pdf",
+          "required_sha256": "10da2c3b691f54d315ad37742f2915a0154908d6e0591c9b91296415ce7275db"
+        },
+        {
+          "path": "BoseNQS07-31-2026.pdf",
+          "required_sha256": "fb555c657eb3c49247bb2023929fa9be84d290a4ed1050546f842722e079c8b2"
+        }
+      ],
+      "minimal_resolution": "Restore exact original bytes at each protected2Droot path and recheck required hashes. Keep PDF/provenance themselves unchanged. Checker has not deleted/moved anything or attributed the disappearance to an actor."
+    }
+  ],
+  "pending": [
+    "docs/API.md not yet present; full signature/examples review pending."
+  ],
+  "checks_so_far": [
+    "Concise README and Julia preparation correctly separate1D/2D; no adapter/merge claimed.",
+    "Inventory delivered; no additional code/data/source moves or deletes cleared.",
+    "All9api-signatures module hashes and public AST definition coverage match.",
+    "Four verbatim archived root documents match docs/history/pre-documentation-cleanup/manifest.json.",
+    "Active-doc local links resolve except expected forthcoming API.md."
+  ],
+  "baseline": "docs/pre-cleanup-baseline.json",
+  "scope": "Read-only documentation/cleanup audit; final approval withheld until protected paths and API review complete.",
+  "active_doc_links_pending": [
+    {
+      "file": "pythonTest/2D/README.md",
+      "link": "docs/API.md"
+    },
+    {
+      "file": "pythonTest/2D/PLAN.md",
+      "link": "docs/API.md"
+    },
+    {
+      "file": "pythonTest/2D/BENCHMARKING.md",
+      "link": "docs/API.md"
+    },
+    {
+      "file": "pythonTest/2D/benchmarks/README.md",
+      "link": "../docs/API.md"
+    },
+    {
+      "file": "pythonTest/2D/docs/CLEANUP.md",
+      "link": "API.md"
+    },
+    {
+      "file": "pythonTest/2D/docs/JULIA_PREPARATION.md",
+      "link": "API.md"
+    }
+  ],
+  "protected_hash_check": {
+    "current_PDF_and_provenance_unchanged": true,
+    "present_matching_PDF_sources": 175,
+    "missing_PDF_sources": [
+      "BoseNQS05-29-2026.pdf",
+      "BoseNQS06-05-2026.pdf",
+      "BoseNQS07-07-2026.pdf",
+      "BoseNQS07-31-2026.pdf"
+    ],
+    "present_changed_PDF_sources": [],
+    "core_and_PDF_baseline_count": 12,
+    "root_and_1D_baseline_count": 22,
+    "all_existing_baseline_paths_match": true
+  },
+  "parent_documentation_assessment": "README/STATUS/PLAN/BENCHMARKING,benchmarks index,CLEANUP andJULIA_PREPARATION are scientifically/API consistent in present read. No merge/adapter/Juliaroundtrip claimed; correctU/2,unique-short-bonds,rawlog output,CPU/CUDA precision,SR/nativeSGD,canonical/raw distinction andconditionalerrors. Final approval withheld only forfourmissingPDFinputs andforthcomingAPI.md."
+}

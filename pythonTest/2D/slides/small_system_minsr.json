@@ -1,0 +1,21 @@
+{
+  "source": "benchmarks/results/small-system-minsr-slide-comparison.json",
+  "slide": {
+    "kind": "small_minsr",
+    "title": "Small-system SR comparison",
+    "subtitle": "3×3 cylinder, RBM64; M=128, P=2989; one SGD step, η=0.001",
+    "before": -4.10011970232251,
+    "cases": [
+      {
+        "label": "Ridge SR",
+        "after": -4.102751034866253
+      },
+      {
+        "label": "MinSR",
+        "after": -4.102862514106003
+      }
+    ],
+    "settings_note": "Ridge: τ = 0.001\nMinSR: relative cutoff 10⁻¹², absolute cutoff 0",
+    "footer": "Same weights and 128 IID samples from current NQS probabilities. Energies evaluated over all 19,855 configurations (ED ground E/t = −4.385697). One batch and one step illustrate the methods, not convergence or superiority."
+  }
+}

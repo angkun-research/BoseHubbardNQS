@@ -1,0 +1,68 @@
+{
+  "audited": true,
+  "scope": "Current checked cylinder benchmarks; basic Jastrow is a fixed baseline; four-neural convergence still incomplete; detailed ridge-SR appendix.",
+  "runs": [
+    {
+      "model": "FC",
+      "Lx": 4,
+      "assessment": "benchmarks/results/2026-10-31-all-model-refinement/FC64d2-4x4-anneal500-both-seeds-assessment.json",
+      "updates": "4300"
+    },
+    {
+      "model": "Conv2D",
+      "Lx": 4,
+      "assessment": "benchmarks/results/2026-10-31-vmc-refinement/Conv-stageC-4x4-independent-assessment.json",
+      "updates": "1200"
+    },
+    {
+      "model": "RBM",
+      "Lx": 4,
+      "assessment": "benchmarks/results/2026-10-31-all-model-refinement/RBM128-4x4-capacity-both-seeds-assessment.json",
+      "updates": "5950"
+    },
+    {
+      "model": "Transformer",
+      "Lx": 4,
+      "assessment": "benchmarks/results/2026-10-31-all-model-refinement/Transformer64-4x4-stage2-both-seeds-assessment.json",
+      "updates": "2000"
+    },
+    {
+      "model": "FC",
+      "Lx": 6,
+      "assessment": "benchmarks/results/2026-10-31-all-model-refinement/FC128d3-6x4-capacity-both-seeds-assessment.json",
+      "updates": "3500"
+    },
+    {
+      "model": "Conv2D",
+      "Lx": 6,
+      "assessment": "benchmarks/results/2026-10-31-vmc-refinement/Conv-stageC-6x4-independent-assessment.json",
+      "updates": "1200"
+    },
+    {
+      "model": "Transformer",
+      "Lx": 6,
+      "assessment": "benchmarks/results/2026-10-31-all-model-refinement/Transformer64-6x4-precision128-both-seeds-assessment.json",
+      "updates": "4000"
+    },
+    {
+      "model": "Jastrow",
+      "Lx": 4,
+      "assessment": "benchmarks/results/2026-10-31-all-model-refinement/Jastrow-4x4-stage2-seed321-assessment.json",
+      "updates": "2300; basic pairwise"
+    }
+  ],
+  "sources": [
+    "benchmarks/results/2026-10-31-all-model-refinement/checker-ridge500-results-and-minsr-review-readiness.json",
+    "benchmarks/results/2026-10-31-vmc-refinement/ConvGate.json",
+    "benchmarks/results/2026-10-31-all-model-refinement/checker-width128-final-review.json",
+    "benchmarks/results/2026-10-31-all-model-refinement/width128-capacity-handoff.json",
+    "benchmarks/results/2026-10-31-all-model-refinement/width128-parameter-usage.json"
+  ],
+  "takeaways": [
+    "Conv2D and Transformer meet summary targets on both cylinders.",
+    "FC passes on 4×4; the wider 6×4 fit has a 2.22% energy gap.",
+    "RBM128 has a 1.51% gap on 4×4; 6×4 remains untested.",
+    "Basic Jastrow stays a physical baseline without further adaptation.",
+    "The matched MinSR test has no resolved winner; the small test is one step."
+  ]
+}

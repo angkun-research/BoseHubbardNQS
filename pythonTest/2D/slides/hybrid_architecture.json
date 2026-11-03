@@ -1,0 +1,22 @@
+{
+  "kind": "architecture",
+  "title": "Convolution + Transformer in 2D",
+  "items": [
+    {
+      "name": "Local features",
+      "layers": ["One-hot grid", "3×3 Conv2d", "SiLU"],
+      "note": "32 channels. Periodic padding on both axes in these tests."
+    },
+    {
+      "name": "Global attention",
+      "layers": ["One token per site", "4-head attention", "Feed-forward + norms"],
+      "note": "One encoder block; width32, FF64, ReLU, dropout0. No positional embeddings."
+    },
+    {
+      "name": "Scalar head",
+      "layers": ["Flatten site tokens", "Dense32 + SiLU", "Scalar log amplitude"],
+      "note": "Physical order i=yLx+x. Dense head can break translation symmetry."
+    }
+  ],
+  "footer": "2D generalization of the existing 1D ConvTransformer: Conv1d becomes a boundary-aware Conv2d, followed by the same attention/flatten/dense pattern. Dropout is set to0 for deterministic VMC. Local convolution and global attention provide complementary features; improved accuracy is an empirical question, not guaranteed by this structure."
+}

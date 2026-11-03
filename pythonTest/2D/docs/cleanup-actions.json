@@ -1,0 +1,218 @@
+{
+  "status": "disposable_cleanup_done_pending_audit",
+  "deleted": [
+    {
+      "path": "__pycache__/observables.cpython-313.pyc",
+      "bytes": 17842,
+      "sha256": "ca2a1939caebca4f824bdbeb8ad0ab375166ce71bf3099c57aca0abb9d410797",
+      "reason": "regenerable Python bytecode"
+    },
+    {
+      "path": "__pycache__/exact_diagonalization.cpython-313.pyc",
+      "bytes": 12223,
+      "sha256": "e49d28a3345cfe4dca44fbe29092c732abbeeef9ff698b988a688efdcdfdc444",
+      "reason": "regenerable Python bytecode"
+    },
+    {
+      "path": "__pycache__/vmc.cpython-313.pyc",
+      "bytes": 39148,
+      "sha256": "f12ead534d65235afe33e652fe784d492f8643e8e7a3212f8dafa058969bb78a",
+      "reason": "regenerable Python bytecode"
+    },
+    {
+      "path": "__pycache__/train_ed.cpython-313.pyc",
+      "bytes": 34215,
+      "sha256": "831a313ae522d1e9c7b84086ef955fffc1d6bcbee4db9d974014f0a2ac5b5fc8",
+      "reason": "regenerable Python bytecode"
+    },
+    {
+      "path": "__pycache__/lattice.cpython-313.pyc",
+      "bytes": 4105,
+      "sha256": "09b98b19df3698cd8b1c5e52fbdfa37a59aa41cb4f77a5d8a348447c716898a5",
+      "reason": "regenerable Python bytecode"
+    },
+    {
+      "path": "__pycache__/models.cpython-313.pyc",
+      "bytes": 29296,
+      "sha256": "9b8a289260fcce5d4fd771e099d10411a94671783dc957a288caf675137875f6",
+      "reason": "regenerable Python bytecode"
+    },
+    {
+      "path": "benchmarks/__pycache__/validate_dmrg_reference.cpython-313.pyc",
+      "bytes": 16674,
+      "sha256": "e4fd68225c9098e3ef3e7d3c8eb196dd41a24a7680fe2e3216288fd96b04ee10",
+      "reason": "regenerable Python bytecode"
+    },
+    {
+      "path": "slides/__pycache__/assemble_results.cpython-313.pyc",
+      "bytes": 10401,
+      "sha256": "21a5271d82e4285ca8f46df7609ee4d1929ba8af448b4fc6fa07d5ae1d1c5ffe",
+      "reason": "regenerable Python bytecode"
+    },
+    {
+      "path": "slides/revision-preview/page-13.png",
+      "bytes": 202109,
+      "sha256": "9938b6506d8c0331b9853d8b255c3a5150c507d6f60e0aeda16722a077e7c8e7",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/final-detail-29.png",
+      "bytes": 67354,
+      "sha256": "356f9610447ef4dd5edbc544750fac1492244fdbec39c854fefb8f6de154d761",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/page-19.png",
+      "bytes": 135505,
+      "sha256": "d903e2ab2a7c10c81b1a6e1f7760661c737043e48dff2364db27f4402bb2aa5d",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/final-detail-33.png",
+      "bytes": 54724,
+      "sha256": "75c623728956006747642997b84d9ae060699010dbc6f691a139d3fdba049a89",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/final-detail-34.png",
+      "bytes": 76065,
+      "sha256": "5de9a04113539e9311cda9a5a2987df0246ec88d27563b3911dddf8d10c0a6c5",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/final-detail-35.png",
+      "bytes": 50581,
+      "sha256": "ec1d4aed1d345a37df9c430db9e549863d41863f9c5465347345f929cfb730a7",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/final-detail-30.png",
+      "bytes": 26153,
+      "sha256": "aa1feb4e092b3a3cfc9d8ea20d8bde16cea2afa242b693c3c5e6514016bb1073",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/page-3.png",
+      "bytes": 25257,
+      "sha256": "825fee19280ac325a11f70734ae53f69a6edf316e972e7107d394337b2c1e0f9",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/page-28.png",
+      "bytes": 81505,
+      "sha256": "9947dca6084ef1319217af5fa41ff40e63aa5f98472c1d0be3e3a3fb807f7650",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/page-31.png",
+      "bytes": 109070,
+      "sha256": "a889676e44b572f3732aa4eb061f57985b5d93e946d72a46caa9574de1a269b7",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/page-27.png",
+      "bytes": 88679,
+      "sha256": "cee91cc486ba248f69d30bcdbfa533842e7e7e34f2e3b88fd2d13e1227cbd923",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/page-21.png",
+      "bytes": 75390,
+      "sha256": "544b01c299e4a4adce9d6491f083ae9b33dfc8ade97ea9afdd044300ffdbdf90",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/final-detail-27.png",
+      "bytes": 63597,
+      "sha256": "785d0c765e2964e3f81e04e4ca8273ae4bcd3d30d3c7024ab6b3d835ae35ae61",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/final-ed-07.png",
+      "bytes": 139501,
+      "sha256": "f7b6f6dfbfe098d4bad0f4fda7a8905a5276200bd9512f7d673aab5abd3dc9aa",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/final-detail-36.png",
+      "bytes": 104783,
+      "sha256": "51ef22407ef1cdb644e0737213fbeaac7279450680dff886cb0c94b5a6bcf5f6",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/final-detail-32.png",
+      "bytes": 59737,
+      "sha256": "7d693b038a0bec9ea9a5bf659d93080998de4448853546b055c6223f441f3ffb",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/page-34.png",
+      "bytes": 103808,
+      "sha256": "68edca6cbe19585948dbd715eac8af97634a1ae2034b9cfcd57fab8573690180",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/page-32.png",
+      "bytes": 81843,
+      "sha256": "2a74cc6879b693d223b9a80b78b17d694450500de8b4085c691caa5087e561e4",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/page-33.png",
+      "bytes": 73308,
+      "sha256": "98b637af3d3126eb8b3760fac582287db5f7e467f0f537953ac413bde68bf029",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/page-35.png",
+      "bytes": 68553,
+      "sha256": "634f716bd2a44c624aec7dbde0454992698e01ffaa8958a542865d35e7315b0a",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/page-24.png",
+      "bytes": 171525,
+      "sha256": "5486b5172c53d51dd60d505e61653141ed46e87b990ec1b56cf43e9bbfb95a38",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/page-6.png",
+      "bytes": 94673,
+      "sha256": "27766676859031e9c64b5fda52eec82e0eb8581daa5e5bf02fa87ff96e3d973c",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/page-23.png",
+      "bytes": 84262,
+      "sha256": "ed7e7b4199ea6f78f22cac01a93d1731e708b879057b255f9c72338a5c683458",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/page-7.png",
+      "bytes": 128128,
+      "sha256": "a9f88b35d9b38b29151ccfc7a34621349d3649f66d952ab089213f233cf4d58d",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/final-detail-28.png",
+      "bytes": 61128,
+      "sha256": "b6acf318b354026ceab963f257312b6d5cd1f793385dde9d79152bc183831c4f",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/page-36.png",
+      "bytes": 158665,
+      "sha256": "7c781188b236be4ecc000e223a0b9e6b9e31532dd41efcde33482cedbdadae99",
+      "reason": "regenerable slide-layout preview"
+    },
+    {
+      "path": "slides/revision-preview/final-detail-31.png",
+      "bytes": 80800,
+      "sha256": "0d6dbbe0443f523902499f04561388574800cd9b583b05006fdcf367b894c12c",
+      "reason": "regenerable slide-layout preview"
+    }
+  ],
+  "archived_documents": "docs/history/pre-documentation-cleanup/",
+  "code_or_data_removed": false,
+  "archived_experiments": []
+}

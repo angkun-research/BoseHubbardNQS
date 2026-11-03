@@ -1,0 +1,125 @@
+{
+  "status": "APPROVED_API_AND_PARENT_DOCS_PDF_PROVENANCE_UNRESOLVED",
+  "approved": true,
+  "api_documentation_approved": true,
+  "parent_documentation_approved": true,
+  "cleanup_provenance_fully_verified": false,
+  "overall_handoff_fully_verified": false,
+  "recorded_at": "2026-11-02T06:29:43.538030+00:00",
+  "approved_scope": "Current API/parentdocumentation and futureJuliahandoff contract only; not a claim that the currentPDF179source closure is complete. No merge/adapter/new numerical behavior.",
+  "blocking_API_findings": [],
+  "API_review": {
+    "public_signatures_exactly_match_actual_AST": 57,
+    "modules": 9,
+    "module_hashes_match": true,
+    "defaults_and_returns": "Constructors,factory,checkpointtuple,ED4tuple,sampler3tuple,SRoptions,rawobservationaxes,fullsectorloss/selection andstreamingleakage returns checked.",
+    "resolved_contract_issues": [
+      "local_energy returns model floatingdtype,not unconditionalfloat64.",
+      "Caller supplies onehot on parameterdevice; modelcasts dtype only.",
+      "ColdVMCtrain mayreplace; supervisedED/frozen andwarmstartrequire freshdestinations."
+    ],
+    "precision_and_physics": "Inclusivecutoff,uniqueunorderedshort-axisbonds,U/2,signedmu,canonicalbatchNvsrawextension,realunnormalizedlogoutput,absoluteunsquaredF,correctrowaction,andcovariancepreservingtimeblocking allaccurate. SRusesfloat64algebra/fullJ/exactridge dual andnativeSGD,whilemodelderivativesretainforwarddtype;MinSRoptional,separatefromridge."
+  },
+  "example_validation": {
+    "record": "docs/api-example-validation.json",
+    "record_sha256": "47456294c9dcb0146293499275c25f7f1c100ef6bf065de075fcc2022ae5c8c4",
+    "exact_current_example_sha256": "2fc842a0c5440507422b371944a86afd8d79bbe3c509781674e89eaeb6cfb73b",
+    "matches_validated_code_verbatim": true,
+    "worker_execution_status": "PASSED_EXACT_API_MD_CPU_CODE_FENCE",
+    "checker_did_not_rerun_example": true,
+    "independent_earlier_Hpsi_reference_agreement": true,
+    "expected_energy": -2.580816327644847,
+    "sector_dimension": 426,
+    "normalized_density_sum": 6.000000000000007,
+    "checkpoint_sha256_unchanged": "c4391350d71395b8f9ee0c7fdbaa1616edcc4bf3e3c5ce01eb2e0128ad0d25ba",
+    "method": "Independentstaticweighting/shape review andcomparisonwithpreviousexplicitket-ladder exactmetrics. Currentprosechangedaftervalidation,butcodefenceunchanged."
+  },
+  "Julia_contract_review": {
+    "existing_bridge_paths": [
+      "src/Bose_Hubbard_NQS.jl",
+      "src/python/Bose_Hubbard_NQS.py"
+    ],
+    "no_adapter_merge_roundtrip_executed_or_claimed": true,
+    "checks": [
+      "1Dmodel-onlyloader vs2D(model,metadata) andnoninterchangeablecheckpointschemas.",
+      "ExplicitLx/Ly,pbc_x/y,zero-basedphysicali=y*Lx+x,Julia(Lx,Ly)vecordering andoccupationcountsnotindices.",
+      "U1D=U2D/2 foronsiteparity;length2parallel-vsuniqueedge differenceexplicit.",
+      "Savedmodeldtype/device,onehotlayout,logamplitudevsnormalizedstate,CPUhostconversion,batching andinference-onlystate correct.",
+      "Futurecollision-freepackages andexplicit2Dadapter preserve1D;no rootdependency/interpreter/adapter changes implied."
+    ]
+  },
+  "parent_docs_and_cleanup": {
+    "active_local_links_all_resolve": true,
+    "archived_root_docs": {
+      "README.md": "1788e284954686eebd1035122fe86976ec550a7a5ac9296be911ff11b5b5d6e0",
+      "PLAN.md": "9285b7643bdb9eba0454c85086f4b4b931596803d81d6d2c56d6a31eb4cf3351",
+      "STATUS.md": "c1d6d7379485a02d29ebc284110ee76f59e5cd9cdfaafb941d974f49d34e110c",
+      "BENCHMARKING.md": "3084edd24331070b74bbe76b618364ab8dc658863fce9a031175966e25912da0"
+    },
+    "archived_root_docs_verbatim_hashes_match": true,
+    "cleanup_audit": "docs/cleanup-audit.json",
+    "allowed_parent_regenerable_removals": 35,
+    "removed_bytes": 2630607,
+    "additional_source_data_moves_or_deletions_cleared": 0,
+    "historical_paths_and_all_numerical_artifacts_preserved": true,
+    "historical_hashes_not_rewritten": true,
+    "CPUregression_reported_passed": 125,
+    "CPUregression_log_sha256": "3691d77f29b71a3ce0d442d50c11016c8786ba7a4bfe815c121366f7bcb723a8",
+    "CLIhelp_parent_reported": [
+      "train.py",
+      "train_ed.py",
+      "evaluate.py"
+    ]
+  },
+  "protected_hash_checks": {
+    "core_currentPDF_provenance_baseline_matches": 12,
+    "root_1D_Julia_baseline_matches": 22,
+    "current_PDF_pages": 55,
+    "current_PDF_sha256": "b99edef2269ada748d75fe416f9819e24859e1191be48ec44c7e947d920a81f1",
+    "current_PDF_bytes_and_provenance_unchanged": true,
+    "present_matching_PDF_source_count": 175,
+    "present_changed_PDF_sources": [],
+    "all_combined_numerical_review_input_hashes_match": true,
+    "inventoried_numerical_paths_still_present": 1343,
+    "tracked_root_source_unchanged": true
+  },
+  "unresolved_provenance_findings": [
+    {
+      "priority": "P1",
+      "issue": "Four original userPDFinputs are currently missing at hash-bound2Droot paths. APIapproval doesnot resolve this externalasset issue; cannot certify all179PDFsources present.",
+      "paths": [
+        {
+          "path": "BoseNQS05-29-2026.pdf",
+          "required_sha256": "046b476449586208e2436572c45897c01e9a581f4d26f2f72cc245357a20e2bb"
+        },
+        {
+          "path": "BoseNQS06-05-2026.pdf",
+          "required_sha256": "1de30553d8da99313f09521c4fac05c9222cf6ffb5cb830a486e026076d4d4f9"
+        },
+        {
+          "path": "BoseNQS07-07-2026.pdf",
+          "required_sha256": "10da2c3b691f54d315ad37742f2915a0154908d6e0591c9b91296415ce7275db"
+        },
+        {
+          "path": "BoseNQS07-31-2026.pdf",
+          "required_sha256": "fb555c657eb3c49247bb2023929fa9be84d290a4ed1050546f842722e079c8b2"
+        }
+      ],
+      "required_action": "Restore exact original files at their original paths andverify recordedhashes,without altering currentPDF/provenance. No actor/cause attributed; no newreplacement or fabricatedasset approved."
+    }
+  ],
+  "documentation_sha256": {
+    "README.md": "18811b7fa4ea9cd0ea4807c4f8428e984ddb533d9933fbb6ea84e494fb82e268",
+    "STATUS.md": "88c9b0734e872a71c98e7f3bd6288338efbdddb62cd86076d2f11889c0c5af3b",
+    "PLAN.md": "4940eee056df6bcb200cfaf038b21a7b5d0453f0631b72f85776f36f726d1bc7",
+    "BENCHMARKING.md": "bb15d03a4ed269d0e2d80e46f7a2593b194edf0a8eda6d5e07f32b13f14abecf",
+    "benchmarks/README.md": "4f5a90a4c7817f11ada3d6c7d0c9429c465340aba163744f1bb5365786eedf7a",
+    "docs/API.md": "1dd479c81182b3f3eb56d5f39e7a5791566260a4349869337369187d1aaf8d96",
+    "docs/JULIA_PREPARATION.md": "946b239fa677488b31f4e1af2ea8981cd9659aaa0aad6a7232c67aaa26069b18",
+    "docs/CLEANUP.md": "53d1e466aa4b941e2c9fea44815c2c333825e192ff70ea4843d1a0796910f843",
+    "docs/api-signatures.json": "043dafbc3ea32a3edb39a2869c91964f9ad40e0eae0972578c812509fdfa8697",
+    "docs/cleanup-audit.json": "5376b42d8ace5aeeca868d5f88b60f5a86fcf3ba344ab8396c7dd423c5aeaaff",
+    "docs/cleanup-actions.json": "11739fa8300b93dac9655800f6bc002097b123d0fc183559db1885d441353648"
+  },
+  "scope": "Read-only API/source/staticexample/Julia/documentation review. Checkerwrote onlyreviewrecords; no training,GPU,sourcealgorithmchanges,root/1Dedits oradapterwork. Numericalartifact reviewfiles remained frozen."
+}

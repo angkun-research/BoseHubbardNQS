@@ -1,0 +1,238 @@
+{
+  "status": "partial_template",
+  "title": "Bose–Hubbard NQS: Two dimensions",
+  "sources": [
+    "benchmarks/results/2026-10-31-cylinder-pilots/cylinder-supervised-independent.json",
+    "benchmarks/results/2026-10-31-cylinder-pilots/FCNet64d3-cylinder-supervised-independent.json",
+    "benchmarks/results/2026-10-31-cylinder-pilots/Transformer64-cylinder-supervised-independent.json",
+    "benchmarks/results/jastrow-cylinder-followup.json",
+    "benchmarks/results/dmrg-3x3-cylinder-validation-physical-geometry.json",
+    "benchmarks/results/dmrg-4x4-cylinder-chi-sensitivity.json",
+    "benchmarks/results/dmrg-6x4-cylinder-validation.json"
+  ],
+  "slides": [
+    {
+      "kind": "title",
+      "title": "Bose–Hubbard NQS\nTwo dimensions",
+      "subtitle": "ED qualification, VMC and matched DMRG benchmarks",
+      "date": "10-31-2026"
+    },
+    {
+      "kind": "lattice",
+      "title": "Hamiltonian",
+      "lines": [
+        "$H=-t\\sum_{\\langle i,j\\rangle}(b_i^\\dagger b_j+b_j^\\dagger b_i)+\\frac{U}{2}\\sum_i n_i(n_i-1)-\\mu\\sum_i n_i$",
+        "$t=1,\\quad U=16.74,\\quad\\mu=0$",
+        "$N_{\\rm tot}=L_xL_y,\\quad 0\\leq n_i\\leq4$",
+        "Open long axis; periodic short axis"
+      ],
+      "fontsize": 40,
+      "y": 0.8,
+      "step": 0.16,
+      "footer": "The 2D interaction uses U/2; the earlier 1D slides used U multiplying n(n−1). Width-four cylinders are finite benchmarks."
+    },
+    {
+      "kind": "equations",
+      "title": "Fixed particle number",
+      "lines": [
+        "$\\Psi_{\\theta,N}(\\mathbf{n})\\propto\\delta_{\\sum_i n_i,N}\\,e^{f_\\theta(\\mathbf{n})}$",
+        "$P_{\\theta,N}(\\mathbf{n})=|\\Psi_{\\theta,N}(\\mathbf{n})|^2$",
+        "Particle-conserving sampling stays in the selected sector.",
+        "The neural output itself is unconstrained outside that sector."
+      ],
+      "fontsize": 43,
+      "step": 0.14,
+      "footer": "All overlaps and VMC expectations use canonical-sector normalization; no full-Fock-space leakage curve is claimed."
+    },
+    {
+      "kind": "table",
+      "title": "Reference benchmarks",
+      "columns": [
+        "Cylinder",
+        "Fixed-N dimension",
+        "Reference",
+        "Ground energy / t"
+      ],
+      "rows": [
+        [
+          "3×3",
+          "19,855",
+          "ED",
+          "−4.3856967508"
+        ],
+        [
+          "4×4",
+          "183,424,355",
+          "DMRG, χ=128",
+          "−7.6716735317"
+        ],
+        [
+          "6×4",
+          "7,030,166,054,250",
+          "DMRG, χ=128",
+          "−12.2174736711"
+        ]
+      ],
+      "widths": [
+        0.16,
+        0.31,
+        0.25,
+        0.28
+      ],
+      "footer": "Nmax=4, unit filling. No ED is attempted beyond 3×3. Tiny-cylinder DMRG/ED energy difference: 4.27×10⁻¹⁰ t."
+    },
+    {
+      "kind": "architecture",
+      "title": "Neural networks",
+      "items": [
+        {
+          "name": "FCNet",
+          "layers": [
+            "Site one-hot input",
+            "Flatten",
+            "Dense + tanh × depth",
+            "Scalar log amplitude"
+          ],
+          "note": "Width and depth can grow\nwith system size."
+        },
+        {
+          "name": "Conv2DNet",
+          "layers": [
+            "2D one-hot grid",
+            "3×3 Conv2D + SiLU",
+            "Flatten + dense + SiLU",
+            "Scalar log amplitude"
+          ],
+          "note": "Circular y padding; open x.\nDense head breaks exact translations."
+        },
+        {
+          "name": "JastrowNet",
+          "layers": [
+            "Onsite occupation table",
+            "Shared occupation pair tables",
+            "Sum over all site pairs",
+            "Scalar log amplitude"
+          ],
+          "note": "Homogeneous onsite/pair tables.\nFixed physical baseline."
+        },
+        {
+          "name": "RBMNet",
+          "layers": [
+            "Site one-hot input",
+            "Binary hidden units",
+            "Visible bias + softplus sum",
+            "Scalar log amplitude"
+          ],
+          "note": "Hidden-unit count controls\nmodel capacity."
+        }
+      ],
+      "footer": "All five ansatzes represent real positive amplitudes for the untwisted hopping model."
+    },
+    {
+      "kind": "architecture",
+      "title": "Simplest Transformer",
+      "items": [
+        {
+          "name": "Tokens and positions",
+          "code": "occupation_embedding(n)\n+ learned_x_embedding(x)\n+ learned_y_embedding(y)\n\nOne token per physical site\nGlobal attention over sites",
+          "code_size": 25,
+          "note": "Learned positions carry rectangular geometry."
+        },
+        {
+          "name": "One encoder block",
+          "code": "TransformerEncoderLayer(\n    d_model=64, nhead=1,\n    dim_feedforward=128,\n    dropout=0,\n    activation=\"relu\")\n\nMean pool → linear scalar",
+          "code_size": 25,
+          "note": "Width 64 used for cylinder qualification."
+        }
+      ],
+      "footer": "No phase/sign output is needed here. Neither mean pooling nor learned positions guarantee lattice translation symmetry."
+    },
+    {
+      "kind": "table",
+      "title": "Compare: ED-supervised fitting",
+      "subtitle": "3×3 cylinder; Adam + normalized log-MSE; width 32; original Jastrow",
+      "columns": [
+        "Model",
+        "Log-MSE",
+        "Absolute overlap",
+        "Energy error/site"
+      ],
+      "rows": [
+        [
+          "FC",
+          "0.009069",
+          "0.997904",
+          "0.0087"
+        ],
+        [
+          "Jastrow",
+          "0.09133",
+          "0.988193",
+          "0.0464"
+        ],
+        [
+          "Conv2D",
+          "0.01471",
+          "0.994808",
+          "0.0223"
+        ],
+        [
+          "RBM",
+          "0.03577",
+          "0.992503",
+          "0.0317"
+        ],
+        [
+          "Transformer",
+          "0.2346",
+          "0.986871",
+          "0.0609"
+        ]
+      ],
+      "highlight_rows": [
+        2,
+        5
+      ],
+      "footer": "Unsquared overlap criterion ≥0.99 qualifies neural candidates. Basic Jastrow remains a physical baseline even when its cylinder overlap is lower; no universality is assumed."
+    },
+    {
+      "kind": "equations",
+      "title": "Supervised objective",
+      "lines": [
+        "$\\widetilde{f}_\\theta(\\mathbf{n})=f_\\theta(\\mathbf{n})-\\frac{1}{2}\\log\\sum_{\\mathbf{n}\\in\\mathcal{H}_N}e^{2f_\\theta(\\mathbf{n})}$",
+        "$\\mathcal{L}_{\\log}=\\frac{1}{D_N}\\sum_{\\mathbf{n}\\in\\mathcal{H}_N}[\\widetilde{f}_\\theta(\\mathbf{n})-\\log\\Psi_{\\rm ED}(\\mathbf{n})]^2$",
+        "$F_{\\rm abs}=|\\langle\\Psi_\\theta|\\Psi_{\\rm ED}\\rangle|,\\qquad\\mathcal{L}_{\\rm infidelity}=1-F_{\\rm abs}^2$",
+        "Log-MSE is primary; infidelity refinement is a separate diagnostic."
+      ],
+      "fontsize": 42,
+      "step": 0.16,
+      "footer": "The ED targets are strictly positive in these sectors; no 3×3-cylinder amplitudes are clamped by the chosen 10⁻¹² floor."
+    },
+    {
+      "kind": "equations",
+      "title": "Variational Monte Carlo",
+      "lines": [
+        "$E_\\theta=\\sum_{\\mathbf{n}\\in\\mathcal{H}_N}P_{\\theta,N}(\\mathbf{n})E_{\\rm loc}(\\mathbf{n})$",
+        "$E_{\\rm loc}(\\mathbf{n})=\\sum_{\\mathbf{n}\\prime}H_{\\mathbf{n},\\mathbf{n}\\prime}\\,\\frac{\\Psi_\\theta(\\mathbf{n}\\prime)}{\\Psi_\\theta(\\mathbf{n})}$",
+        "$\\nabla_\\theta E=2\\langle(E_{\\rm loc}-\\overline{E})\\,\\nabla_\\theta\\log\\Psi_\\theta\\rangle$",
+        "Equilibrate fresh walkers before updates; assess frozen checkpoints."
+      ],
+      "fontsize": 44,
+      "step": 0.15,
+      "footer": "Retained configurations are correlated. Proposal spacing, burn-in, independent evaluation chains and time-block statistics are recorded."
+    },
+    {
+      "kind": "equations",
+      "title": "Stochastic reconfiguration",
+      "lines": [
+        "$O_k=\\partial_{\\theta_k}\\log\\Psi_\\theta,\\quad S_{kl}=\\langle(O_k-\\overline{O}_k)(O_l-\\overline{O}_l)\\rangle$",
+        "$f_k=\\langle(O_k-\\overline{O}_k)(E_{\\rm loc}-\\overline{E})\\rangle$",
+        "$\\Delta\\boldsymbol{\\theta}=-\\eta\\,(S+\\tau I)^{-1}\\mathbf{f}$",
+        "VMC: SR direction applied with native SGD; no Adam on top."
+      ],
+      "fontsize": 42,
+      "step": 0.16,
+      "footer": "2D uses centered, sample-normalized covariance. The original 1D CPU code used uncentered JᵀJ without division by M; its ridge parameter therefore has different units. Both use a dense direct solve."
+    }
+  ]
+}

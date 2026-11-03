@@ -1,0 +1,280 @@
+{
+  "main_pages": 29,
+  "pages": [
+    {
+      "number": 1,
+      "title": "Bose–Hubbard NQS\nPeriodic 2D systems",
+      "kind": "title"
+    },
+    {
+      "number": 2,
+      "title": "What are we testing?",
+      "kind": "text"
+    },
+    {
+      "number": 3,
+      "title": "1. Exact-diagonalization\nreference",
+      "kind": "section"
+    },
+    {
+      "number": 4,
+      "title": "Hamiltonian",
+      "kind": "lattice"
+    },
+    {
+      "number": 5,
+      "title": "Independent ED and DMRG check",
+      "kind": "table"
+    },
+    {
+      "number": 6,
+      "title": "Density and nearest-neighbor coherence",
+      "kind": "equations"
+    },
+    {
+      "number": 7,
+      "title": "ED ground state: density and coherence",
+      "kind": "ed_state"
+    },
+    {
+      "number": 8,
+      "title": "2. Supervised NQS",
+      "kind": "section"
+    },
+    {
+      "number": 9,
+      "title": "Five basic ansatzes",
+      "kind": "architecture"
+    },
+    {
+      "number": 10,
+      "title": "Supervised objective",
+      "kind": "equations"
+    },
+    {
+      "number": 11,
+      "title": "Can basic NQS fit the ED state?",
+      "kind": "table"
+    },
+    {
+      "number": 12,
+      "title": "Supervised fits: local observables",
+      "kind": "table"
+    },
+    {
+      "number": 13,
+      "title": "Supervised states: density and coherence",
+      "kind": "plots"
+    },
+    {
+      "number": 14,
+      "title": "3. Small-system VMC",
+      "kind": "section"
+    },
+    {
+      "number": 15,
+      "title": "Variational Monte Carlo",
+      "kind": "equations"
+    },
+    {
+      "number": 16,
+      "title": "Small-system VMC versus ED",
+      "kind": "table"
+    },
+    {
+      "number": 17,
+      "title": "VMC trajectory and independent checks",
+      "kind": "plots"
+    },
+    {
+      "number": 18,
+      "title": "Frozen sampler versus exact state",
+      "kind": "table"
+    },
+    {
+      "number": 19,
+      "title": "VMC states: density and coherence",
+      "kind": "plots"
+    },
+    {
+      "number": 20,
+      "title": "Criticality and finite-size validation",
+      "kind": "equations"
+    },
+    {
+      "number": 21,
+      "title": "Neutral gap: excitation at fixed N",
+      "kind": "table"
+    },
+    {
+      "number": 22,
+      "title": "4. Particle-sector leakage",
+      "kind": "section"
+    },
+    {
+      "number": 23,
+      "title": "Fixed-N fit and untrained particle sectors",
+      "kind": "equations"
+    },
+    {
+      "number": 24,
+      "title": "Measured raw sector weights",
+      "kind": "plots"
+    },
+    {
+      "number": 25,
+      "title": "Leakage and within-sector accuracy",
+      "kind": "table"
+    },
+    {
+      "number": 26,
+      "title": "Fixed-sector data cannot fix leakage",
+      "kind": "equations"
+    },
+    {
+      "number": 27,
+      "title": "Same canonical state, different leakage",
+      "kind": "table"
+    },
+    {
+      "number": 28,
+      "title": "Enforce the intended physical support",
+      "kind": "equations"
+    },
+    {
+      "number": 29,
+      "title": "What this benchmark establishes",
+      "kind": "text"
+    },
+    {
+      "number": 30,
+      "title": "Supporting calculations",
+      "kind": "title"
+    },
+    {
+      "number": 31,
+      "title": "Validate the ED construction",
+      "kind": "table"
+    },
+    {
+      "number": 32,
+      "title": "Exact measurement on small systems",
+      "kind": "equations"
+    },
+    {
+      "number": 33,
+      "title": "Monte Carlo: density and coherence",
+      "kind": "equations"
+    },
+    {
+      "number": 34,
+      "title": "Frozen measurements and error bars",
+      "kind": "equations"
+    },
+    {
+      "number": 35,
+      "title": "Sector normalizations and overlap",
+      "kind": "equations"
+    },
+    {
+      "number": 36,
+      "title": "Nearby untrained sectors: two diagnostics",
+      "kind": "plots"
+    },
+    {
+      "number": 37,
+      "title": "Ridge SR: definitions",
+      "kind": "equations"
+    },
+    {
+      "number": 38,
+      "title": "Imaginary time and the metric",
+      "kind": "equations"
+    },
+    {
+      "number": 39,
+      "title": "Ridge SR as least squares",
+      "kind": "equations"
+    },
+    {
+      "number": 40,
+      "title": "The exact sample-space solve",
+      "kind": "equations"
+    },
+    {
+      "number": 41,
+      "title": "What ridge does to each mode",
+      "kind": "equations"
+    },
+    {
+      "number": 42,
+      "title": "Relation to published MinSR",
+      "kind": "equations"
+    },
+    {
+      "number": 43,
+      "title": "Cost, storage and precision",
+      "kind": "table"
+    },
+    {
+      "number": 44,
+      "title": "Comparison with the 1D routine",
+      "kind": "equations"
+    },
+    {
+      "number": 45,
+      "title": "Small-system SR comparison",
+      "kind": "small_minsr"
+    },
+    {
+      "number": 46,
+      "title": "Simplest Transformer",
+      "kind": "architecture"
+    },
+    {
+      "number": 47,
+      "title": "Compare: 4×4 cylinder",
+      "kind": "table"
+    },
+    {
+      "number": 48,
+      "title": "Compare: 6×4 cylinder",
+      "kind": "table"
+    },
+    {
+      "number": 49,
+      "title": "Periodic VMC: local observables",
+      "kind": "table"
+    },
+    {
+      "number": 50,
+      "title": "Convolution + Transformer in 2D",
+      "kind": "architecture"
+    },
+    {
+      "number": 51,
+      "title": "Hybrid: supervised ED benchmarks",
+      "kind": "table"
+    },
+    {
+      "number": 52,
+      "title": "Hybrid: fresh small-system VMC",
+      "kind": "table"
+    },
+    {
+      "number": 53,
+      "title": "Hybrid: frozen observable checks",
+      "kind": "table"
+    },
+    {
+      "number": 54,
+      "title": "Hybrid: density and NN coherence",
+      "kind": "plots"
+    },
+    {
+      "number": 55,
+      "title": "Hybrid: raw neighboring-sector weights",
+      "kind": "plots"
+    }
+  ]
+}

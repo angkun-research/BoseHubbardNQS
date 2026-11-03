@@ -1,0 +1,2215 @@
+{
+  "status": "audited_progress_snapshot",
+  "title": "Two-dimensional NQS: benchmark progress",
+  "sources": [
+    "benchmarks/results/2026-10-31-cylinder-pilots/cylinder-supervised-independent.json",
+    "benchmarks/results/2026-10-31-cylinder-pilots/FCNet64d3-cylinder-supervised-independent.json",
+    "benchmarks/results/2026-10-31-cylinder-pilots/Transformer64-cylinder-supervised-independent.json",
+    "benchmarks/results/jastrow-cylinder-followup.json",
+    "benchmarks/results/dmrg-3x3-cylinder-validation-physical-geometry.json",
+    "benchmarks/results/dmrg-4x4-cylinder-chi-sensitivity.json",
+    "benchmarks/results/dmrg-6x4-cylinder-validation.json",
+    "slides/progress-selection.json",
+    "slides/assemble_results.py",
+    "slides/base_slides.json",
+    "benchmarks/results/2026-10-31-all-model-refinement/checker-ridge500-results-and-minsr-review-readiness.json",
+    "benchmarks/results/2026-10-31-vmc-refinement/ConvGate.json",
+    "benchmarks/results/2026-10-31-all-model-refinement/checker-width128-final-review.json",
+    "benchmarks/results/2026-10-31-all-model-refinement/width128-capacity-handoff.json",
+    "benchmarks/results/2026-10-31-all-model-refinement/width128-parameter-usage.json",
+    "BoseNQS05-29-2026.pdf",
+    "BoseNQS06-05-2026.pdf",
+    "BoseNQS07-07-2026.pdf",
+    "BoseNQS07-31-2026.pdf",
+    "benchmarks/results/2026-10-31-all-model-refinement/FC64d2-4x4-anneal500-both-seeds-assessment.json",
+    "outputs/2026-10-31-all-model-refinement/frozen/FC64d2-4x4-anneal500-seed654.json",
+    "outputs/2026-10-31-all-model-refinement/FC64d2-4x4-anneal500-seed5678.pt.json",
+    "benchmarks/results/2026-10-31-vmc-refinement/Conv-stageC-4x4-independent-assessment.json",
+    "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-4x4-stageC-seed654.json",
+    "outputs/2026-10-31-vmc-refinement/Conv2DNet-4x4-stageC.pt.json",
+    "benchmarks/results/2026-10-31-all-model-refinement/RBM128-4x4-capacity-both-seeds-assessment.json",
+    "outputs/2026-10-31-all-model-refinement/frozen/RBM128-4x4-capacity-seed654.json",
+    "outputs/2026-10-31-all-model-refinement/RBM128-4x4-capacity-seed8024.pt.json",
+    "benchmarks/results/2026-10-31-all-model-refinement/Transformer64-4x4-stage2-both-seeds-assessment.json",
+    "outputs/2026-10-31-all-model-refinement/frozen/Transformer64-4x4-stage2-seed654.json",
+    "outputs/2026-10-31-all-model-refinement/Transformer64-4x4-stage2-seed789.pt.json",
+    "benchmarks/results/2026-10-31-all-model-refinement/FC128d3-6x4-capacity-both-seeds-assessment.json",
+    "outputs/2026-10-31-all-model-refinement/frozen/FC128d3-6x4-capacity-seed654.json",
+    "outputs/2026-10-31-all-model-refinement/FC128d3-6x4-capacity-seed8024.pt.json",
+    "benchmarks/results/2026-10-31-vmc-refinement/Conv-stageC-6x4-independent-assessment.json",
+    "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-6x4-stageC-seed654.json",
+    "outputs/2026-10-31-vmc-refinement/Conv2DNet-6x4-stageC.pt.json",
+    "benchmarks/results/2026-10-31-all-model-refinement/Transformer64-6x4-precision128-both-seeds-assessment.json",
+    "outputs/2026-10-31-all-model-refinement/frozen/Transformer64-6x4-precision128-seed654.json",
+    "outputs/2026-10-31-all-model-refinement/Transformer64-6x4-refine-stage2-seed3579.pt.json",
+    "benchmarks/results/2026-10-31-all-model-refinement/Jastrow-4x4-stage2-seed321-assessment.json",
+    "outputs/2026-10-31-all-model-refinement/frozen/Jastrow-4x4-stage2-seed321.json",
+    "outputs/2026-10-31-all-model-refinement/Jastrow-4x4-stage2-seed789.pt.json",
+    "benchmarks/results/dmrg-nqs-4x4-6x4-central-strip.json",
+    "benchmarks/results/ed-cutoff-wavefunction-check.json",
+    "benchmarks/results/2026-10-31-exact-jastrow-sr/report.json",
+    "benchmarks/results/2026-10-31-exact-jastrow-orbit-sr/report.json",
+    "benchmarks/results/2026-10-31-all-model-refinement/checker-width-qualification.json",
+    "benchmarks/results/2026-10-31-all-model-refinement/checker-jastrow-orbit-qualification-review.json",
+    "slides/small_system_minsr.json",
+    "benchmarks/results/small-system-minsr-slide-comparison.json",
+    "slides/observable_definitions.json",
+    "outputs/dmrg-4x4-cylinder-chi128-spot256/chi128-density.csv",
+    "outputs/dmrg-4x4-cylinder-chi128-spot256/bonds.csv",
+    "benchmarks/results/2026-10-31-vmc-refinement/Conv2DNet-4x4-stageB-assessment.json",
+    "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-4x4-stageB-seed321.json",
+    "benchmarks/results/2026-10-31-vmc-refinement/Conv2DNet-6x4-stageB-assessment.json",
+    "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-6x4-stageB-seed321.json",
+    "slides/ridge_sr_appendix.json",
+    "benchmarks/results/minsr-paper-comparison.json",
+    "benchmarks/results/2026-10-31-all-model-refinement/checker-sr-1d-2d-same-batch.json",
+    "benchmarks/results/2026-10-31-all-model-refinement/checker-sr-legacy-centering-gauge-audit.json",
+    "benchmarks/results/2026-10-31-all-model-refinement/checker-rbm-matched-minsr300-comparison.json"
+  ],
+  "slides": [
+    {
+      "kind": "title",
+      "title": "Bose\u2013Hubbard NQS\n2D benchmark progress",
+      "subtitle": "Checked results and unresolved accuracy targets",
+      "date": "10-31-2026"
+    },
+    {
+      "kind": "lattice",
+      "title": "Hamiltonian",
+      "lines": [
+        "$H=-t\\sum_{\\langle i,j\\rangle}(b_i^\\dagger b_j+b_j^\\dagger b_i)+\\frac{U}{2}\\sum_i n_i(n_i-1)-\\mu\\sum_i n_i$",
+        "$t=1,\\quad U=16.74,\\quad\\mu=0$",
+        "$N_{\\rm tot}=L_xL_y,\\quad 0\\leq n_i\\leq4$",
+        "Open long axis; periodic short axis"
+      ],
+      "fontsize": 40,
+      "y": 0.8,
+      "step": 0.16,
+      "footer": "The 2D interaction uses U/2; the earlier 1D slides used U multiplying n(n\u22121). Width-four cylinders are finite benchmarks."
+    },
+    {
+      "kind": "equations",
+      "title": "Fixed particle number",
+      "lines": [
+        "$\\Psi_{\\theta,N}(\\mathbf{n})\\propto\\delta_{\\sum_i n_i,N}\\,e^{f_\\theta(\\mathbf{n})}$",
+        "$P_{\\theta,N}(\\mathbf{n})=|\\Psi_{\\theta,N}(\\mathbf{n})|^2$",
+        "Particle-conserving sampling stays in the selected sector.",
+        "The neural output itself is unconstrained outside that sector."
+      ],
+      "fontsize": 43,
+      "step": 0.14,
+      "footer": "All overlaps and VMC expectations use canonical-sector normalization; no full-Fock-space leakage curve is claimed."
+    },
+    {
+      "kind": "table",
+      "title": "Reference benchmarks",
+      "columns": [
+        "Cylinder",
+        "Fixed-N dimension",
+        "Reference",
+        "Ground energy / t"
+      ],
+      "rows": [
+        [
+          "3\u00d73",
+          "19,855",
+          "ED",
+          "\u22124.3856967508"
+        ],
+        [
+          "4\u00d74",
+          "183,424,355",
+          "DMRG, \u03c7=128",
+          "\u22127.6716735317"
+        ],
+        [
+          "6\u00d74",
+          "7,030,166,054,250",
+          "DMRG, \u03c7=128",
+          "\u221212.2174736711"
+        ]
+      ],
+      "widths": [
+        0.16,
+        0.31,
+        0.25,
+        0.28
+      ],
+      "footer": "Nmax=4, unit filling. No ED is attempted beyond 3\u00d73. Tiny-cylinder DMRG/ED energy difference: 4.27\u00d710\u207b\u00b9\u2070 t."
+    },
+    {
+      "kind": "table",
+      "title": "Check the references",
+      "fontsize": 32,
+      "columns": [
+        "Check",
+        "Observed difference / conclusion"
+      ],
+      "rows": [
+        [
+          "3\u00d73: DMRG versus ED",
+          "Energy: 4.27\u00d710\u207b\u00b9\u2070 t; full \u03c1: 3.08\u00d710\u207b\u2079"
+        ],
+        [
+          "4\u00d74: \u03c7128 \u2192 \u03c7256 spot",
+          "Energy/site: 1.64\u00d710\u207b\u2076 t"
+        ],
+        [
+          "4\u00d74 \u2192 6\u00d74, fixed \u03c7128",
+          "Central energy: 1.6%; NN G: 3\u20134%"
+        ],
+        [
+          "Occupation cutoff",
+          "Matched Nmax=4; larger-size cutoff convergence untested"
+        ]
+      ],
+      "widths": [
+        0.42,
+        0.58
+      ],
+      "footer": "Tiny ED also has analytic-limit and independent ladder-operator checks. Finite-\u03c7 and finite-size effects are separate from Monte Carlo SEM; modest length changes do not establish bulk convergence."
+    },
+    {
+      "kind": "architecture",
+      "title": "Neural networks",
+      "items": [
+        {
+          "name": "FCNet",
+          "layers": [
+            "Site one-hot input",
+            "Flatten",
+            "Dense + tanh \u00d7 depth",
+            "Scalar log amplitude"
+          ],
+          "note": "Width and depth can grow\nwith system size."
+        },
+        {
+          "name": "Conv2DNet",
+          "layers": [
+            "2D one-hot grid",
+            "3\u00d73 Conv2D + SiLU",
+            "Flatten + dense + SiLU",
+            "Scalar log amplitude"
+          ],
+          "note": "Circular y padding; open x.\nDense head breaks exact translations."
+        },
+        {
+          "name": "JastrowNet",
+          "layers": [
+            "Onsite occupation table",
+            "Shared occupation pair tables",
+            "Sum over all site pairs",
+            "Scalar log amplitude"
+          ],
+          "note": "Homogeneous onsite/pair tables.\nFixed physical baseline."
+        },
+        {
+          "name": "RBMNet",
+          "layers": [
+            "Site one-hot input",
+            "Binary hidden units",
+            "Visible bias + softplus sum",
+            "Scalar log amplitude"
+          ],
+          "note": "Hidden-unit count controls\nmodel capacity."
+        }
+      ],
+      "footer": "All five ansatzes represent real positive amplitudes for the untwisted hopping model."
+    },
+    {
+      "kind": "architecture",
+      "title": "Simplest Transformer",
+      "items": [
+        {
+          "name": "Tokens and positions",
+          "code": "occupation_embedding(n)\n+ learned_x_embedding(x)\n+ learned_y_embedding(y)\n\nOne token per physical site\nGlobal attention over sites",
+          "code_size": 25,
+          "note": "Learned positions carry rectangular geometry."
+        },
+        {
+          "name": "One encoder block",
+          "code": "TransformerEncoderLayer(\n    d_model=64, nhead=1,\n    dim_feedforward=128,\n    dropout=0,\n    activation=\"relu\")\n\nMean pool \u2192 linear scalar",
+          "code_size": 25,
+          "note": "Width 64 used for cylinder qualification."
+        }
+      ],
+      "footer": "No phase/sign output is needed here. Neither mean pooling nor learned positions guarantee lattice translation symmetry."
+    },
+    {
+      "kind": "table",
+      "title": "Compare: ED-supervised fitting",
+      "subtitle": "3\u00d73 cylinder; Adam + normalized log-MSE; width 32; original Jastrow",
+      "columns": [
+        "Model",
+        "Log-MSE",
+        "Absolute overlap",
+        "Energy error/site"
+      ],
+      "rows": [
+        [
+          "FC",
+          "0.009069",
+          "0.997904",
+          "0.0087"
+        ],
+        [
+          "Jastrow",
+          "0.09133",
+          "0.988193",
+          "0.0464"
+        ],
+        [
+          "Conv2D",
+          "0.01471",
+          "0.994808",
+          "0.0223"
+        ],
+        [
+          "RBM",
+          "0.03577",
+          "0.992503",
+          "0.0317"
+        ],
+        [
+          "Transformer",
+          "0.2346",
+          "0.986871",
+          "0.0609"
+        ]
+      ],
+      "highlight_rows": [
+        2,
+        5
+      ],
+      "footer": "Unsquared overlap criterion \u22650.99 qualifies neural candidates. Basic Jastrow remains a physical baseline even when its cylinder overlap is lower; no universality is assumed."
+    },
+    {
+      "kind": "equations",
+      "title": "Supervised objective",
+      "lines": [
+        "$\\widetilde{f}_\\theta(\\mathbf{n})=f_\\theta(\\mathbf{n})-\\frac{1}{2}\\log\\sum_{\\mathbf{n}\\in\\mathcal{H}_N}e^{2f_\\theta(\\mathbf{n})}$",
+        "$\\mathcal{L}_{\\log}=\\frac{1}{D_N}\\sum_{\\mathbf{n}\\in\\mathcal{H}_N}[\\widetilde{f}_\\theta(\\mathbf{n})-\\log\\Psi_{\\rm ED}(\\mathbf{n})]^2$",
+        "$F_{\\rm abs}=|\\langle\\Psi_\\theta|\\Psi_{\\rm ED}\\rangle|,\\qquad\\mathcal{L}_{\\rm infidelity}=1-F_{\\rm abs}^2$",
+        "Log-MSE is primary; infidelity refinement is a separate diagnostic."
+      ],
+      "fontsize": 42,
+      "step": 0.16,
+      "footer": "The ED targets are strictly positive in these sectors; no 3\u00d73-cylinder amplitudes are clamped by the chosen 10\u207b\u00b9\u00b2 floor."
+    },
+    {
+      "kind": "table",
+      "title": "Capacity and loss checks",
+      "columns": [
+        "Candidate",
+        "Objective / optimizer",
+        "Absolute overlap",
+        "Overlap gate"
+      ],
+      "rows": [
+        [
+          "FC64, 2 layers",
+          "Adam fit \u2192 width lift",
+          "0.997904",
+          "pass"
+        ],
+        [
+          "RBM64",
+          "Adam fit \u2192 widening",
+          "0.992508",
+          "pass"
+        ],
+        [
+          "Transformer64",
+          "log-MSE / Adam",
+          "0.990323",
+          "pass"
+        ]
+      ],
+      "fontsize": 31,
+      "footer": "3\u00d73 cylinder. FC/RBM enlarged from qualified states, with independent raw-ED checks. Basic Jastrow is a physical baseline; no further adaptation or common neural accuracy requirement."
+    },
+    {
+      "kind": "equations",
+      "title": "Variational Monte Carlo",
+      "lines": [
+        "$E_\\theta=\\sum_{\\mathbf{n}\\in\\mathcal{H}_N}P_{\\theta,N}(\\mathbf{n})E_{\\rm loc}(\\mathbf{n})$",
+        "$E_{\\rm loc}(\\mathbf{n})=\\sum_{\\mathbf{n}\\prime}H_{\\mathbf{n},\\mathbf{n}\\prime}\\,\\frac{\\Psi_\\theta(\\mathbf{n}\\prime)}{\\Psi_\\theta(\\mathbf{n})}$",
+        "$\\nabla_\\theta E=2\\langle(E_{\\rm loc}-\\overline{E})\\,\\nabla_\\theta\\log\\Psi_\\theta\\rangle$",
+        "Equilibrate fresh walkers before updates; assess frozen checkpoints."
+      ],
+      "fontsize": 44,
+      "step": 0.15,
+      "footer": "Retained configurations are correlated. Proposal spacing, burn-in, independent evaluation chains and time-block statistics are recorded."
+    },
+    {
+      "kind": "equations",
+      "title": "Stochastic reconfiguration",
+      "lines": [
+        "$O_k=\\partial_{\\theta_k}\\log\\Psi_\\theta,\\quad S_{kl}=\\langle(O_k-\\overline{O}_k)(O_l-\\overline{O}_l)\\rangle$",
+        "$f_k=\\langle(O_k-\\overline{O}_k)(E_{\\rm loc}-\\overline{E})\\rangle$",
+        "$\\Delta\\boldsymbol{\\theta}=-\\eta\\,(S+\\tau I)^{-1}\\mathbf{f}$",
+        "VMC: SR direction applied with native SGD; no Adam on top."
+      ],
+      "fontsize": 42,
+      "step": 0.16,
+      "footer": "2D uses centered, sample-normalized covariance. The original 1D CPU code used uncentered J\u1d40J without division by M; its ridge parameter therefore has different units. Both use a dense direct solve."
+    },
+    {
+      "kind": "small_minsr",
+      "title": "Small-system SR comparison",
+      "subtitle": "3\u00d73 cylinder, RBM64; M=128, P=2989; one SGD step, \u03b7=0.001",
+      "before": -4.10011970232251,
+      "cases": [
+        {
+          "label": "Ridge SR",
+          "after": -4.102751034866253
+        },
+        {
+          "label": "MinSR",
+          "after": -4.102862514106003
+        }
+      ],
+      "settings_note": "Ridge: \u03c4 = 0.001\nMinSR: relative cutoff 10\u207b\u00b9\u00b2, absolute cutoff 0",
+      "footer": "Same weights and 128 IID samples from current NQS probabilities. Energies evaluated over all 19,855 configurations (ED ground E/t = \u22124.385697). One batch and one step illustrate the methods, not convergence or superiority."
+    },
+    {
+      "kind": "observable",
+      "Lx": 4,
+      "Ly": 4,
+      "central_columns": [
+        1,
+        2
+      ],
+      "bonds": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          12
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          13
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          14
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          3,
+          15
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          9
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          7,
+          11
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          8,
+          12
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          9,
+          13
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          10,
+          14
+        ],
+        [
+          11,
+          15
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          13,
+          14
+        ],
+        [
+          14,
+          15
+        ]
+      ],
+      "central_bond_counts": {
+        "x": 4,
+        "y": 8
+      },
+      "observable": "density",
+      "density": [
+        0.9988796814117444,
+        1.0011202933424412,
+        1.001120086283771,
+        0.9988797133307766,
+        0.9988798736223343,
+        1.0011201218094452,
+        1.0011200240680644,
+        0.9988797840676998,
+        0.9988802350960673,
+        1.001119861051586,
+        1.0011199216681497,
+        0.9988801734882133,
+        0.9988803882015094,
+        1.0011197208250486,
+        1.0011198744111807,
+        0.998880247321971
+      ],
+      "title": "Density on the lattice",
+      "lines": [
+        "$\\rho_i=\\langle n_i\\rangle=\\sum_{\\mathbf{n}}p_\\theta(\\mathbf{n})\\,n_i$",
+        "$\\overline{\\rho}(x)=\\frac{1}{L_y}\\sum_y\\rho_{x,y}$",
+        "$\\rho_C=\\frac{1}{|C|}\\sum_{i\\in C}\\rho_i,\\qquad |C|=8$",
+        "$\\sum_i\\rho_i=N_{\\rm tot}=16$"
+      ],
+      "footer": "Actual 4\u00d74 cylinder DMRG density, t=1, U=16.74, Nmax=4. Color scale resolves weak edge/bulk variation; values are mean occupations, not a single occupation configuration."
+    },
+    {
+      "kind": "observable",
+      "Lx": 4,
+      "Ly": 4,
+      "central_columns": [
+        1,
+        2
+      ],
+      "bonds": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          12
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          1,
+          13
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          14
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          3,
+          15
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          9
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          7,
+          11
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          8,
+          12
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          9,
+          13
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          10,
+          14
+        ],
+        [
+          11,
+          15
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          13,
+          14
+        ],
+        [
+          14,
+          15
+        ]
+      ],
+      "central_bond_counts": {
+        "x": 4,
+        "y": 8
+      },
+      "observable": "nn",
+      "title": "Nearest-neighbor correlations",
+      "lines": [
+        "$G_{ij}=\\langle b_i^\\dagger b_j\\rangle$",
+        "$g_{ij}=\\frac{1}{2}\\langle b_i^\\dagger b_j+b_j^\\dagger b_i\\rangle$",
+        "$\\overline{G}_\\alpha(C)=\\frac{1}{|B_\\alpha(C)|}\\sum_{\\langle i,j\\rangle\\in B_\\alpha(C)}g_{ij}$",
+        "$\\alpha=x,y;\\quad i,j\\in C$"
+      ],
+      "footer": "One-body coherence, not density-density correlation. Both endpoints lie in the strip; dashed links are periodic y bonds. Fixed N gives \u27e8b_i\u27e9=0. Nonzero NN coherence alone does not establish superfluidity or criticality."
+    },
+    {
+      "kind": "table",
+      "title": "VMC accuracy targets",
+      "columns": [
+        "Observable",
+        "Point difference",
+        "Conditional SEM limit"
+      ],
+      "rows": [
+        [
+          "Energy / site",
+          "\u22641% of |DMRG|",
+          "\u22640.25% of |DMRG|"
+        ],
+        [
+          "Central NN Gx, Gy",
+          "\u22645% of |DMRG|",
+          "\u22642.5% of |DMRG|"
+        ],
+        [
+          "Central mean density",
+          "\u22640.01",
+          "\u22640.005"
+        ]
+      ],
+      "footer": "Central strip = two middle x columns. Form composite observables before blocking. Point and precision criteria must both pass; a large error bar cannot earn a pass."
+    },
+    {
+      "kind": "table",
+      "title": "Tighten Conv2D VMC",
+      "fontsize": 32,
+      "columns": [
+        "Cylinder",
+        "Continuation",
+        "Energy/site \u00b1 SEM",
+        "DMRG gap"
+      ],
+      "rows": [
+        [
+          "4\u00d74",
+          "B: +400 updates",
+          "-0.472967 \u00b1 0.000772",
+          "1.36%"
+        ],
+        [
+          "4\u00d74",
+          "C: +500 updates",
+          "-0.476041 \u00b1 0.000546",
+          "0.72%"
+        ],
+        [
+          "6\u00d74",
+          "B: +400 updates",
+          "-0.499447 \u00b1 0.000963",
+          "1.89%"
+        ],
+        [
+          "6\u00d74",
+          "C: +500 updates",
+          "-0.506217 \u00b1 0.000517",
+          "0.56%"
+        ]
+      ],
+      "widths": [
+        0.14,
+        0.29,
+        0.38,
+        0.19
+      ],
+      "footer": "Same Conv32 architecture. Stage B: M=1024; C: M=2048 with decreasing learning rate and SR shift. Fresh walkers equilibrated for 4096 proposals. B uses seed321; C independent confirmation seed654."
+    },
+    {
+      "kind": "table",
+      "title": "Compare: 4\u00d74 cylinder",
+      "fontsize": 31,
+      "columns": [
+        "Model",
+        "Parameters",
+        "Energy/site \u00b1 SEM",
+        "Gap",
+        "Neural gate"
+      ],
+      "rows": [
+        [
+          "FC\nseed 654",
+          "9409",
+          "-0.474835 \u00b1 0.000914",
+          "0.97%",
+          "pass"
+        ],
+        [
+          "Jastrow\nseed 321",
+          "280",
+          "-0.459910 \u00b1 0.001377",
+          "4.08%",
+          "baseline"
+        ],
+        [
+          "Conv2D\nseed 654",
+          "17921",
+          "-0.476041 \u00b1 0.000546",
+          "0.72%",
+          "pass"
+        ],
+        [
+          "RBM\nseed 654",
+          "10448",
+          "-0.472243 \u00b1 0.000770",
+          "1.51%",
+          "below target"
+        ],
+        [
+          "Transformer\nseed 654",
+          "34433",
+          "-0.475023 \u00b1 0.000734",
+          "0.93%",
+          "pass"
+        ]
+      ],
+      "widths": [
+        0.18,
+        0.15,
+        0.33,
+        0.12,
+        0.22
+      ],
+      "highlight_rows": [
+        4
+      ],
+      "footer": "Progress snapshot: confirmation seed 654 when available, screening seed 321 otherwise. A neural pass requires both seeds and all four targets. Jastrow is a fixed baseline, exempt from that gate."
+    },
+    {
+      "kind": "table",
+      "title": "Compare: 6\u00d74 cylinder",
+      "fontsize": 31,
+      "columns": [
+        "Model",
+        "Parameters",
+        "Energy/site \u00b1 SEM",
+        "Gap",
+        "Neural gate"
+      ],
+      "rows": [
+        [
+          "FC\nseed 654",
+          "48641",
+          "-0.497756 \u00b1 0.000923",
+          "2.22%",
+          "below target"
+        ],
+        [
+          "Jastrow",
+          "\u2014",
+          "not assessed",
+          "\u2014",
+          "baseline"
+        ],
+        [
+          "Conv2D\nseed 654",
+          "26113",
+          "-0.506217 \u00b1 0.000517",
+          "0.56%",
+          "pass"
+        ],
+        [
+          "RBM",
+          "\u2014",
+          "not assessed",
+          "\u2014",
+          "pending"
+        ],
+        [
+          "Transformer\nseed 654",
+          "34561",
+          "-0.504490 \u00b1 0.000396",
+          "0.90%",
+          "pass"
+        ]
+      ],
+      "widths": [
+        0.18,
+        0.15,
+        0.33,
+        0.12,
+        0.22
+      ],
+      "highlight_rows": [
+        1
+      ],
+      "footer": "Progress snapshot: confirmation seed 654 when available, screening seed 321 otherwise. A neural pass requires both seeds and all four targets. Jastrow is a fixed baseline, exempt from that gate."
+    },
+    {
+      "kind": "plots",
+      "title": "One-body correlations: 4\u00d74",
+      "panels": [
+        {
+          "title": "$G_x$",
+          "xlabel": "Model",
+          "ylabel": "Central NN correlation",
+          "xticks": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "xticklabels": [
+            "FC",
+            "Jastrow",
+            "Conv2D",
+            "RBM",
+            "Transformer"
+          ],
+          "series": [
+            {
+              "label": "VMC \u00b1 SEM",
+              "x": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "y": [
+                0.3269526016726313,
+                0.3117247163650063,
+                0.3218176209855157,
+                0.3198448654788793,
+                0.31999984019531313
+              ],
+              "marker": "o",
+              "linestyle": "none",
+              "color": "#3575a2",
+              "yerr": [
+                0.007614952098836894,
+                0.005984013943544051,
+                0.006222003119915123,
+                0.006131849612188469,
+                0.007146366609724266
+              ]
+            }
+          ],
+          "reference_lines": [
+            {
+              "y": 0.3282592451650024,
+              "label": "DMRG \u03c7=128"
+            }
+          ]
+        },
+        {
+          "title": "$G_y$",
+          "xlabel": "Model",
+          "ylabel": "Central NN correlation",
+          "xticks": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "xticklabels": [
+            "FC",
+            "Jastrow",
+            "Conv2D",
+            "RBM",
+            "Transformer"
+          ],
+          "series": [
+            {
+              "label": "VMC \u00b1 SEM",
+              "x": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "y": [
+                0.34050639534751,
+                0.3276894604121661,
+                0.3406477123084276,
+                0.33414857938701725,
+                0.3331104193720832
+              ],
+              "marker": "o",
+              "linestyle": "none",
+              "color": "#3575a2",
+              "yerr": [
+                0.005396436054149728,
+                0.004731116922484979,
+                0.00483459536618426,
+                0.00561434248743044,
+                0.005259051868906682
+              ]
+            }
+          ],
+          "reference_lines": [
+            {
+              "y": 0.34506789217241685,
+              "label": "DMRG \u03c7=128"
+            }
+          ]
+        }
+      ],
+      "footer": "Both endpoints lie inside the central strip; directed bond estimates are averaged per configuration. Errors are max(block, between-chain SEM), conditional on stationarity and independent walkers."
+    },
+    {
+      "kind": "plots",
+      "title": "Density: 4\u00d74",
+      "panels": [
+        {
+          "title": "4\u00d74 cylinder",
+          "xlabel": "Open-axis position x",
+          "ylabel": "$\\langle n\\rangle_y$",
+          "series": [
+            {
+              "label": "DMRG",
+              "x": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.9988800445829139,
+                1.0011199992571302,
+                1.0011199766077916,
+                0.9988799795521652
+              ],
+              "color": "black",
+              "linestyle": "--"
+            },
+            {
+              "label": "FC",
+              "x": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.9990692138671875,
+                1.000732421875,
+                1.0015411376953125,
+                0.9986572265625
+              ],
+              "color": "#3575a2",
+              "marker": "o",
+              "yerr": [
+                0.0011050576352709023,
+                0.0012949820193356822,
+                0.0013219992221538174,
+                0.0010717145346439273
+              ]
+            },
+            {
+              "label": "Jastrow",
+              "x": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.999603271484375,
+                1.0014495849609375,
+                1.0005569458007812,
+                0.9983901977539062
+              ],
+              "color": "#bb7937",
+              "marker": "o",
+              "yerr": [
+                0.000991398275152597,
+                0.0012618501868311917,
+                0.001210353549822642,
+                0.0009242187714538192
+              ]
+            },
+            {
+              "label": "Conv2D",
+              "x": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.9998703002929688,
+                0.9986801147460938,
+                1.0038909912109375,
+                0.99755859375
+              ],
+              "color": "#3d9367",
+              "marker": "o",
+              "yerr": [
+                0.0010361001707085602,
+                0.0013150378928375895,
+                0.0014904139327098075,
+                0.0011633080483716847
+              ]
+            }
+          ],
+          "legend_size": 23
+        },
+        {
+          "title": "4\u00d74 cylinder",
+          "xlabel": "Open-axis position x",
+          "ylabel": "$\\langle n\\rangle_y$",
+          "series": [
+            {
+              "label": "DMRG",
+              "x": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.9988800445829139,
+                1.0011199992571302,
+                1.0011199766077916,
+                0.9988799795521652
+              ],
+              "color": "black",
+              "linestyle": "--"
+            },
+            {
+              "label": "RBM",
+              "x": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.99884033203125,
+                1.0003890991210938,
+                1.0028076171875,
+                0.9979629516601562
+              ],
+              "color": "#a25283",
+              "marker": "o",
+              "yerr": [
+                0.0010482568267663204,
+                0.0013570613666599371,
+                0.0013192433960525255,
+                0.0010927262720201154
+              ]
+            },
+            {
+              "label": "Transformer",
+              "x": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.998626708984375,
+                1.0018157958984375,
+                1.000640869140625,
+                0.9989166259765625
+              ],
+              "color": "#7562aa",
+              "marker": "o",
+              "yerr": [
+                0.001053679262976981,
+                0.0014011088567205763,
+                0.0012781236012197148,
+                0.001032568661316101
+              ]
+            }
+          ],
+          "legend_size": 23
+        }
+      ],
+      "footer": "Average over periodic y within each raw sample before blocking; error bars retain covariance. DMRG and VMC use the same local occupation cutoff Nmax=4."
+    },
+    {
+      "kind": "plots",
+      "title": "Occupation fluctuations: 4\u00d74",
+      "panels": [
+        {
+          "title": "4\u00d74 cylinder",
+          "xlabel": "Open-axis position x",
+          "ylabel": "$\\langle n(n-1)\\rangle_y$",
+          "series": [
+            {
+              "label": "DMRG",
+              "x": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.06122912933393804,
+                0.09231288955503564,
+                0.0923127608800795,
+                0.06122905395545489
+              ],
+              "color": "black",
+              "linestyle": "--"
+            },
+            {
+              "label": "FC",
+              "x": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.062652587890625,
+                0.0917816162109375,
+                0.09173583984375,
+                0.0559539794921875
+              ],
+              "color": "#3575a2",
+              "marker": "o",
+              "yerr": [
+                0.0022832950405723587,
+                0.0029287582770628493,
+                0.0030489954480818187,
+                0.0025090305478697944
+              ]
+            },
+            {
+              "label": "Jastrow",
+              "x": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.058441162109375,
+                0.084625244140625,
+                0.0872039794921875,
+                0.05853271484375
+              ],
+              "color": "#bb7937",
+              "marker": "o",
+              "yerr": [
+                0.0021765872895941696,
+                0.0026772841429871987,
+                0.002741652139733084,
+                0.0023650193281595875
+              ]
+            },
+            {
+              "label": "Conv2D",
+              "x": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.0608367919921875,
+                0.088592529296875,
+                0.092529296875,
+                0.0597076416015625
+              ],
+              "color": "#3d9367",
+              "marker": "o",
+              "yerr": [
+                0.0025159028478648816,
+                0.002651600316290654,
+                0.002941049010723271,
+                0.0025090482234368986
+              ]
+            }
+          ],
+          "legend_size": 23
+        },
+        {
+          "title": "4\u00d74 cylinder",
+          "xlabel": "Open-axis position x",
+          "ylabel": "$\\langle n(n-1)\\rangle_y$",
+          "series": [
+            {
+              "label": "DMRG",
+              "x": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.06122912933393804,
+                0.09231288955503564,
+                0.0923127608800795,
+                0.06122905395545489
+              ],
+              "color": "black",
+              "linestyle": "--"
+            },
+            {
+              "label": "RBM",
+              "x": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.0580291748046875,
+                0.088653564453125,
+                0.0892333984375,
+                0.0563507080078125
+              ],
+              "color": "#a25283",
+              "marker": "o",
+              "yerr": [
+                0.002361609486772374,
+                0.002973717630065442,
+                0.002754031780439082,
+                0.0021120454016719066
+              ]
+            },
+            {
+              "label": "Transformer",
+              "x": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.0617828369140625,
+                0.0903778076171875,
+                0.0875244140625,
+                0.055145263671875
+              ],
+              "color": "#7562aa",
+              "marker": "o",
+              "yerr": [
+                0.0022824203341307143,
+                0.0028173247241077832,
+                0.003207151722637009,
+                0.002519312164105208
+              ]
+            }
+          ],
+          "legend_size": 23
+        }
+      ],
+      "footer": "Average over periodic y within each raw sample before blocking; error bars retain covariance. DMRG and VMC use the same local occupation cutoff Nmax=4."
+    },
+    {
+      "kind": "plots",
+      "title": "One-body correlations: 6\u00d74",
+      "panels": [
+        {
+          "title": "$G_x$",
+          "xlabel": "Model",
+          "ylabel": "Central NN correlation",
+          "xticks": [
+            1,
+            2,
+            3
+          ],
+          "xticklabels": [
+            "FC",
+            "Conv2D",
+            "Transformer"
+          ],
+          "series": [
+            {
+              "label": "VMC \u00b1 SEM",
+              "x": [
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.34076631285380693,
+                0.3458925214539491,
+                0.33841245008727533
+              ],
+              "marker": "o",
+              "linestyle": "none",
+              "color": "#3575a2",
+              "yerr": [
+                0.008233848404269913,
+                0.008139906679413344,
+                0.005441194129620739
+              ]
+            }
+          ],
+          "reference_lines": [
+            {
+              "y": 0.33965453370914067,
+              "label": "DMRG \u03c7=128"
+            }
+          ]
+        },
+        {
+          "title": "$G_y$",
+          "xlabel": "Model",
+          "ylabel": "Central NN correlation",
+          "xticks": [
+            1,
+            2,
+            3
+          ],
+          "xticklabels": [
+            "FC",
+            "Conv2D",
+            "Transformer"
+          ],
+          "series": [
+            {
+              "label": "VMC \u00b1 SEM",
+              "x": [
+                1,
+                2,
+                3
+              ],
+              "y": [
+                0.36631140306844245,
+                0.36869400671072605,
+                0.36137658955529256
+              ],
+              "marker": "o",
+              "linestyle": "none",
+              "color": "#3575a2",
+              "yerr": [
+                0.007177850252622026,
+                0.0064382504174064475,
+                0.004204523849180003
+              ]
+            }
+          ],
+          "reference_lines": [
+            {
+              "y": 0.35925546405111086,
+              "label": "DMRG \u03c7=128"
+            }
+          ]
+        }
+      ],
+      "footer": "Both endpoints lie inside the central strip; directed bond estimates are averaged per configuration. Errors are max(block, between-chain SEM), conditional on stationarity and independent walkers."
+    },
+    {
+      "kind": "plots",
+      "title": "Density: 6\u00d74",
+      "panels": [
+        {
+          "title": "6\u00d74 cylinder",
+          "xlabel": "Open-axis position x",
+          "ylabel": "$\\langle n\\rangle_y$",
+          "series": [
+            {
+              "label": "DMRG",
+              "x": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "y": [
+                0.9987302425527321,
+                1.000840304804552,
+                1.0004295645800978,
+                1.0004295144363717,
+                1.000840255518832,
+                0.9987301181074152
+              ],
+              "color": "black",
+              "linestyle": "--"
+            },
+            {
+              "label": "FC",
+              "x": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "y": [
+                0.9973373413085938,
+                1.0017318725585938,
+                0.999359130859375,
+                1.00323486328125,
+                1.0019302368164062,
+                0.9964065551757812
+              ],
+              "color": "#3575a2",
+              "marker": "o",
+              "yerr": [
+                0.001323780376695075,
+                0.0017352368349179657,
+                0.001982807733643433,
+                0.001791764545433449,
+                0.0016581415258236805,
+                0.00124413503205151
+              ]
+            },
+            {
+              "label": "Conv2D",
+              "x": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "y": [
+                0.9982528686523438,
+                1.0018157958984375,
+                1.0009765625,
+                1.001068115234375,
+                0.998382568359375,
+                0.9995040893554688
+              ],
+              "color": "#3d9367",
+              "marker": "o",
+              "yerr": [
+                0.0012772188232995241,
+                0.0019021253971204318,
+                0.0018834288429415878,
+                0.0016804158367708204,
+                0.0016099503042080296,
+                0.0012506826457093715
+              ]
+            },
+            {
+              "label": "Transformer",
+              "x": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "y": [
+                0.9990196228027344,
+                1.000701904296875,
+                1.00128173828125,
+                1.0020637512207031,
+                0.9980735778808594,
+                0.9988594055175781
+              ],
+              "color": "#7562aa",
+              "marker": "o",
+              "yerr": [
+                0.0009021247977189957,
+                0.0012571612502469474,
+                0.001204373935637127,
+                0.0011886439678174738,
+                0.0012815472729066125,
+                0.000879066781068561
+              ]
+            }
+          ],
+          "legend_size": 23
+        }
+      ],
+      "footer": "Average over periodic y within each raw sample before blocking; error bars retain covariance. DMRG and VMC use the same local occupation cutoff Nmax=4."
+    },
+    {
+      "kind": "plots",
+      "title": "Occupation fluctuations: 6\u00d74",
+      "panels": [
+        {
+          "title": "6\u00d74 cylinder",
+          "xlabel": "Open-axis position x",
+          "ylabel": "$\\langle n(n-1)\\rangle_y$",
+          "series": [
+            {
+              "label": "DMRG",
+              "x": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "y": [
+                0.06168513299134948,
+                0.09420082425725057,
+                0.09885151154449795,
+                0.09885147865598176,
+                0.09420064658856236,
+                0.06168503229126182
+              ],
+              "color": "black",
+              "linestyle": "--"
+            },
+            {
+              "label": "FC",
+              "x": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "y": [
+                0.0576629638671875,
+                0.0941009521484375,
+                0.1025543212890625,
+                0.102020263671875,
+                0.09576416015625,
+                0.057281494140625
+              ],
+              "color": "#3575a2",
+              "marker": "o",
+              "yerr": [
+                0.002923741816579698,
+                0.0040362313898221645,
+                0.0037416247151577675,
+                0.0038098734070987897,
+                0.003404974933686029,
+                0.002830331874004185
+              ]
+            },
+            {
+              "label": "Conv2D",
+              "x": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "y": [
+                0.06634521484375,
+                0.102691650390625,
+                0.1030731201171875,
+                0.104278564453125,
+                0.0891265869140625,
+                0.06207275390625
+              ],
+              "color": "#3d9367",
+              "marker": "o",
+              "yerr": [
+                0.003405481133679681,
+                0.0038065350114693205,
+                0.003661588096857956,
+                0.003401978385786496,
+                0.0034723327584688804,
+                0.0030046096731852
+              ]
+            },
+            {
+              "label": "Transformer",
+              "x": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ],
+              "y": [
+                0.06090545654296875,
+                0.0948028564453125,
+                0.0998992919921875,
+                0.102508544921875,
+                0.09140777587890625,
+                0.0635833740234375
+              ],
+              "color": "#7562aa",
+              "marker": "o",
+              "yerr": [
+                0.0022457737965769354,
+                0.0026558836598856456,
+                0.002489787652551536,
+                0.0025222242518747784,
+                0.002476888573033139,
+                0.0021103548007376156
+              ]
+            }
+          ],
+          "legend_size": 23
+        }
+      ],
+      "footer": "Average over periodic y within each raw sample before blocking; error bars retain covariance. DMRG and VMC use the same local occupation cutoff Nmax=4."
+    },
+    {
+      "kind": "plots",
+      "title": "Correlations beyond NN",
+      "panels": [
+        {
+          "title": "4\u00d74: central anchor, same y",
+          "xlabel": "Signed separation dx",
+          "ylabel": "$\\langle b_i^\\dagger b_j\\rangle$",
+          "series": [
+            {
+              "label": "DMRG",
+              "x": [
+                -2,
+                -1,
+                1
+              ],
+              "y": [
+                0.1410423452835751,
+                0.32825713900389536,
+                0.3115525294464556
+              ],
+              "color": "black",
+              "linestyle": "--"
+            },
+            {
+              "label": "FC",
+              "x": [
+                -2,
+                -1,
+                1
+              ],
+              "y": [
+                0.15042069236912725,
+                0.34129174320997946,
+                0.29902858264484544
+              ],
+              "color": "#3575a2",
+              "marker": "o",
+              "yerr": [
+                0.012652403554118091,
+                0.016812185325202508,
+                0.01673970607715958
+              ]
+            },
+            {
+              "label": "Jastrow",
+              "x": [
+                -2,
+                -1,
+                1
+              ],
+              "y": [
+                0.13204156016211846,
+                0.32485016663684324,
+                0.3153071024710239
+              ],
+              "color": "#bb7937",
+              "marker": "o",
+              "yerr": [
+                0.00913066097625312,
+                0.01585997516998012,
+                0.022154034208246735
+              ]
+            },
+            {
+              "label": "Conv2D",
+              "x": [
+                -2,
+                -1,
+                1
+              ],
+              "y": [
+                0.1425158470230411,
+                0.34951051869992783,
+                0.3263149865283957
+              ],
+              "color": "#3d9367",
+              "marker": "o",
+              "yerr": [
+                0.014256509704506624,
+                0.01791854844509584,
+                0.018254428578101285
+              ]
+            },
+            {
+              "label": "RBM",
+              "x": [
+                -2,
+                -1,
+                1
+              ],
+              "y": [
+                0.13828067125110294,
+                0.35535833389393506,
+                0.31346416268985083
+              ],
+              "color": "#a25283",
+              "marker": "o",
+              "yerr": [
+                0.012823858631357841,
+                0.018093152021041826,
+                0.019950696030123734
+              ]
+            },
+            {
+              "label": "Transformer",
+              "x": [
+                -2,
+                -1,
+                1
+              ],
+              "y": [
+                0.14396782592440838,
+                0.31891255839256033,
+                0.29415859015737084
+              ],
+              "color": "#7562aa",
+              "marker": "o",
+              "yerr": [
+                0.012425457808880165,
+                0.016844486777965444,
+                0.017746103978272164
+              ]
+            }
+          ],
+          "legend_size": 22
+        },
+        {
+          "title": "6\u00d74: central anchor, same y",
+          "xlabel": "Signed separation dx",
+          "ylabel": "$\\langle b_i^\\dagger b_j\\rangle$",
+          "series": [
+            {
+              "label": "DMRG",
+              "x": [
+                -3,
+                -2,
+                -1,
+                1,
+                2
+              ],
+              "y": [
+                0.0863122538037351,
+                0.16524800106202137,
+                0.339659012559408,
+                0.33556189648679335,
+                0.1469040445086422
+              ],
+              "color": "black",
+              "linestyle": "--"
+            },
+            {
+              "label": "FC",
+              "x": [
+                -3,
+                -2,
+                -1,
+                1,
+                2
+              ],
+              "y": [
+                0.10074773462700878,
+                0.18289692738182348,
+                0.36189048591843326,
+                0.33857437185093314,
+                0.13612405810882172
+              ],
+              "color": "#3575a2",
+              "marker": "o",
+              "yerr": [
+                0.016939277882048888,
+                0.015466900267789574,
+                0.021923617990701774,
+                0.01804080875281178,
+                0.011761286665955094
+              ]
+            },
+            {
+              "label": "Conv2D",
+              "x": [
+                -3,
+                -2,
+                -1,
+                1,
+                2
+              ],
+              "y": [
+                0.0838666907084111,
+                0.18057927431167134,
+                0.3480191073876442,
+                0.33321091401104663,
+                0.18515166170075864
+              ],
+              "color": "#3d9367",
+              "marker": "o",
+              "yerr": [
+                0.008106512283928325,
+                0.018847209099695172,
+                0.01768042615852878,
+                0.01910312654907124,
+                0.032330674647845205
+              ]
+            },
+            {
+              "label": "Transformer",
+              "x": [
+                -3,
+                -2,
+                -1,
+                1,
+                2
+              ],
+              "y": [
+                0.10316045253799856,
+                0.17780061910534095,
+                0.33038517160412784,
+                0.3522298014912687,
+                0.1535288520067617
+              ],
+              "color": "#7562aa",
+              "marker": "o",
+              "yerr": [
+                0.008878828426220866,
+                0.010327689844094792,
+                0.010991270989941942,
+                0.01327359947130291,
+                0.010757560018632985
+              ]
+            }
+          ],
+          "legend_size": 22
+        }
+      ],
+      "footer": "Raw directed anchor-line estimates with conditional SEM; diagonal excluded. Individual pairs are noisier than central NN averages. The 5% summary target does not apply to this whole curve."
+    },
+    {
+      "kind": "table",
+      "title": "Configurations and budgets",
+      "fontsize": 27,
+      "columns": [
+        "Model and cylinder",
+        "Architecture settings",
+        "Update lineage"
+      ],
+      "rows": [
+        [
+          "FC, 4\u00d74",
+          "hidden_dim=64, hidden_layers=2",
+          "4300"
+        ],
+        [
+          "Jastrow, 4\u00d74",
+          "pair tables",
+          "2300; basic pairwise"
+        ],
+        [
+          "Conv2D, 4\u00d74",
+          "hidden_dim=32",
+          "1200"
+        ],
+        [
+          "RBM, 4\u00d74",
+          "n_hidden=128",
+          "5950"
+        ],
+        [
+          "Transformer, 4\u00d74",
+          "hidden_dim=64, feedforward_dim=128",
+          "2000"
+        ],
+        [
+          "FC, 6\u00d74",
+          "hidden_dim=128, hidden_layers=3",
+          "3500"
+        ],
+        [
+          "Conv2D, 6\u00d74",
+          "hidden_dim=32",
+          "1200"
+        ],
+        [
+          "Transformer, 6\u00d74",
+          "hidden_dim=64, feedforward_dim=128",
+          "4000"
+        ]
+      ],
+      "widths": [
+        0.3,
+        0.42,
+        0.28
+      ],
+      "footer": "Architecture-specific optimization budgets; this is an accuracy comparison, not an equal-compute ranking. Warm starts restore inference weights only; optimizers and walkers are fresh."
+    },
+    {
+      "kind": "text",
+      "title": "Takeaways and next steps",
+      "fontsize": 41,
+      "step": 0.14,
+      "lines": [
+        "Conv2D and Transformer meet summary targets on both cylinders.",
+        "FC passes on 4\u00d74; the wider 6\u00d74 fit has a 2.22% energy gap.",
+        "RBM128 has a 1.51% gap on 4\u00d74; 6\u00d74 remains untested.",
+        "Basic Jastrow stays a physical baseline without further adaptation.",
+        "The matched MinSR test has no resolved winner; the small test is one step."
+      ],
+      "footer": "Finite cylinders at U/t=16.74 are a building benchmark. No thermodynamic limit, critical exponents, larger-system fidelity or universal architecture ranking is inferred."
+    },
+    {
+      "kind": "equations",
+      "title": "Ridge SR: definitions",
+      "lines": [
+        "$\\Psi_\\theta(\\mathbf{n})=e^{f_\\theta(\\mathbf{n})}/\\sqrt{\\sum_{\\mathbf{n}\\in\\mathcal{H}_N}e^{2f_\\theta(\\mathbf{n})}},\\quad p_\\theta=|\\Psi_\\theta|^2$",
+        "$J_{mk}=\\partial_{\\theta_k}f_\\theta(\\mathbf{n}_m),\\quad J\\in\\mathbb{R}^{M\\times P},\\quad\\mathbf{n}_m\\sim p_\\theta$",
+        "$\\overline{J}_k=M^{-1}\\sum_m J_{mk},\\quad (J_c)_{mk}=J_{mk}-\\overline{J}_k$",
+        "$\\overline{E}=M^{-1}\\sum_m E_{{\\rm loc},m},\\quad(E_c)_m=E_{{\\rm loc},m}-\\overline{E}$",
+        "$A=J_c/\\sqrt{M},\\qquad e=E_c/\\sqrt{M}$"
+      ],
+      "footer": "M counts retained configurations, not independent samples. P counts trainable parameters. These formulas use the real, positive-amplitude ansatz and fixed-N sector.",
+      "fontsize": 39,
+      "step": 0.125,
+      "y": 0.79
+    },
+    {
+      "kind": "equations",
+      "title": "Imaginary time and the metric",
+      "lines": [
+        "$\\Delta\\log\\Psi(\\mathbf{n})\\simeq-\\eta\\,[E_{\\rm loc}(\\mathbf{n})-E]$",
+        "$d_{\\rm FS}^2\\simeq\\|A\\,\\Delta\\theta+\\eta e\\|^2$",
+        "$S=A^{\\mathsf{T}}A=J_c^{\\mathsf{T}}J_c/M,\\qquad f=A^{\\mathsf{T}}e=J_c^{\\mathsf{T}}E_c/M$",
+        "$\\nabla_\\theta E\\simeq2f,\\qquad ds^2=\\Delta\\theta^{\\mathsf{T}}S\\,\\Delta\\theta$",
+        "SR matches a linearized variational step to imaginary-time evolution."
+      ],
+      "footer": "First-order wavefunction and second-order distance expansion; Monte Carlo estimates replace expectations. S is the real quantum geometric metric, not the energy Hessian.",
+      "fontsize": 39,
+      "step": 0.125,
+      "y": 0.79
+    },
+    {
+      "kind": "equations",
+      "title": "Ridge SR as least squares",
+      "lines": [
+        "$\\mathcal{L}_\\tau(\\Delta\\theta)=\\|A\\Delta\\theta+\\eta e\\|^2+\\tau\\|\\Delta\\theta\\|^2,\\qquad\\tau>0$",
+        "$A^{\\mathsf{T}}(A\\Delta\\theta+\\eta e)+\\tau\\Delta\\theta=0$",
+        "$(S+\\tau I_P)\\Delta\\theta=-\\eta f$",
+        "$d=\\operatorname{solve}(S+\\tau I_P,f),\\qquad\\theta\\leftarrow\\theta-\\eta d$",
+        "The code assigns d as the gradient to native SGD."
+      ],
+      "footer": "The Euclidean parameter penalty stabilizes ill-conditioned directions and changes the step. No Adam is applied after SR; the learning-rate convention absorbs the energy-gradient factor of two.",
+      "fontsize": 38,
+      "step": 0.125,
+      "y": 0.79
+    },
+    {
+      "kind": "equations",
+      "title": "The exact sample-space solve",
+      "lines": [
+        "$T=AA^{\\mathsf{T}}\\in\\mathbb{R}^{M\\times M}$",
+        "$(A^{\\mathsf{T}}A+\\tau I_P)A^{\\mathsf{T}}=A^{\\mathsf{T}}(AA^{\\mathsf{T}}+\\tau I_M)$",
+        "$d=A^{\\mathsf{T}}\\operatorname{solve}(T+\\tau I_M,e)$",
+        "$d=J_c^{\\mathsf{T}}\\operatorname{solve}(J_cJ_c^{\\mathsf{T}}+M\\tau I_M,E_c)$",
+        "Same full batch and ridge; use the smaller dense system."
+      ],
+      "footer": "For positive tau, this is the same regularized direction in exact arithmetic. Centered sample rank is at most min(P,M\u22121). No additional sample, parameter or rank truncation is introduced.",
+      "fontsize": 38,
+      "step": 0.125,
+      "y": 0.79
+    },
+    {
+      "kind": "equations",
+      "title": "What ridge does to each mode",
+      "lines": [
+        "$T=U\\,\\operatorname{diag}(\\lambda_i)U^{\\mathsf{T}},\\qquad\\lambda_i\\geq0$",
+        "$d=A^{\\mathsf{T}}U\\,\\operatorname{diag}[(\\lambda_i+\\tau)^{-1}]\\,U^{\\mathsf{T}}e$",
+        "$A\\Delta\\theta=-\\eta U\\,\\operatorname{diag}[\\lambda_i/(\\lambda_i+\\tau)]\\,U^{\\mathsf{T}}e$",
+        "$\\lambda_i\\gg\\tau:\\ \\lambda_i/(\\lambda_i+\\tau)\\simeq1;\\quad\\lambda_i\\ll\\tau:\\ \\lambda_i/(\\lambda_i+\\tau)\\simeq\\lambda_i/\\tau$",
+        "Small-curvature directions are smoothly damped, not estimated reliably by assumption."
+      ],
+      "footer": "The ridge trades step fidelity for stability. A small sampled linearized step does not guarantee a small nonlinear wavefunction change or successful optimization.",
+      "fontsize": 36,
+      "step": 0.125,
+      "y": 0.79
+    },
+    {
+      "kind": "equations",
+      "title": "Relation to published MinSR",
+      "lines": [
+        "$d_{\\rm MinSR}=A^+e=A^{\\mathsf{T}}T^+e$",
+        "$c=r_{\\rm pinv}\\max_i|\\lambda_i|+a_{\\rm pinv}$",
+        "$g_{\\rm soft}(\\lambda)=\\{\\lambda[1+(c/|\\lambda|)^6]\\}^{-1}\\quad(\\lambda>0)$",
+        "$d_{\\rm soft}=A^{\\mathsf{T}}U\\,\\operatorname{diag}[g_{\\rm soft}(\\lambda_i)]\\,U^{\\mathsf{T}}e$",
+        "Our ridge uses 1/(\u03bb+\u03c4); the optional comparison uses the published soft filter."
+      ],
+      "footer": "Chen & Heyl, Nature Physics 20, 1476\u20131481 (2024), doi:10.1038/s41567-024-02566-1, Methods Eqs.20\u201323. Zero modes require explicit handling; actual SGD update is \u2212\u03b7d.",
+      "fontsize": 37,
+      "step": 0.125,
+      "y": 0.79
+    },
+    {
+      "kind": "table",
+      "title": "Cost, storage and precision",
+      "columns": [
+        "Dense formulation",
+        "Matrix to solve",
+        "Matrix algebra cost"
+      ],
+      "rows": [
+        [
+          "Parameter space",
+          "P \u00d7 P",
+          "O(MP\u00b2 + P\u00b3)"
+        ],
+        [
+          "Sample space",
+          "M \u00d7 M",
+          "O(PM\u00b2 + M\u00b3)"
+        ],
+        [
+          "Full Jacobian retained",
+          "M \u00d7 P",
+          "O(MP) storage"
+        ],
+        [
+          "Numerical precision",
+          "Gram + solve: float64",
+          "Model derivatives may originate in float32"
+        ]
+      ],
+      "widths": [
+        0.31,
+        0.29,
+        0.4
+      ],
+      "fontsize": 31,
+      "footer": "Costs exclude sampling and neural differentiation. Linear in P only at fixed M in the sample-space branch. Same-batch CPU audit: P=3681, M=256, primal/dual relative direction error 1.5\u00d710\u207b\u00b9\u00b9; not a long-run convergence proof."
+    },
+    {
+      "kind": "equations",
+      "title": "Comparison with the 1D routine",
+      "lines": [
+        "$\\text{1D:}\\quad(J^{\\mathsf{T}}J+\\lambda_{\\rm sum}I)d=J^{\\mathsf{T}}E_c$",
+        "$\\text{2D:}\\quad(J_c^{\\mathsf{T}}J_c/M+\\tau I)d=J_c^{\\mathsf{T}}E_c/M$",
+        "$J^{\\mathsf{T}}J=J_c^{\\mathsf{T}}J_c+M\\overline{J}^{\\mathsf{T}}\\overline{J}$",
+        "$\\tau=\\lambda_{\\rm sum}/M\\quad\\text{matches ridge units; centering still differs.}$",
+        "1D CPU code solves in float64; 2D solves on the training device in float64."
+      ],
+      "footer": "Changes to centering, ridge units and device are separate from Jacobian vectorization. The user accepted the 2D formulation. Gauge shifts can affect parameter differences without changing normalized-state tangents.",
+      "fontsize": 37,
+      "step": 0.125,
+      "y": 0.79
+    },
+    {
+      "kind": "equations",
+      "title": "Observable estimators in VMC",
+      "fontsize": 36,
+      "y": 0.79,
+      "step": 0.12,
+      "lines": [
+        "$\\rho_i\\simeq\\frac{1}{M}\\sum_m n_i^{(m)},\\quad D_i=\\langle n_i(n_i-1)\\rangle$",
+        "$\\operatorname{Var}(n_i)=D_i+\\rho_i-\\rho_i^2$",
+        "$R_{ij}(\\mathbf{n})=\\sqrt{n_i(n_j+1)}\\,e^{f_\\theta(\\mathbf{n}-\\mathbf{e}_i+\\mathbf{e}_j)-f_\\theta(\\mathbf{n})}$",
+        "$G_{ij}\\simeq M^{-1}\\sum_m R_{ij}(\\mathbf{n}^{(m)}),\\quad i\\ne j;\\qquad G_{ii}=\\rho_i$",
+        "R is zero unless n_i > 0 and n_j < Nmax (row-action estimator).",
+        "Average sites/bonds within each sample, then apply time-block statistics."
+      ],
+      "footer": "The real positive-amplitude ratio preserves total particle number. For bond coherence average R_ij and R_ji; retain raw directed estimates separately. D_i is a factorial moment, not itself the number variance."
+    },
+    {
+      "kind": "table",
+      "title": "Matched optimizer comparison",
+      "fontsize": 31,
+      "columns": [
+        "Setting",
+        "Ridge SR",
+        "MinSR soft filter"
+      ],
+      "rows": [
+        [
+          "Model and geometry",
+          "RBM64, 4\u00d74 cylinder",
+          "same"
+        ],
+        [
+          "Starting weights",
+          "same checkpoint",
+          "same checkpoint"
+        ],
+        [
+          "Updates / samples per update",
+          "300 / 2048",
+          "same"
+        ],
+        [
+          "Learning rate",
+          "0.001 \u2192 0.0005",
+          "same"
+        ],
+        [
+          "Regularization",
+          "\u03c4 = 5e-06",
+          "r = 1e-06, a = 0"
+        ],
+        [
+          "Observed shared-GPU time",
+          "150 s",
+          "168 s"
+        ]
+      ],
+      "widths": [
+        0.4,
+        0.3,
+        0.3
+      ],
+      "footer": "One optimizer seed; two evaluation seeds probe measurement variation, not independent training runs. Float64 Gram/solve/eigensolve; native SGD. Shared-GPU times are not isolated throughput benchmarks."
+    },
+    {
+      "kind": "table",
+      "title": "First comparison: no clear winner",
+      "fontsize": 32,
+      "columns": [
+        "Optimizer",
+        "Evaluation seed",
+        "Energy/site \u00b1 SEM",
+        "DMRG gap"
+      ],
+      "rows": [
+        [
+          "Ridge SR",
+          "321",
+          "-0.472540 \u00b1 0.001068",
+          "1.45%"
+        ],
+        [
+          "MinSR",
+          "321",
+          "-0.471843 \u00b1 0.001013",
+          "1.59%"
+        ],
+        [
+          "Ridge SR",
+          "654",
+          "-0.473390 \u00b1 0.001419",
+          "1.27%"
+        ],
+        [
+          "MinSR",
+          "654",
+          "-0.473443 \u00b1 0.001406",
+          "1.26%"
+        ]
+      ],
+      "widths": [
+        0.22,
+        0.22,
+        0.38,
+        0.18
+      ],
+      "footer": "Both arms miss the energy target; central density and both NN directions pass. Paired conditional differences are unresolved (1.30 / 0.15 SEM). This short, single-training-seed test establishes no general advantage."
+    }
+  ]
+}
