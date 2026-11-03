@@ -15,7 +15,7 @@ from torch import nn
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
-from models import ARCH_BUILDERS, build_model, save_model
+from models import GENERAL_ARCHITECTURES, build_model, save_model
 from exact_diagonalization import generate_basis
 from test_warm_vjp import independent_jacobian
 import train
@@ -27,7 +27,7 @@ class VmapJacobianTests(unittest.TestCase):
         torch.manual_seed(91)
         states=torch.tensor(generate_basis(6,2,2)[:17])
         energies=torch.linspace(-1.3,1.7,len(states),dtype=torch.float64).square()
-        for arch in ARCH_BUILDERS:
+        for arch in GENERAL_ARCHITECTURES:
             for px,py in ((False,True),(True,False)):
                 settings={} if arch=='JastrowNet' else {'n_hidden' if arch=='RBMNet' else 'hidden_dim':4}
                 model=build_model(arch,3,2,Nmax=2,pbc_x=px,pbc_y=py,**settings).double().eval()

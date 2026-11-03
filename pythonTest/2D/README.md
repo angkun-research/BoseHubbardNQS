@@ -17,6 +17,7 @@ been performed.**
 | [Cleanup record](docs/CLEANUP.md) | Removed disposable files, archived history and protected evidence |
 | [Storage and Git policy](docs/STORAGE.md) | Pushable source versus local-only checkpoints and benchmark data |
 | [Slide sources](slides/README.md) | Reproduce the accepted 55-page presentation |
+| [Square symmetry study](docs/SQUARE_SYMMETRY.md) | 3×3 ED symmetries, orbit reduction and group CNN |
 
 ## Physical and array conventions
 
@@ -58,8 +59,9 @@ Core: `lattice.py`, `exact_diagonalization.py`, `models.py`, `vmc.py`,
 `evaluate.py`; `dmrg_reference.jl` provides the optional ITensor reference.
 `tests/` checks correctness; `benchmarks/` contains reusable analysis and retained
 experiment scripts; `benchmarks/results/` and ignored `outputs/` preserve evidence.
-The six registered model families include the optional Conv2DTransformerNet;
-the default benchmark sweep remains the original five.
+The seven registered model families include the optional Conv2DTransformerNet
+and square-PBC-only GroupEquivariantConv2DNet. The default benchmark sweep
+remains the original five.
 
 Use the repository's existing Python environment from the repository root:
 

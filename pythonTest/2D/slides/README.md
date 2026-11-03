@@ -1,5 +1,55 @@
 # 2D benchmark slides
 
+## Square-symmetry teaching deck
+
+The new dedicated presentation is
+[`BoseNQS2D-symmetry-progress-2026-11-02.pdf`](../BoseNQS2D-symmetry-progress-2026-11-02.pdf).
+Its 58 pages follow four sections: theoretical operators, ED symmetry checks, explicit
+group-CNN construction, and Adam + log-MSE results. It includes title-only
+section dividers, site/filter diagrams, layer equations, training curves,
+orbit-amplitude checks, exact observables and a mathematical appendix. The
+accepted 55-page research presentation remains separate and unchanged.
+
+The teaching revision defines the irreps through explicit matrices for the
+generators R and M and translation phases, explains A1 projection weight, and
+adds CNN/lifting/group-convolution schematics with all channel and orientation
+indices defined. The main body has 46 pages, followed by 12 appendix pages;
+proofs, scope notes and finite-size caveats are in the appendix.
+[Page guide](symmetry-page-guide.json) lists the revised order;
+[comment-to-page mapping](symmetry-revision-map.json) records every requested
+change. Numerical evidence and model checkpoints are unchanged.
+
+Rebuild this reviewed snapshot without checkpoint files or a GPU:
+
+```bash
+MPLCONFIGDIR=/tmp/bhnqs-slide-mpl .venv/bin/python -B pythonTest/2D/slides/build_symmetry_slides.py
+```
+
+`symmetry-evidence.json` freezes compact reviewed metrics, the 338 orbit
+predictions, training snapshots and archival input hashes. `symmetry-deck.json`
+is the canonical, directly editable slide source. Its evidence hash must match
+the frozen numerical snapshot before rendering. The renderer writes a PDF hash and hashes of
+all current presentation/code inputs in the adjacent provenance JSON. Archival
+trainer/checkpoint hashes bind the evidence to the independently reviewed run.
+The progress label describes a finite proof-of-principle study, with residual
+errors and no universal expressiveness or larger-system VMC claim.
+
+To recollect evidence after an independently reviewed new run, use
+`collect_symmetry_evidence.py --trainer <retained-trainer.json> --review
+<independent-review.json>`. It requires `approved=true` and matching
+`trainer_report_sha256` and `checkpoint_sha256`. Recollection needs the local
+archival reports; rendering the frozen snapshot does not. A new evidence snapshot
+requires updating and reviewing the deck's numerical content and evidence hash;
+the renderer never silently replaces results. `symmetry_diagrams.py` contains
+only the custom diagrams, with no superseded slide text or replacement rules.
+The reusable numerical
+runners are `benchmarks/check_square_symmetry.py`,
+`benchmarks/check_square_symmetry_independent.py` and
+`benchmarks/train_square_group.py` (the latter creates fresh outputs and refuses
+to overwrite retained checkpoints). No training occurs during slide rendering.
+
+## Accepted research deck
+
 The current research story is ED correctness, supervised representation,
 small-system stochastic VMC and raw neighboring-sector amplitudes. Main-body
 data are fully periodic in BOTH directions; cylinders are supporting context. The
@@ -128,7 +178,7 @@ normalization/mean-weight details35–36; ridge mathematics37–44; MinSR45;
 Transformer46; cylinder tables47–48; both-seed VMC observables49; hybrid50–55.
 `presentation_flow.py` performs this presentation-only rearrangement after the
 audited evidence is assembled. `page-guide.json` records the current order;
-`progress-quality-check.json` records hashes and layout checks. Prior49-page
+`progress-quality-check.json` records hashes and layout checks. Prior58-page
 PDF and source snapshots remain archived under their PDF hash.
 
 Slide24 compares raw global probabilities (log scale, training-sector markers)

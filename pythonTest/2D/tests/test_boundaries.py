@@ -19,7 +19,7 @@ sys.path.insert(0, str(ROOT))
 
 from lattice import bonds_2d, resolve_boundaries
 from exact_diagonalization import build_bose_hubbard_hamiltonian, exact_ground_state
-from models import ARCH_BUILDERS, Conv2DNet, FCNet, JastrowNet, build_model, load_model, save_model, spatial_symmetries
+from models import GENERAL_ARCHITECTURES, Conv2DNet, FCNet, JastrowNet, build_model, load_model, save_model, spatial_symmetries
 from vmc import local_energy, sample
 import train
 import train_ed
@@ -156,7 +156,7 @@ class BoundaryTests(unittest.TestCase):
                 self.assertIsNone(metadata["pbc"])
                 self.assertEqual((metadata["pbc_x"], metadata["pbc_y"]), (False, True))
                 torch.testing.assert_close(model(x), restored(x), atol=0, rtol=0)
-            for arch in ARCH_BUILDERS:
+            for arch in GENERAL_ARCHITECTURES:
                 settings = {} if arch == "JastrowNet" else {"n_hidden" if arch == "RBMNet" else "hidden_dim": 4}
                 for px, py in ((False, True), (True, False)):
                     model = build_model(arch, 3, 2, 1, False, pbc_x=px, pbc_y=py, **settings).double()
@@ -173,7 +173,7 @@ class BoundaryTests(unittest.TestCase):
         x = features([[0, 1, 0, 1, 0, 0]])
         with tempfile.TemporaryDirectory(dir=ROOT, prefix="test-v1-") as directory:
             path = Path(directory) / "legacy.pt"
-            for arch in ARCH_BUILDERS:
+            for arch in GENERAL_ARCHITECTURES:
                 for periodic in (False, True):
                     settings = {} if arch == "JastrowNet" else {"n_hidden" if arch == "RBMNet" else "hidden_dim": 4}
                     model = build_model(arch, 3, 2, 1, periodic, **settings).double().eval()

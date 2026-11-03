@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 import train
 import vmc
-from models import ARCH_BUILDERS, build_model, load_model
+from models import GENERAL_ARCHITECTURES, build_model, load_model
 
 
 def svd_reference(J, E, r=1e-12, a=0.0):
@@ -73,7 +73,7 @@ class MinSRTests(unittest.TestCase):
         torch.testing.assert_close(w, torch.tensor([0., 2., .5], dtype=torch.float64))
 
     def test_all_five_SGD_steps_and_unused_parameters(self):
-        for arch in ARCH_BUILDERS:
+        for arch in GENERAL_ARCHITECTURES:
             torch.manual_seed(19)
             settings = {} if arch == 'JastrowNet' else {'n_hidden' if arch == 'RBMNet' else 'hidden_dim': 4}
             model = build_model(arch, 3, 2, Nmax=2, pbc_x=False, pbc_y=True, **settings).double()

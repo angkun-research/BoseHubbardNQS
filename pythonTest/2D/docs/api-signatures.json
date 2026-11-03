@@ -37,79 +37,132 @@
       ]
     },
     "models.py": {
-      "sha256": "b1132c23f8999f1aae789f3248b617f8e8dffa48d1828e2036292355fb0a9daf",
+      "sha256": "a6d214091e64b25cadfff54823a27b7dc6c5c18482f58996f75a5d943f5a0bab",
       "public_definitions": [
         {
           "kind": "class",
           "signature": "FCNet(self, Lx, Ly=None, Nmax=4, pbc=True, hidden_dim=64, *, hidden_layers=2, depth=None, pbc_x=None, pbc_y=None)",
-          "line": 50,
+          "line": 54,
           "docstring": "Tanh MLP with positive hidden_layers (default two); depth is an alias.\n\nDefault depth preserves the legacy net.0/net.2/net.4 state_dict keys.\ndepth overrides the default hidden_layers=2; conflicting nondefault values\nare rejected. Only FCNet changes capacity through this setting."
         },
         {
           "kind": "class",
           "signature": "JastrowNet(self, Lx, Ly=None, Nmax=4, pbc=True, *, pbc_x=None, pbc_y=None, pair_sharing='displacement')",
-          "line": 79,
+          "line": 83,
           "docstring": "Onsite table plus all unordered pairs, shared by absolute (dx, dy).\n\nPeriodic distances use the minimum along each axis; open distances do not wrap.\nDefault displacement tables are averaged with their transpose. Optional\nreflection_orbit is restricted to open-x/periodic-y cylinders: onsite tables\nuse x-reflection orbits, pairs use reflected unordered x pairs and minimal\nperiodic |dy|. Reflected canonicalization swaps occupation roles. Only same-x\nor self-reflection pair classes are transpose-symmetric; edge/bulk tables\nretain ordered occupation roles. Pair buffers avoid Python forward loops;\ngather storage scales as batch * number_of_site_pairs."
         },
         {
           "kind": "function",
           "signature": "lift_jastrow_reflection_orbit(model)",
-          "line": 160,
+          "line": 164,
           "docstring": "Lift displacement cylinder weights exactly; no optimizer or jitter.\n\nOld symmetric pair tables are copied by (dx, minimal periodic |dy|).\nNon-self-reflection orbits subsequently allow ordered occupation tables."
         },
         {
           "kind": "class",
           "signature": "Conv2DNet(self, Lx, Ly=None, Nmax=4, pbc=True, hidden_dim=64, *, pbc_x=None, pbc_y=None)",
-          "line": 179,
+          "line": 183,
           "docstring": "One 3x3 convolution and a dense head; no translation invariance.\n\nEach axis is padded separately, circular when periodic and zero otherwise,\nincluding length-one axes. Zero feature padding is not an occupation-zero\none-hot outside site. Legacy convolution/head state_dict keys are unchanged."
         },
         {
           "kind": "class",
           "signature": "RBMNet(self, Lx, Ly=None, Nmax=4, pbc=True, n_hidden=64, *, pbc_x=None, pbc_y=None)",
-          "line": 203,
+          "line": 207,
           "docstring": "Binary-hidden RBM expression interpreted directly as log amplitude."
         },
         {
           "kind": "class",
           "signature": "TransformerNet(self, Lx, Ly=None, Nmax=4, pbc=True, hidden_dim=32, feedforward_dim=None, *, pbc_x=None, pbc_y=None)",
-          "line": 219,
+          "line": 223,
           "docstring": "One non-autoregressive, one-head attention block; learned x/y positions."
         },
         {
           "kind": "class",
           "signature": "Conv2DTransformerNet(self, Lx, Ly=None, Nmax=4, pbc=True, hidden_dim=32, *, pbc_x=None, pbc_y=None)",
-          "line": 244,
+          "line": 248,
           "docstring": "2D generalization of the 1D ConvTransformer, for optional backup studies.\n\nA boundary-aware 3x3 convolution and SiLU produce physical-order tokens\ni=y*Lx+x. One four-head encoder uses FF width 2h and ReLU, followed by\nthe original flattened dense/SiLU/scalar head. There are no positional\nembeddings or mean pooling. The flattened head imposes no translation\ninvariance. Unlike the 1D module's framework-default dropout=0.1, dropout\nis fixed to zero for deterministic VMC forwards in train and eval mode."
+        },
+        {
+          "kind": "class",
+          "signature": "GroupEquivariantConv2DNet(self, Lx, Ly=None, Nmax=4, pbc=True, hidden_dim=16, *, pbc_x=None, pbc_y=None)",
+          "line": 284,
+          "docstring": "Square-PBC D4 regular-representation CNN with invariant scalar readout.\n\nFeatures have shape(batch,8,hidden_dim,L,L), h=R**r S**m, index r+4*m.\nCross-correlation uses K(h^-1 delta) for lifting and\nW(h^-1 delta,h^-1 a) for group convolution, including all8 input a.\nShared orientation biases and pointwise SiLU preserve equivariance.\nMean over space/orientation followed by Linear(hidden_dim,1) is invariant.\nNo particle-number mask or extra position encoding is introduced."
         },
         {
           "kind": "function",
           "signature": "build_model(arch, Lx, Ly=None, Nmax=4, pbc=True, *, pbc_x=None, pbc_y=None, **settings)",
-          "line": 284,
+          "line": 346,
           "docstring": null
         },
         {
           "kind": "function",
           "signature": "parameter_count(model)",
-          "line": 290,
+          "line": 352,
           "docstring": "Raw trainable parameter count, including Jastrow redundancies."
         },
         {
           "kind": "function",
           "signature": "spatial_symmetries(model)",
-          "line": 295,
+          "line": 357,
           "docstring": "Guaranteed symmetries; additional accidental ones depend on parameters."
         },
         {
           "kind": "function",
           "signature": "save_model(path, model, Ntot=None, t=1.0, U=16.74, mu=0.0)",
-          "line": 304,
+          "line": 368,
           "docstring": "Save an inference checkpoint under 2D/ (relative paths start there).\n\nStores no optimizer, random-generator, or walker state; not an exact training\nresume checkpoint. Path resolution rejects symlink escapes before writing."
         },
         {
           "kind": "function",
           "signature": "load_model(path, device='cpu')",
-          "line": 343,
+          "line": 407,
           "docstring": "Return (eval-mode model, metadata), preserving saved floating dtype."
+        }
+      ]
+    },
+    "square_group.py": {
+      "sha256": "b49524f4b2ab1e76869904fafe7ee26114d3a6a4e0df4237eb73cb4e51ea0c22",
+      "public_definitions": [
+        {
+          "kind": "function",
+          "signature": "d4_product(left, right)",
+          "line": 15,
+          "docstring": "Index of left*right (right acts first)."
+        },
+        {
+          "kind": "function",
+          "signature": "d4_inverse(element)",
+          "line": 22,
+          "docstring": null
+        },
+        {
+          "kind": "function",
+          "signature": "d4_coordinate(element, x, y)",
+          "line": 26,
+          "docstring": "Apply R**r S**m to integer coordinates about the origin."
+        },
+        {
+          "kind": "function",
+          "signature": "kernel_pullbacks()",
+          "line": 35,
+          "docstring": "Long tensor [h,delta_index] locating h^-1*delta in a3x3 stencil."
+        },
+        {
+          "kind": "function",
+          "signature": "site_pullback(L, element, tx=0, ty=0, device='cpu')",
+          "line": 48,
+          "docstring": "Return p with transformed[...,r]=original[...,p[r]], i=y*L+x."
+        },
+        {
+          "kind": "function",
+          "signature": "space_group_pullbacks(L)",
+          "line": 62,
+          "docstring": "All8*L\u00b2 pullbacks, ordered (D4element,ty,tx); rows need not be faithful."
+        },
+        {
+          "kind": "function",
+          "signature": "transform_features(features, element, tx=0, ty=0)",
+          "line": 69,
+          "docstring": "Pull back (batch,orientation,channel,y,x) regular features."
         }
       ]
     },
@@ -267,48 +320,48 @@
       ]
     },
     "train_ed.py": {
-      "sha256": "222811685f17a74763efbfe4a1545b7e851ef6830fe31ff38c1a41858415eec4",
+      "sha256": "e85c464b27fa5f93a8a388f785d598476dec110c7789e21a907bed82f8ecd3f8",
       "public_definitions": [
         {
           "kind": "function",
           "signature": "normalized_log_mse(pred_log, target_log)",
-          "line": 47,
+          "line": 48,
           "docstring": "Uniform MSE in normalized log amplitudes over the supplied full sector."
         },
         {
           "kind": "function",
           "signature": "normalized_infidelity(pred_log, raw_ed_state)",
-          "line": 58,
+          "line": 59,
           "docstring": "Infidelity to the raw ED vector; no target flooring or minibatch norms."
         },
         {
           "kind": "function",
           "signature": "make_ed_dataset(Lx, Ly=None, Ntot=None, Nmax=4, t=1.0, U=16.74, mu=0.0, pbc=True, eps=1e-12, dtype=torch.float64, max_dimension=DEFAULT_MAX_DIMENSION, max_sparse_bytes=DEFAULT_MAX_SPARSE_BYTES, *, pbc_x=None, pbc_y=None)",
-          "line": 80,
+          "line": 81,
           "docstring": "Return one-hot x, target_log, raw_ed_state, sparse H, basis and metadata.\n\nThe return value is a dictionary. Flooring affects only target_log. Reject\nexact zeros or mixed signs rather than hiding them behind abs/clamp. A\nglobally negative ED vector is an equivalent physical global phase."
         },
         {
           "kind": "function",
           "signature": "compare_predictions(model, dataset, loss='log_mse')",
-          "line": 148,
+          "line": 149,
           "docstring": "Report both objectives, labeled gradients and physical raw-ED metrics.\n\nLegacy gradient_norm remains the log-MSE gradient norm for either objective.\nWorking larger-reference assessment applies to n_sites>=9. This threshold\nis a reporting convention, not a physics criterion."
         },
         {
           "kind": "function",
           "signature": "train_model_on_ed(model, dataset, lr=0.001, epochs=2000, device='cpu', eval_every=100, loss='log_mse')",
-          "line": 194,
+          "line": 195,
           "docstring": "Return (final model, JSON-ready report, best-by-loss CPU state_dict).\n\nAdam only, full batch. Select the lowest loss among initialization and every\npost-update state, not only reporting epochs. Fixed epoch budget; no early\nstopping, including when the physical fit gate passes or loss plateaus."
         },
         {
           "kind": "function",
           "signature": "parse_args(argv=None)",
-          "line": 276,
+          "line": 277,
           "docstring": null
         },
         {
           "kind": "function",
           "signature": "main(argv=None)",
-          "line": 332,
+          "line": 335,
           "docstring": null
         }
       ]

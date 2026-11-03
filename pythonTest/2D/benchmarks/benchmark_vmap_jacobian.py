@@ -26,7 +26,7 @@ from torch.nn import functional as F
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from models import ARCH_BUILDERS, build_model, parameter_count
+from models import GENERAL_ARCHITECTURES, build_model, parameter_count
 from vmc import DEFAULT_MAX_SR_BYTES, _states, _log_amplitudes, check_sr_budget, compute_log_psi_jacobian, generate_initial_states
 from benchmark_accelerator_sr import gpu_snapshot, external_processes, synchronize, differences
 
@@ -75,7 +75,7 @@ def vmap_jacobian(model, states, chunk=16, max_bytes=DEFAULT_MAX_SR_BYTES):
 
 
 def small_checks(device, report, persist):
-    for arch in ARCH_BUILDERS:
+    for arch in GENERAL_ARCHITECTURES:
         for axes in ((False,True),(True,False)):
             torch.manual_seed(17)
             settings={} if arch=='JastrowNet' else {'n_hidden' if arch=='RBMNet' else 'hidden_dim':4}

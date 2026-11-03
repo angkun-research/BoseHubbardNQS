@@ -1,0 +1,32 @@
+{
+  "status": "APPROVED_FINAL_FROZEN_PRE_PUSH_CLEANUP",
+  "approved": true,
+  "pdf": "BoseNQS2D-symmetry-progress-2026-11-02.pdf",
+  "pdf_sha256": "0b1846d5efc0438cc0b9045b885d1addb62e896d72ff243a0c9f925d1100aa3e",
+  "pages": 58,
+  "main_pages": 46,
+  "appendix_pages": 12,
+  "page_points": [
+    1920,
+    1080
+  ],
+  "out_of_page_words": [],
+  "independent_revision_review_sha256": "536b6f61596a0d9be900b43287848f399ac87cb280e5bf07fe01fefdcd1fb900",
+  "all_current_PDF_source_hashes_match": true,
+  "numerical_evidence_unchanged_sha256": "4ddcc6f1e4f363689ab9e5389f64309c1e75ad3c20a2eebd9e8a42ba80b76b28",
+  "previous_49_page_snapshot_sha256": "9b6e31a3d9b9e008a6e0387988380f5d6ecc94f516f10abb63763f50313d7b1f",
+  "scope": "Pre-push cleanup: direct canonical-deck renderer, obsolete replacement code/timing smoke retired,17previews removed. All58pageimages/text preserved; core/evidence/1D/Julia unchanged; fresh132CPUtests and source-onlyrender pass. No commit/push.",
+  "cleanup_review_sha256": "818d700e004e60ac16450cb900d2d59c91310238d6f6cc031f77741c4298eb5b",
+  "previous_content_approved_pdf_sha256": "a56deb2b928912e2eba0650d313804bc11cdcf72b6617ae31d772bbcd77d69a7",
+  "cleanup_render_equivalence": {
+    "all_page_images_identical_at_800px": true,
+    "extracted_text_identical": true,
+    "all_text_within_page": true,
+    "changed_evidence_rejected": true
+  },
+  "CPU_tests": {
+    "local": 132,
+    "source_only": 132,
+    "source_only_expected_archival_skips": 3
+  }
+}

@@ -45,7 +45,7 @@ Invalid integers, dimensions and boundary flags raise `ValueError`.
 
 ### Models and checkpoints — `models.py`
 
-All six constructors return `torch.nn.Module` instances with geometry,
+All seven constructors return `torch.nn.Module` instances with geometry,
 `architecture_settings`, `channels`, `Nmax`, and `n_sites` attributes. Factory
 `build_model` returns a model; call `.to(device=...,dtype=...).eval()` explicitly.
 The factory does not normalize amplitudes or enforce total N.
@@ -58,6 +58,7 @@ The factory does not normalize amplitudes or enforce total N.
 | RBMNet | `n_hidden=64`; softplus binary-hidden expression used as log amplitude |
 | TransformerNet | Width32; one head, learned x/y positions, mean pool; deterministic zero dropout |
 | Conv2DTransformerNet | Width32 divisible by4; conv/SiLU → one four-head block (FF=2h) → flattened dense/SiLU head; no positional embeddings, zero dropout |
+| GroupEquivariantConv2DNet | Width16; square fully periodic geometry only; D4 lifting/SiLU → true D4 group convolution/SiLU → mean over sites and orientations → linear scalar head |
 
 Recent width32 benchmarks do not change constructor defaults. `parameter_count`
 returns an integer including trainable Jastrow redundancies. `spatial_symmetries`
@@ -69,8 +70,25 @@ with validated Hamiltonian/bond/output conventions and format1/2 compatibility.
 It reads relative2D paths or absolute paths, preserves dtype, and loads weights
 strictly. Invalid architecture, settings, metadata, shape or convention fails
 rather than inferring a different lattice/model. File/PyTorch errors propagate.
-`BASELINE_ARCHITECTURES` keeps the original five default sweep; `ARCH_BUILDERS`
-also registers the hybrid.
+`BASELINE_ARCHITECTURES` keeps the original five default sweep;
+`GENERAL_ARCHITECTURES` adds the hybrid for geometry-generic checks.
+`ARCH_BUILDERS` also registers the square-only group CNN. The group CNN has
+exact translation/rotation/reflection invariance for any weights; it does not
+number-project its raw log amplitude. `lift_features(x)` and
+`forward_features(x)` return `(batch,8,hidden_dim,L,L)` regular-representation
+fields; `group_features(features)` accepts the same shape and mixes all eight
+relative orientations. These expose the layers for independent verification,
+while `forward(x)` retains the standard `(batch,)` output contract.
+
+### Square group — `square_group.py`
+
+The group CNN uses eight point-group indices `r+4*m`, representing `R**r M**m`
+with `R(x,y)=(-y,x)` and `M(x,y)=(x,-y)`. Composition applies the right operand
+first. Coordinates on the lattice wrap modulo L; kernel offsets are centered
+integer coordinates. `site_pullback` returns indices for transforming an input,
+not the old-site-to-new-site permutation. `transform_features` additionally
+pulls back the orientation index. See [SQUARE_SYMMETRY.md](SQUARE_SYMMETRY.md)
+and the dedicated teaching slides for the layer equations and symmetry checks.
 
 ### Canonical ED — `exact_diagonalization.py`
 
@@ -384,6 +402,14 @@ invariance. Unlike the 1D module's framework-default dropout=0.1, dropout
 is fixed to zero for deterministic VMC forwards in train and eval mode.
 
 ```python
+GroupEquivariantConv2DNet(Lx, Ly=None, Nmax=4, pbc=True, hidden_dim=16, *, pbc_x=None, pbc_y=None)
+```
+
+Square-PBC D4 regular-representation CNN with invariant scalar readout.
+Only square fully periodic geometries are accepted. Feature methods are
+documented above; no particle-number mask is applied by the model.
+
+```python
 build_model(arch, Lx, Ly=None, Nmax=4, pbc=True, *, pbc_x=None, pbc_y=None, **settings)
 ```
 
@@ -413,6 +439,29 @@ load_model(path, device='cpu')
 ```
 
 Return (eval-mode model, metadata), preserving saved floating dtype.
+
+### square_group.py
+
+```python
+d4_product(left, right)
+d4_inverse(element)
+d4_coordinate(element, x, y)
+kernel_pullbacks()
+site_pullback(L, element, tx=0, ty=0, device="cpu")
+space_group_pullbacks(L)
+transform_features(features, element, tx=0, ty=0)
+```
+
+`d4_product` and `d4_inverse` return integer group indices, while
+`d4_coordinate` returns an integer coordinate pair. Group-index inputs to these
+three low-level algebra helpers are assumed to be in `0..7`.
+`kernel_pullbacks` returns a CPU long tensor `(8,9)` containing centered-stencil
+pullback indices. `site_pullback` validates L and the group index and returns
+an `(L*L,)` long tensor on the requested device. `space_group_pullbacks` stacks
+all `8*L*L` such rows in `(orientation,ty,tx)` order; the action need not be
+faithful for very small L. `transform_features` maps a square
+`(batch,8,channels,L,L)` tensor to a tensor of the same shape and device, with
+site and orientation indices both pulled back. It preserves autograd.
 
 ### exact_diagonalization.py
 

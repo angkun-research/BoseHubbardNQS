@@ -1,0 +1,147 @@
+{
+  "status": "IMPLEMENTED_AND_INDEPENDENTLY_APPROVED",
+  "pdf": "BoseNQS2D-symmetry-progress-2026-11-02.pdf",
+  "pdf_sha256": "0b1846d5efc0438cc0b9045b885d1addb62e896d72ff243a0c9f925d1100aa3e",
+  "pages": 58,
+  "requests": {
+    "1_title": [
+      {
+        "page": 1,
+        "title": "Group convolutional networks\nfor neural quantum states"
+      }
+    ],
+    "2_irreps_ground_state": [
+      {
+        "page": 11,
+        "title": "Representations: symmetry as matrices"
+      },
+      {
+        "page": 12,
+        "title": "Example: rotations and mirrors"
+      },
+      {
+        "page": 13,
+        "title": "Translations and zero momentum"
+      },
+      {
+        "page": 14,
+        "title": "Define A1, A2, B1, B2 and E"
+      },
+      {
+        "page": 15,
+        "title": "What A1 means for our ground state"
+      }
+    ],
+    "3_projection": [
+      {
+        "page": 18,
+        "title": "What is the A1 projection weight?"
+      },
+      {
+        "page": 19,
+        "title": "ED symmetry checks"
+      }
+    ],
+    "4_CNN_notation": [
+      {
+        "page": 26,
+        "title": "Ordinary CNN: define every index"
+      },
+      {
+        "page": 27,
+        "title": "From occupations to feature maps"
+      }
+    ],
+    "5_equivariance": [
+      {
+        "page": 28,
+        "title": "Features move; amplitudes agree"
+      }
+    ],
+    "6_lifting_and_group_conv": [
+      {
+        "page": 30,
+        "title": "Add an orientation index"
+      },
+      {
+        "page": 31,
+        "title": "Lift: one filter, eight orientations"
+      },
+      {
+        "page": 32,
+        "title": "Lifting creates eight response maps"
+      },
+      {
+        "page": 33,
+        "title": "Rotations move maps and labels"
+      },
+      {
+        "page": 34,
+        "title": "Group convolution: mix orientations"
+      },
+      {
+        "page": 35,
+        "title": "How orientation maps interact"
+      }
+    ],
+    "7_full_network": [
+      {
+        "page": 36,
+        "title": "The complete group CNN"
+      }
+    ],
+    "8_pooling_and_scope": [
+      {
+        "page": 36,
+        "title": "The complete group CNN"
+      },
+      {
+        "page": 49,
+        "title": "Pooling: the invariance proof"
+      },
+      {
+        "page": 50,
+        "title": "Scope of the ansatz"
+      }
+    ],
+    "9_merged_loss": [
+      {
+        "page": 38,
+        "title": "Adam + log-MSE in the fixed sector"
+      }
+    ],
+    "10_merged_conclusion": [
+      {
+        "page": 46,
+        "title": "Conclusion: build symmetry into NQS"
+      }
+    ],
+    "11_appendix": [
+      {
+        "page": 48,
+        "title": "Why the finite ground state is symmetric"
+      },
+      {
+        "page": 49,
+        "title": "Pooling: the invariance proof"
+      },
+      {
+        "page": 50,
+        "title": "Scope of the ansatz"
+      },
+      {
+        "page": 51,
+        "title": "Orbit reduction: implementation checks"
+      },
+      {
+        "page": 52,
+        "title": "Finite-size and critical-point notes"
+      }
+    ]
+  },
+  "out_of_page_words": [],
+  "numerical_evidence_sha256": "4ddcc6f1e4f363689ab9e5389f64309c1e75ad3c20a2eebd9e8a42ba80b76b28",
+  "scope": "Presentation only; no model, training, ED or VMC change.",
+  "independent_revision_review_sha256": "536b6f61596a0d9be900b43287848f399ac87cb280e5bf07fe01fefdcd1fb900",
+  "cleanup_review_sha256": "818d700e004e60ac16450cb900d2d59c91310238d6f6cc031f77741c4298eb5b"
+}

@@ -4,24 +4,28 @@ Inputs are (batch, Lx*Ly, Nmax+1); outputs are (batch,). Forward passes are
 deterministic in both train and eval mode. No model enforces particle number;
 sector restriction belongs to sampling or normalization, not the ansatz.
 
-Only JastrowNet enforces spatial symmetries: translations along each periodic
+JastrowNet enforces translations along each periodic
 axis, and x/y reflections for any boundary choice. Sharing keeps axes distinct,
 even on square grids. The default displacement mode uses symmetric occupation
 tables; cylinder reflection orbits retain ordered edge/bulk occupations. Sharing
 reduces capacity relative to independent site-pair
 tables and excludes higher-body terms in log amplitude. FCNet, RBMNet, the
 flattened Conv2DNet head, and position-aware TransformerNet impose no spatial
-invariance. Checkpoint format version 2 records explicit axis boundaries;
+invariance. GroupEquivariantConv2DNet enforces the square-torus translations,
+rotations and reflections using regular-representation features and pooling.
+Checkpoint format version 2 records explicit axis boundaries;
 architecture_settings records every configurable architecture parameter.
 """
 
 from pathlib import Path
+import math
 
 import torch
 from torch import nn
 from torch.nn import functional as F
 
 from lattice import _integer, lattice_shape, resolve_boundaries
+from square_group import D4_ELEMENTS, d4_inverse, d4_product, kernel_pullbacks
 from exact_diagonalization import _physical_scalar
 
 
@@ -277,8 +281,66 @@ class Conv2DTransformerNet(nn.Module):
         return self.fc(self.transformer(tokens)).squeeze(-1)
 
 
+class GroupEquivariantConv2DNet(nn.Module):
+    """Square-PBC D4 regular-representation CNN with invariant scalar readout.
+
+    Features have shape(batch,8,hidden_dim,L,L), h=R**r S**m, index r+4*m.
+    Cross-correlation uses K(h^-1 delta) for lifting and
+    W(h^-1 delta,h^-1 a) for group convolution, including all8 input a.
+    Shared orientation biases and pointwise SiLU preserve equivariance.
+    Mean over space/orientation followed by Linear(hidden_dim,1) is invariant.
+    No particle-number mask or extra position encoding is introduced.
+    """
+    def __init__(self, Lx, Ly=None, Nmax=4, pbc=True, hidden_dim=16, *, pbc_x=None, pbc_y=None):
+        super().__init__()
+        hidden_dim = _integer(hidden_dim, "hidden_dim", 1)
+        _setup(self, Lx, Ly, Nmax, pbc, {"hidden_dim": hidden_dim}, pbc_x, pbc_y)
+        if self.Lx != self.Ly or not self.pbc_x or not self.pbc_y:
+            raise ValueError("GroupEquivariantConv2DNet requires a square periodic in both axes")
+        self.register_buffer("kernel_pullback", kernel_pullbacks())
+        self.register_buffer("relative_group", torch.tensor([
+            [d4_product(d4_inverse(h), a) for a in D4_ELEMENTS] for h in D4_ELEMENTS], dtype=torch.long))
+        self.lift_weight = nn.Parameter(torch.empty(hidden_dim, self.channels, 3, 3))
+        self.lift_bias = nn.Parameter(torch.empty(hidden_dim))
+        self.group_weight = nn.Parameter(torch.empty(hidden_dim, hidden_dim, 8, 3, 3))
+        self.group_bias = nn.Parameter(torch.empty(hidden_dim))
+        nn.init.kaiming_uniform_(self.lift_weight, a=math.sqrt(5))
+        nn.init.kaiming_uniform_(self.group_weight, a=math.sqrt(5))
+        nn.init.uniform_(self.lift_bias, -1 / math.sqrt(9 * self.channels), 1 / math.sqrt(9 * self.channels))
+        nn.init.uniform_(self.group_bias, -1 / math.sqrt(72 * hidden_dim), 1 / math.sqrt(72 * hidden_dim))
+        self.head = nn.Linear(hidden_dim, 1)
+
+    def lift_features(self, x):
+        """One-hot(batch,sites,channels) -> SiLU lift(batch,8,h,L,L)."""
+        x = _input(self, x).transpose(1, 2).reshape(-1, self.channels, self.Ly, self.Lx)
+        h = self.lift_weight.shape[0]
+        weights = self.lift_weight.flatten(-2)[..., self.kernel_pullback]
+        weights = weights.permute(2, 0, 1, 3).reshape(8 * h, self.channels, 3, 3)
+        lifted = F.conv2d(F.pad(x, (1, 1, 1, 1), mode="circular"), weights, self.lift_bias.repeat(8))
+        return F.silu(lifted).reshape(-1, 8, h, self.Ly, self.Lx)
+
+    def group_features(self, features):
+        """A true D4 group convolution+SiLU, mixing all relative orientations."""
+        h = self.group_weight.shape[0]
+        if features.ndim != 5 or tuple(features.shape[1:]) != (8, h, self.Ly, self.Lx):
+            raise ValueError("features must have shape(batch,8,hidden_dim,L,L)")
+        weights = self.group_weight.flatten(-2)[:, :, self.relative_group]
+        indices = self.kernel_pullback[None, None, :, None, :].expand(h, h, 8, 8, 9)
+        weights = weights.gather(-1, indices).permute(2, 0, 3, 1, 4).reshape(8 * h, 8 * h, 3, 3)
+        result = F.conv2d(F.pad(features.flatten(1, 2), (1, 1, 1, 1), mode="circular"),
+                          weights, self.group_bias.repeat(8))
+        return F.silu(result).reshape(-1, 8, h, self.Ly, self.Lx)
+
+    def forward_features(self, x):
+        return self.group_features(self.lift_features(x))
+
+    def forward(self, x):
+        return self.head(self.forward_features(x).mean(dim=(1, 3, 4))).squeeze(-1)
+
+
 BASELINE_ARCHITECTURES = ("FCNet", "JastrowNet", "Conv2DNet", "RBMNet", "TransformerNet")
-ARCH_BUILDERS = {model.__name__: model for model in (FCNet, JastrowNet, Conv2DNet, RBMNet, TransformerNet, Conv2DTransformerNet)}
+GENERAL_ARCHITECTURES = (*BASELINE_ARCHITECTURES, "Conv2DTransformerNet")
+ARCH_BUILDERS = {model.__name__: model for model in (FCNet, JastrowNet, Conv2DNet, RBMNet, TransformerNet, Conv2DTransformerNet, GroupEquivariantConv2DNet)}
 
 
 def build_model(arch, Lx, Ly=None, Nmax=4, pbc=True, *, pbc_x=None, pbc_y=None, **settings):
@@ -294,6 +356,8 @@ def parameter_count(model):
 
 def spatial_symmetries(model):
     """Guaranteed symmetries; additional accidental ones depend on parameters."""
+    if isinstance(model, GroupEquivariantConv2DNet):
+        return ["x_periodic_translations", "y_periodic_translations", "D4_rotations_reflections"]
     if isinstance(model, JastrowNet):
         return (["x_reflection", "y_reflection"]
                 + (["x_periodic_translations"] if model.pbc_x else [])

@@ -2,7 +2,8 @@
 """Adam fitting to ED: primary log-MSE or optional experimental infidelity.
 
 CLI default: 2x2. Both CLI and make_ed_dataset use Ly=Lx when Ly is omitted.
-All five models are supported. Full-batch autograd normalizes the entire sector,
+All registered models are supported within their geometry constraints.
+Full-batch autograd normalizes the entire sector,
 never separate minibatches. ED allocation guards do not bound model activations.
 Raw ED vectors, not floored targets, define physical overlaps and energies.
 Positive t and a nonzero, single-sign real ED vector are required.
@@ -303,6 +304,8 @@ def parse_args(argv=None):
     try:
         args.Lx, args.Ly = lattice_shape(args.Lx, args.Ly)
         resolve_cli_boundaries(args)
+        if args.arch == "GroupEquivariantConv2DNet" and (args.Lx != args.Ly or not args.pbc_x or not args.pbc_y):
+            raise ValueError("GroupEquivariantConv2DNet requires a square periodic in both axes")
         if args.arch == "JastrowNet" and args.pair_sharing == "reflection_orbit" and (args.pbc_x or not args.pbc_y):
             raise ValueError("reflection_orbit requires --no-pbc-x --pbc-y")
         args.Ntot = args.Lx * args.Ly if args.Ntot is None else args.Ntot

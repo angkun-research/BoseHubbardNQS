@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from models import (
-    ARCH_BUILDERS, BOND_CONVENTION, HAMILTONIAN_CONVENTION,
+    GENERAL_ARCHITECTURES, BOND_CONVENTION, HAMILTONIAN_CONVENTION,
     Conv2DNet, JastrowNet, TransformerNet, build_model, load_model,
     parameter_count, save_model,
 )
@@ -33,7 +33,7 @@ class ModelTests(unittest.TestCase):
         torch.manual_seed(17)
 
     def test_shapes_repeatability_and_gradients(self):
-        for arch in ARCH_BUILDERS:
+        for arch in GENERAL_ARCHITECTURES:
             for Lx, Ly in ((3, 2), (1, 1)):
                 for periodic in (False, True):
                     with self.subTest(arch=arch, shape=(Lx, Ly), pbc=periodic):
@@ -58,7 +58,7 @@ class ModelTests(unittest.TestCase):
                         self.assertGreater(parameter_count(model), 0)
 
     def test_invalid_dimensions_and_shapes(self):
-        for arch in ARCH_BUILDERS:
+        for arch in GENERAL_ARCHITECTURES:
             for options in ({"Lx": 0}, {"Lx": 2, "Ly": -1}, {"Lx": 2, "Nmax": -1},
                             {"Lx": True}, {"Lx": 2, "pbc": "open"}):
                 with self.subTest(arch=arch, options=options), self.assertRaises(ValueError):
@@ -77,7 +77,7 @@ class ModelTests(unittest.TestCase):
 
     def test_parameter_gradients_against_finite_difference(self):
         x = features([[0, 1, 2, 2, 1, 0], [2, 0, 1, 1, 0, 2]])
-        for arch in ARCH_BUILDERS:
+        for arch in GENERAL_ARCHITECTURES:
             with self.subTest(arch=arch):
                 model = build_model(arch, 3, 2, Nmax=2, **small_settings(arch)).double()
                 weights = torch.tensor([1.0, 0.37], dtype=torch.float64)
@@ -228,7 +228,7 @@ class ModelTests(unittest.TestCase):
     def test_inference_checkpoint_round_trips(self):
         x = features([[0, 1, 2, 2, 1, 0]])
         with tempfile.TemporaryDirectory(dir=ROOT, prefix="test-checkpoints-") as directory:
-            for arch in ARCH_BUILDERS:
+            for arch in GENERAL_ARCHITECTURES:
                 for dtype in (torch.float32, torch.float64):
                     with self.subTest(arch=arch, dtype=dtype):
                         model = build_model(arch, 3, 2, Nmax=2, pbc=False,

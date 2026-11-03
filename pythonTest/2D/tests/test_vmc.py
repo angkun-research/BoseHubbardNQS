@@ -15,7 +15,7 @@ sys.path.insert(0, str(ROOT))
 import vmc
 from exact_diagonalization import build_bose_hubbard_hamiltonian, generate_basis
 from lattice import bonds_2d
-from models import ARCH_BUILDERS, build_model
+from models import GENERAL_ARCHITECTURES, build_model
 
 
 class LinearLogState(nn.Module):
@@ -220,7 +220,7 @@ class EnergyAndUpdateTests(unittest.TestCase):
         with patch.object(torch.linalg, "solve", side_effect=AssertionError("solve called")):
             with self.assertRaisesRegex(ValueError, "workspace"):
                 vmc.sr_gradient(torch.ones(2, 2), [0.1, 0.2], max_sr_bytes=1)
-        for arch in ARCH_BUILDERS:
+        for arch in GENERAL_ARCHITECTURES:
             settings = {} if arch == "JastrowNet" else {"n_hidden" if arch == "RBMNet" else "hidden_dim": 4 if arch == "Conv2DTransformerNet" else 2}
             model = build_model(arch, 2, 1, Nmax=2, **settings).double().eval()
             optimizer = torch.optim.SGD(model.parameters(), lr=0.01)

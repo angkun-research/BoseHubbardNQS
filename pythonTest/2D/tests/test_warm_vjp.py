@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from exact_diagonalization import generate_basis
-from models import ARCH_BUILDERS, Conv2DNet, build_model, save_model
+from models import GENERAL_ARCHITECTURES, Conv2DNet, build_model, save_model
 import train
 import vmc
 
@@ -40,7 +40,7 @@ class BatchedVJPTests(unittest.TestCase):
         torch.manual_seed(17)
         states = torch.tensor(generate_basis(6, 2, 2)[:5])
         energies = torch.tensor([0.3, -1., 0.8, 0.1, 1.3], dtype=torch.float64)
-        for arch in ARCH_BUILDERS:
+        for arch in GENERAL_ARCHITECTURES:
             for px, py in ((False, True), (True, False)):
                 settings = {} if arch == "JastrowNet" else {"n_hidden" if arch == "RBMNet" else "hidden_dim": 4}
                 model = build_model(arch, 3, 2, Nmax=2, pbc_x=px, pbc_y=py, **settings).double().eval()

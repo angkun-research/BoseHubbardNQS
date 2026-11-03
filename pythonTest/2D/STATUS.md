@@ -9,6 +9,19 @@ small-system VMC and raw particle-sector extension. See the
 
 ## Established evidence
 
+The separate 3×3 square-symmetry study adds `GroupEquivariantConv2DNet`:
+all 72 spatial operations are verified against ED, the invariant block has
+338 orbit basis states, and the width-16 group CNN enforces these spatial
+symmetries for any weights. Its single 10,000-update Adam/log-MSE fit gives
+absolute overlap **0.9996088830**, energy error/site **0.001840578116t**, and
+variance **0.3902421673t²**. It passes the agreed 0.99 working overlap criterion;
+it does not pass the stricter tiny-system overlap/energy gate. See the
+[symmetry study](docs/SQUARE_SYMMETRY.md) and the separate 58-page
+[teaching PDF](BoseNQS2D-symmetry-progress-2026-11-02.pdf) for the construction,
+reviewed results and limitations. All 132 local CPU tests pass; source-only
+verification also passes with three expected archival-check skips.
+No new VMC or larger-system claim accompanies this supervised study.
+
 - Independent analytic/operator tests validate the ED Hamiltonian conventions.
   On the3×3 torus, N=9/cutoff4, ED gives E/t=−6.104592578442 and uniform density1;
   Gx=Gy=0.425669565922. Periodic DMRG bond limits128/256 differ from ED in total

@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 import train_ed
-from models import ARCH_BUILDERS, build_model, load_model
+from models import GENERAL_ARCHITECTURES, build_model, load_model
 
 
 class TableModel(nn.Module):
@@ -232,7 +232,7 @@ class SupervisedTests(unittest.TestCase):
     def test_all_five_model_full_batch_update(self):
         data = train_ed.make_ed_dataset(2, 1, Ntot=2, Nmax=2)
         for loss in train_ed.LOSS_NAMES:
-            for arch in ARCH_BUILDERS:
+            for arch in GENERAL_ARCHITECTURES:
                 with self.subTest(arch=arch, loss=loss):
                     settings = {} if arch == "JastrowNet" else {"n_hidden" if arch == "RBMNet" else "hidden_dim": 4}
                     model = build_model(arch, 2, 1, Nmax=2, **settings).double()

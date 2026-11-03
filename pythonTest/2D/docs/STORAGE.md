@@ -22,13 +22,16 @@ artifacts to another machine, restore both directories at the same paths under
 `pythonTest/2D/`. No external storage service/download is configured here.
 
 The standard CPU suite uses temporary synthetic fixtures and saved models.
-Two optional archival-forward regression checks skip when historical
+Three optional archival-forward regression checks skip when historical
 checkpoints/gold records are absent; they still validate hashes and forwards
 when those local artifacts are present. Ordinary model, ED, sampler, SR and
 observable tests do not require the research archive.
 
-The rendered PDF and compact slide manifests can be read from Git. Regenerating
-the complete data-backed presentation, running archival comparisons, and the
+The rendered PDFs and compact slide manifests can be read from Git. The group-CNN
+teaching presentation renders directly from its reviewed deck and compact
+evidence JSON; it does not need checkpoint files or the local artifact bundle.
+Recollecting its evidence, regenerating the earlier full research presentation,
+running archival comparisons, and the
 documented existing-checkpoint API example require the local artifact bundle.
 The four user-retired style templates remain optional. Large cylinder raw
 chains have also been intentionally retired by the user, with original hashes

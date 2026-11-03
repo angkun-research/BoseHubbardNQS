@@ -1,0 +1,354 @@
+{
+  "pdf_sha256": "0b1846d5efc0438cc0b9045b885d1addb62e896d72ff243a0c9f925d1100aa3e",
+  "pages": [
+    {
+      "page": 1,
+      "title": "Group convolutional networks\nfor neural quantum states",
+      "kind": "title",
+      "section": null
+    },
+    {
+      "page": 2,
+      "title": "Four questions",
+      "kind": "text",
+      "section": null
+    },
+    {
+      "page": 3,
+      "title": "1. Theoretical symmetry operators",
+      "kind": "section",
+      "section": "1. Theoretical symmetry operators"
+    },
+    {
+      "page": 4,
+      "title": "Our finite quantum problem",
+      "kind": "text",
+      "section": "1. Theoretical symmetry operators"
+    },
+    {
+      "page": 5,
+      "title": "What is a symmetry?",
+      "kind": "text",
+      "section": "1. Theoretical symmetry operators"
+    },
+    {
+      "page": 6,
+      "title": "Move sites on the torus",
+      "kind": "site_maps",
+      "section": "1. Theoretical symmetry operators"
+    },
+    {
+      "page": 7,
+      "title": "Generators of spatial symmetry",
+      "kind": "table",
+      "section": "1. Theoretical symmetry operators"
+    },
+    {
+      "page": 8,
+      "title": "Why the group is non-Abelian",
+      "kind": "text",
+      "section": "1. Theoretical symmetry operators"
+    },
+    {
+      "page": 9,
+      "title": "Internal symmetry and time reversal",
+      "kind": "table",
+      "section": "1. Theoretical symmetry operators"
+    },
+    {
+      "page": 10,
+      "title": "Number rotations and real H",
+      "kind": "text",
+      "section": "1. Theoretical symmetry operators"
+    },
+    {
+      "page": 11,
+      "title": "Representations: symmetry as matrices",
+      "kind": "text",
+      "section": "1. Theoretical symmetry operators"
+    },
+    {
+      "page": 12,
+      "title": "Example: rotations and mirrors",
+      "kind": "irrep_matrices",
+      "section": "1. Theoretical symmetry operators"
+    },
+    {
+      "page": 13,
+      "title": "Translations and zero momentum",
+      "kind": "text",
+      "section": "1. Theoretical symmetry operators"
+    },
+    {
+      "page": 14,
+      "title": "Define A1, A2, B1, B2 and E",
+      "kind": "table",
+      "section": "1. Theoretical symmetry operators"
+    },
+    {
+      "page": 15,
+      "title": "What A1 means for our ground state",
+      "kind": "text",
+      "section": "1. Theoretical symmetry operators"
+    },
+    {
+      "page": 16,
+      "title": "2. Verify the ED ground state",
+      "kind": "section",
+      "section": "2. Verify the ED ground state"
+    },
+    {
+      "page": 17,
+      "title": "Check the operator and the state",
+      "kind": "text",
+      "section": "2. Verify the ED ground state"
+    },
+    {
+      "page": 18,
+      "title": "What is the A1 projection weight?",
+      "kind": "text",
+      "section": "2. Verify the ED ground state"
+    },
+    {
+      "page": 19,
+      "title": "ED symmetry checks",
+      "kind": "table",
+      "section": "2. Verify the ED ground state"
+    },
+    {
+      "page": 20,
+      "title": "Read the ground-state observables",
+      "kind": "text",
+      "section": "2. Verify the ED ground state"
+    },
+    {
+      "page": 21,
+      "title": "Symmetric density, finite coherence",
+      "kind": "ed_heatmaps",
+      "section": "2. Verify the ED ground state"
+    },
+    {
+      "page": 22,
+      "title": "One amplitude per spatial orbit",
+      "kind": "text",
+      "section": "2. Verify the ED ground state"
+    },
+    {
+      "page": 23,
+      "title": "Symmetry does not solve H",
+      "kind": "text",
+      "section": "2. Verify the ED ground state"
+    },
+    {
+      "page": 24,
+      "title": "Dynamics distinguishes two orbits",
+      "kind": "orbit_examples",
+      "section": "2. Verify the ED ground state"
+    },
+    {
+      "page": 25,
+      "title": "3. Construct the group CNN",
+      "kind": "section",
+      "section": "3. Construct the group CNN"
+    },
+    {
+      "page": 26,
+      "title": "Ordinary CNN: define every index",
+      "kind": "text",
+      "section": "3. Construct the group CNN"
+    },
+    {
+      "page": 27,
+      "title": "From occupations to feature maps",
+      "kind": "cnn_encoding",
+      "section": "3. Construct the group CNN"
+    },
+    {
+      "page": 28,
+      "title": "Features move; amplitudes agree",
+      "kind": "cnn_equivariance",
+      "section": "3. Construct the group CNN"
+    },
+    {
+      "page": 29,
+      "title": "Lift to eight square orientations",
+      "kind": "filter_bank",
+      "section": "3. Construct the group CNN"
+    },
+    {
+      "page": 30,
+      "title": "Add an orientation index",
+      "kind": "feature_axes",
+      "section": "3. Construct the group CNN"
+    },
+    {
+      "page": 31,
+      "title": "Lift: one filter, eight orientations",
+      "kind": "text",
+      "section": "3. Construct the group CNN"
+    },
+    {
+      "page": 32,
+      "title": "Lifting creates eight response maps",
+      "kind": "lifting_maps",
+      "section": "3. Construct the group CNN"
+    },
+    {
+      "page": 33,
+      "title": "Rotations move maps and labels",
+      "kind": "feature_action",
+      "section": "3. Construct the group CNN"
+    },
+    {
+      "page": 34,
+      "title": "Group convolution: mix orientations",
+      "kind": "text",
+      "section": "3. Construct the group CNN"
+    },
+    {
+      "page": 35,
+      "title": "How orientation maps interact",
+      "kind": "group_mixing",
+      "section": "3. Construct the group CNN"
+    },
+    {
+      "page": 36,
+      "title": "The complete group CNN",
+      "kind": "group_pipeline",
+      "section": "3. Construct the group CNN"
+    },
+    {
+      "page": 37,
+      "title": "4. Adam + log-MSE results",
+      "kind": "section",
+      "section": "4. Adam + log-MSE results"
+    },
+    {
+      "page": 38,
+      "title": "Adam + log-MSE in the fixed sector",
+      "kind": "text",
+      "section": "4. Adam + log-MSE results"
+    },
+    {
+      "page": 39,
+      "title": "One predeclared training run",
+      "kind": "table",
+      "section": "4. Adam + log-MSE results"
+    },
+    {
+      "page": 40,
+      "title": "Adam learns the orbit amplitudes",
+      "kind": "plots",
+      "section": "4. Adam + log-MSE results"
+    },
+    {
+      "page": 41,
+      "title": "Selected checkpoint against ED",
+      "kind": "table",
+      "section": "4. Adam + log-MSE results"
+    },
+    {
+      "page": 42,
+      "title": "Check amplitudes across all orbits",
+      "kind": "scatter",
+      "section": "4. Adam + log-MSE results"
+    },
+    {
+      "page": 43,
+      "title": "Symmetry survives training",
+      "kind": "table",
+      "section": "4. Adam + log-MSE results"
+    },
+    {
+      "page": 44,
+      "title": "Symmetry fixes relations, not values",
+      "kind": "table",
+      "section": "4. Adam + log-MSE results"
+    },
+    {
+      "page": 45,
+      "title": "Earlier fits: numerical context",
+      "kind": "table",
+      "section": "4. Adam + log-MSE results"
+    },
+    {
+      "page": 46,
+      "title": "Conclusion: build symmetry into NQS",
+      "kind": "text",
+      "section": "4. Adam + log-MSE results"
+    },
+    {
+      "page": 47,
+      "title": "Appendix",
+      "kind": "section",
+      "section": "Appendix"
+    },
+    {
+      "page": 48,
+      "title": "Why the finite ground state is symmetric",
+      "kind": "text",
+      "section": "Appendix"
+    },
+    {
+      "page": 49,
+      "title": "Pooling: the invariance proof",
+      "kind": "text",
+      "section": "Appendix"
+    },
+    {
+      "page": 50,
+      "title": "Scope of the ansatz",
+      "kind": "text",
+      "section": "Appendix"
+    },
+    {
+      "page": 51,
+      "title": "Orbit reduction: implementation checks",
+      "kind": "text",
+      "section": "Appendix"
+    },
+    {
+      "page": 52,
+      "title": "Finite-size and critical-point notes",
+      "kind": "text",
+      "section": "Appendix"
+    },
+    {
+      "page": 53,
+      "title": "D4 characters at zero momentum",
+      "kind": "table",
+      "section": "Appendix"
+    },
+    {
+      "page": 54,
+      "title": "Projectors used in the ED audit",
+      "kind": "text",
+      "section": "Appendix"
+    },
+    {
+      "page": 55,
+      "title": "Count orbits without guessing",
+      "kind": "text",
+      "section": "Appendix"
+    },
+    {
+      "page": 56,
+      "title": "Why the group layer is equivariant",
+      "kind": "text",
+      "section": "Appendix"
+    },
+    {
+      "page": 57,
+      "title": "Observables: exact sector sums",
+      "kind": "text",
+      "section": "Appendix"
+    },
+    {
+      "page": 58,
+      "title": "References and reproducibility",
+      "kind": "text",
+      "section": "Appendix"
+    }
+  ],
+  "cleanup_review_sha256": "818d700e004e60ac16450cb900d2d59c91310238d6f6cc031f77741c4298eb5b"
+}

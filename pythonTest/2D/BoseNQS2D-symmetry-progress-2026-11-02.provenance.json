@@ -1,0 +1,23 @@
+{
+  "status": "audited_progress_snapshot",
+  "pages": 58,
+  "page_points": [
+    1920,
+    1080
+  ],
+  "sources_sha256": {
+    "slides/build_symmetry_slides.py": "aa05edaa1cf0bcd4fedba1597f3410385637bb7b72324f5f45d95377b475d262",
+    "slides/build_slides.py": "f84b4187d58ccc9b428f4186906f93682ceb3c29cae374228b2f1249478968a1",
+    "slides/symmetry_diagrams.py": "237930bf4e912b0cecd650dec74d444f825b01f5f23ff88c325b2d9c069c5a2e",
+    "slides/symmetry-deck.json": "1dd650c9e9ec75b7d983483877bbb2bc2632c93e1bf8e4f678dd5a7dd8bccdf2",
+    "slides/symmetry-evidence.json": "4ddcc6f1e4f363689ab9e5389f64309c1e75ad3c20a2eebd9e8a42ba80b76b28",
+    "benchmarks/check_square_symmetry.py": "1fb1294a8f6589c6cce9140cfd3b603de7f2734d8657db699050d49ff3ef37aa",
+    "docs/SQUARE_SYMMETRY.md": "4d6b37c728a8c51bc9f5e99f3760f5ca73d55e21bac4346ddeb0a0cab7fd2c45",
+    "slides/collect_symmetry_evidence.py": "b56e23b671680baf90efbc61d9f936bc8c54582a705f079ccfc10e4244c6470f",
+    "models.py": "a6d214091e64b25cadfff54823a27b7dc6c5c18482f58996f75a5d943f5a0bab",
+    "square_group.py": "b49524f4b2ab1e76869904fafe7ee26114d3a6a4e0df4237eb73cb4e51ea0c22",
+    "benchmarks/train_square_group.py": "9cef355aaaf9c09b73b9e92737bdb85b6d6ad66fdfadc8c48e75c4051d953d6e",
+    "benchmarks/check_square_symmetry_independent.py": "08b594073a385460f8ad76a5fca8bba0d48b94d95d0d4ae34f8b3e3b2805154a"
+  },
+  "pdf_sha256": "0b1846d5efc0438cc0b9045b885d1addb62e896d72ff243a0c9f925d1100aa3e"
+}

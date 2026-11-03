@@ -1,0 +1,31 @@
+{
+  "legacy_module_AST_without_header_sha256": "67c17e01d30c7403e8140dc2754ecd59cef639614d4cef033a98ddcbc85d5708",
+  "baseline_source_reference_sha256": "9e6d37d9ac6d49be767e166965a9715ccf0f46d86faa2842858d8865dd382846",
+  "scope": "Preserved pre-GCNN legacy definitions; module header prose excluded. Checkpoint paths optional, but present modified checkpoints fail checksum.",
+  "checkpoints": [
+    {
+      "path": "outputs/2026-10-30-ed-3x3-w32-e10000/FCNet-seed123.pt",
+      "sha256": "d0c0304614af01ab50cf9d332a5666141e64bebde9576c406e04f60188aec801"
+    },
+    {
+      "path": "outputs/2026-10-30-ed-3x3-w32-e10000/Conv2DNet-seed123.pt",
+      "sha256": "eaf83a2c6352ebf2e07dad32a1cd3d47a55413b1efd2e52aa3b29db68ab88a8e"
+    },
+    {
+      "path": "outputs/2026-10-30-ed-3x3-w32-e10000/RBMNet-seed123.pt",
+      "sha256": "41adf6dae1bd6457f165a8fdcb5fe373866b80b8117f573ba77f231b7bb32fb1"
+    },
+    {
+      "path": "outputs/2026-10-30-ed-3x3-Transformer32-f32-e10000/TransformerNet-seed123.pt",
+      "sha256": "0778dd9fa430e37ffd902419720d65108c91827980b0ae2dd0e3395479b6ce29"
+    },
+    {
+      "path": "outputs/2026-10-30-ed-3x3-w32-e10000/JastrowNet-seed123.pt",
+      "sha256": "1b2b64188fc46adaa4544a90b7307716d2591a3dd5b8aa1bb8c18fb776793c27"
+    },
+    {
+      "path": "outputs/2026-11-01-backup-extension/Hybrid32-3x3-ed-logmse10000-seed123.pt",
+      "sha256": "d9c51abfb94ca5ea6c0397934a12994e4da9d55046d1ed5c677e8fb2a9cc4e71"
+    }
+  ]
+}

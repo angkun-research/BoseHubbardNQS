@@ -1,5 +1,35 @@
 # Documentation and cleanup disposition
 
+## Group-CNN cleanup before GitHub
+
+The group-CNN addition is prepared for commit with the numerical implementation,
+ED audits, bounded training runner, permanent regression tests, API documentation
+and reviewed 58-page presentation retained. No 1D or Julia code is changed.
+
+- The renderer now reads the reviewed `slides/symmetry-deck.json` directly.
+  Superseded slide definitions and replacement rules were removed;
+  `slides/symmetry_diagrams.py` contains the remaining custom diagrams.
+- The one-off `benchmarks/time_group_fit.py` timing smoke was retired. It is
+  not needed by the model, training runner, tests, evidence collector or renderer.
+  Its exact source and the previous renderer/revision sources remain with the
+  old PDF snapshot under ignored `outputs/slides-snapshots/`.
+- Removed 17 regenerable preview files (2,111,085 bytes). No numerical archive,
+  checkpoint, report/log companion, failed attempt, review or raw chain was
+  deleted. Permanent gradient, equivariance, orbit-loss and checkpoint tests
+  remain in `tests/`; these are correctness checks rather than temporary runs.
+- All 132 CPU tests pass. A fresh source-only export also passes with three
+  expected archival-check skips and renders without local checkpoints/results.
+  All 58 before/after page images at 800 pixels and extracted PDF text are
+  identical. The renderer rejects an unexpected numerical-evidence hash.
+
+Exact local deletion and equivalence receipts are under
+`outputs/cleanup-plans/gcnn-cleanup-*.json` and
+`outputs/cleanup-plans/gcnn-render-equivalence.json`. Current slide hashes and
+review are recorded in [symmetry-quality-check.json](../slides/symmetry-quality-check.json).
+Ignored research artifacts stay out of Git. Cleanup does not commit or push.
+
+## Earlier documentation cleanup
+
 This cleanup prepares a reviewable handoff for future Julia use. It does not
 merge 1D/2D, change numerical defaults, alter the accepted PDF, or rerun training.
 
