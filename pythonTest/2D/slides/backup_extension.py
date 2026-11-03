@@ -10,10 +10,14 @@ def build(cylinder, primary):
     from assemble_physics import table, curve
 
     sources = ['slides/backup_extension.py', 'slides/hybrid_architecture.json']
+    retirement = ROOT / 'slides/retired-mc-chains.json'
+    retired = set(json.loads(retirement.read_text())['retired_chains']) if retirement.exists() else set()
+    if retirement.exists():
+        sources.append('slides/retired-mc-chains.json')
 
     def source(name):
         path = (ROOT / name).resolve()
-        if not path.is_relative_to(ROOT) or not path.is_file():
+        if not path.is_relative_to(ROOT) or (not path.is_file() and str(path.relative_to(ROOT)) not in retired):
             raise ValueError(f'Missing or external backup evidence: {name}')
         sources.append(str(path.relative_to(ROOT)))
         return path

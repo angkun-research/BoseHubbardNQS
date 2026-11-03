@@ -1,0 +1,332 @@
+{
+  "status": "USER_APPROVED_RETIREMENT",
+  "recorded_at": "2026-11-03T02:21:17.849143+00:00",
+  "authorization": "User: Sounds great, let us remove the large cylinder chains.",
+  "scope": "Only remaining4x4/6x4 open-x/periodic-y raw .samples.npz files. Keep all checkpoints/reports/logs and six tiny2x3 validation chains.",
+  "retired_chains": {
+    "outputs/2026-10-31-all-model-refinement/frozen/FC128d3-6x4-capacity-seed321.json.samples.npz": {
+      "bytes": 19085040,
+      "sha256": "9f786a12013e1d561bedef13fcb485e8f378a842625519be94087cb653eb68fd",
+      "Lx": 6,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-all-model-refinement/frozen/FC128d3-6x4-capacity-seed321.json"
+    },
+    "outputs/2026-10-31-all-model-refinement/frozen/FC128d3-6x4-capacity-seed654.json.samples.npz": {
+      "bytes": 19745775,
+      "sha256": "f722711307d71d26e311df5893e0e5cde9faca7f59692670b6abaf3891f2c948",
+      "Lx": 6,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-all-model-refinement/frozen/FC128d3-6x4-capacity-seed654.json"
+    },
+    "outputs/2026-10-31-all-model-refinement/frozen/FC32d2-4x4-stage2-seed321.json.samples.npz": {
+      "bytes": 7895335,
+      "sha256": "9b5025de704c6d61523285241051aa368149519d852f01a29b342749f57fbb63",
+      "Lx": 4,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-all-model-refinement/frozen/FC32d2-4x4-stage2-seed321.json"
+    },
+    "outputs/2026-10-31-all-model-refinement/frozen/FC64d2-4x4-anneal500-seed321.json.samples.npz": {
+      "bytes": 8045099,
+      "sha256": "caaf3f8f86b316d02290cc5f91009b25155c515e5510c527a488ee876275fdb5",
+      "Lx": 4,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-all-model-refinement/frozen/FC64d2-4x4-anneal500-seed321.json"
+    },
+    "outputs/2026-10-31-all-model-refinement/frozen/FC64d2-4x4-anneal500-seed654.json.samples.npz": {
+      "bytes": 8105933,
+      "sha256": "c736dc7213102639bbb9e1cd5c229852e4f4dea61eb1fa901ff69db6fe398673",
+      "Lx": 4,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-all-model-refinement/frozen/FC64d2-4x4-anneal500-seed654.json"
+    },
+    "outputs/2026-10-31-all-model-refinement/frozen/FC64d3-6x4-lower-ridge500-seed321.json.samples.npz": {
+      "bytes": 19207424,
+      "sha256": "8697e55b0055794b475e0503d076ff5c1935e4cf4005a4c8acd0d37140bf997b",
+      "Lx": 6,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-all-model-refinement/frozen/FC64d3-6x4-lower-ridge500-seed321.json"
+    },
+    "outputs/2026-10-31-all-model-refinement/frozen/Jastrow-4x4-stage2-seed321.json.samples.npz": {
+      "bytes": 5260330,
+      "sha256": "92a71bc8fec981fd185839c7d68ef8fea2875b6b494150768c2627aea93be095",
+      "Lx": 4,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-all-model-refinement/frozen/Jastrow-4x4-stage2-seed321.json"
+    },
+    "outputs/2026-10-31-all-model-refinement/frozen/RBM128-4x4-capacity-seed321.json.samples.npz": {
+      "bytes": 7827025,
+      "sha256": "89752aa89b253675c3086b6609b1264ae67a4a7617db30e1d65bc2b58403af5b",
+      "Lx": 4,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-all-model-refinement/frozen/RBM128-4x4-capacity-seed321.json"
+    },
+    "outputs/2026-10-31-all-model-refinement/frozen/RBM128-4x4-capacity-seed654.json.samples.npz": {
+      "bytes": 7945820,
+      "sha256": "01c64f7fa295ae4afe73fb71ee7dad6fe45902e7d41d8a8350aafab042bfdf89",
+      "Lx": 4,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-all-model-refinement/frozen/RBM128-4x4-capacity-seed654.json"
+    },
+    "outputs/2026-10-31-all-model-refinement/frozen/RBM64-4x4-matched-minsr300-seed321.json.samples.npz": {
+      "bytes": 7866904,
+      "sha256": "8b079e900335507d1baf5a8eb8194840c4a88e41e46f2ed243bfacdf3ea38bb5",
+      "Lx": 4,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-all-model-refinement/frozen/RBM64-4x4-matched-minsr300-seed321.json"
+    },
+    "outputs/2026-10-31-all-model-refinement/frozen/RBM64-4x4-matched-minsr300-seed654.json.samples.npz": {
+      "bytes": 8161751,
+      "sha256": "1d3edfc1b798602dbd9a765a9fdbd337c74293ded014f87a479aea2fe248681d",
+      "Lx": 4,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-all-model-refinement/frozen/RBM64-4x4-matched-minsr300-seed654.json"
+    },
+    "outputs/2026-10-31-all-model-refinement/frozen/RBM64-4x4-matched-ridge300-seed321.json.samples.npz": {
+      "bytes": 7902131,
+      "sha256": "c87f0b0de9923ccf30c382832e2e00877c9b289e268b7fd3d8b2619e5af67c33",
+      "Lx": 4,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-all-model-refinement/frozen/RBM64-4x4-matched-ridge300-seed321.json"
+    },
+    "outputs/2026-10-31-all-model-refinement/frozen/RBM64-4x4-matched-ridge300-seed654.json.samples.npz": {
+      "bytes": 8156165,
+      "sha256": "bb73d0171efd99912af2369531efad2042d81b98ad9442892e03296a6992821a",
+      "Lx": 4,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-all-model-refinement/frozen/RBM64-4x4-matched-ridge300-seed654.json"
+    },
+    "outputs/2026-10-31-all-model-refinement/frozen/Transformer64-4x4-stage2-seed321.json.samples.npz": {
+      "bytes": 7912642,
+      "sha256": "30b0846243bb37e032612d274d239d0a1df6d12b99402bb9b34183b37d69f99d",
+      "Lx": 4,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-all-model-refinement/frozen/Transformer64-4x4-stage2-seed321.json"
+    },
+    "outputs/2026-10-31-all-model-refinement/frozen/Transformer64-4x4-stage2-seed654.json.samples.npz": {
+      "bytes": 7943964,
+      "sha256": "e0c24820315e97e1a0546cf62a3d5cd8b0102f87761dadc77f10ca1975d7592a",
+      "Lx": 4,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-all-model-refinement/frozen/Transformer64-4x4-stage2-seed654.json"
+    },
+    "outputs/2026-10-31-all-model-refinement/frozen/Transformer64-6x4-precision128-seed321.json.samples.npz": {
+      "bytes": 39551590,
+      "sha256": "b091727625824c9bb534559508e4ebac574396c604a9d5be364a911892fd25fa",
+      "Lx": 6,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-all-model-refinement/frozen/Transformer64-6x4-precision128-seed321.json"
+    },
+    "outputs/2026-10-31-all-model-refinement/frozen/Transformer64-6x4-precision128-seed654.json.samples.npz": {
+      "bytes": 39463168,
+      "sha256": "be197ad09d76e27ee09eeb53974d706ff2f615be1c0b7b6de563f5299c9bb3b2",
+      "Lx": 6,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-all-model-refinement/frozen/Transformer64-6x4-precision128-seed654.json"
+    },
+    "outputs/2026-10-31-cylinder-pilots/frozen/Conv2DNet-4x4-thin16-seed321.json.samples.npz": {
+      "bytes": 7935512,
+      "sha256": "f43a719c2ab2b093a010aa6154c24bcd18047de1ab9231af5ad330dd1577c6c5",
+      "Lx": 4,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-cylinder-pilots/frozen/Conv2DNet-4x4-thin16-seed321.json"
+    },
+    "outputs/2026-10-31-cylinder-pilots/frozen/Conv2DNet-6x4-thin16-seed321.json.samples.npz": {
+      "bytes": 19308033,
+      "sha256": "55f9ee21b1c16a6d446f9e14c4bdfe4526bdf107f9c2ca5a9ef666e2ecdbc661",
+      "Lx": 6,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-cylinder-pilots/frozen/Conv2DNet-6x4-thin16-seed321.json"
+    },
+    "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-4x4-stageB-seed321.json.samples.npz": {
+      "bytes": 8094690,
+      "sha256": "0c0147d44c38f19e747adc895b16600f8073abdc3c2553ab6b7e6fdd3750791a",
+      "Lx": 4,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-4x4-stageB-seed321.json"
+    },
+    "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-4x4-stageC-seed321.json.samples.npz": {
+      "bytes": 8032538,
+      "sha256": "233832b344c0a12254c51596747761e51f96ee7681be4c27d8becf482ae92709",
+      "Lx": 4,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-4x4-stageC-seed321.json"
+    },
+    "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-4x4-stageC-seed654.json.samples.npz": {
+      "bytes": 8118166,
+      "sha256": "3187ac46fc8b086daa7ad19205a73d77136b504b9263cdc9895af8c188744acb",
+      "Lx": 4,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-4x4-stageC-seed654.json"
+    },
+    "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-6x4-stageB-seed321.json.samples.npz": {
+      "bytes": 19344393,
+      "sha256": "287c441e697e1760471dec218b58212290f4af4f96c08214ddf94444519ce2c4",
+      "Lx": 6,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-6x4-stageB-seed321.json"
+    },
+    "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-6x4-stageC-seed321.json.samples.npz": {
+      "bytes": 19222924,
+      "sha256": "cf5ba2b75c9a186f5cfaeaad0839b4721ff5a0ea9b35e01aa403def5f680419a",
+      "Lx": 6,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-6x4-stageC-seed321.json"
+    },
+    "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-6x4-stageC-seed654.json.samples.npz": {
+      "bytes": 20193212,
+      "sha256": "df98f8425b4e9fc30495096407ac200bb590bd050c722225521bbfd22fe7be75",
+      "Lx": 6,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-10-31-vmc-refinement/frozen/Conv2DNet-6x4-stageC-seed654.json"
+    },
+    "outputs/2026-11-01-backup-extension/frozen/Jastrow-basic-6x4-stable-retry1000-seed123-seed321.json.samples.npz": {
+      "bytes": 32440214,
+      "sha256": "be49aff4a249525c5a8eb98f6b4eef393eaac729779173c91c19d8a57a969583",
+      "Lx": 6,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-11-01-backup-extension/frozen/Jastrow-basic-6x4-stable-retry1000-seed123-seed321.json"
+    },
+    "outputs/2026-11-01-backup-extension/frozen/Jastrow-basic-6x4-stable-retry1000-seed123-seed654.json.samples.npz": {
+      "bytes": 32627196,
+      "sha256": "94dcbdd341794fd6aead1476cab07209b2b0fc85084444b24bf15d55ebe517cf",
+      "Lx": 6,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-11-01-backup-extension/frozen/Jastrow-basic-6x4-stable-retry1000-seed123-seed654.json"
+    },
+    "outputs/2026-11-01-backup-extension/frozen/RBM128-6x4-stable-retry1000-seed123-seed321.json.samples.npz": {
+      "bytes": 44365689,
+      "sha256": "4f4f39fde366d43f08ca225714da7c0ef55d7b875e9cdbf9f634bca95942fd90",
+      "Lx": 6,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-11-01-backup-extension/frozen/RBM128-6x4-stable-retry1000-seed123-seed321.json"
+    },
+    "outputs/2026-11-01-backup-extension/frozen/RBM128-6x4-stable-retry1000-seed123-seed654.json.samples.npz": {
+      "bytes": 45310761,
+      "sha256": "5fd559991bc3e49ddd9e7c236eb04b89e5e8414a2ee39bad0dfa880dcd134676",
+      "Lx": 6,
+      "Ly": 4,
+      "pbc_x": false,
+      "pbc_y": true,
+      "report": "outputs/2026-11-01-backup-extension/frozen/RBM128-6x4-stable-retry1000-seed123-seed654.json"
+    }
+  },
+  "retained_tiny_chains": [
+    {
+      "path": "outputs/2026-11-01-backup-extension/frozen/Hybrid32-2x3-sr500-seed123-seed321.json.samples.npz",
+      "bytes": 637638,
+      "sha256": "c62bb3ba7f428d1f7be50e44fb58f3c94a7e5b39756ef0f4412a4f264ae52601",
+      "Lx": 2,
+      "Ly": 3,
+      "pbc_x": true,
+      "pbc_y": true,
+      "report": "outputs/2026-11-01-backup-extension/frozen/Hybrid32-2x3-sr500-seed123-seed321.json"
+    },
+    {
+      "path": "outputs/2026-11-01-backup-extension/frozen/Hybrid32-2x3-sr500-seed123-seed654.json.samples.npz",
+      "bytes": 654007,
+      "sha256": "fc8dcf308553472757f2da221b5d07d964e93fb43a14a8406345aa9e0dd887dc",
+      "Lx": 2,
+      "Ly": 3,
+      "pbc_x": true,
+      "pbc_y": true,
+      "report": "outputs/2026-11-01-backup-extension/frozen/Hybrid32-2x3-sr500-seed123-seed654.json"
+    },
+    {
+      "path": "outputs/2026-11-01-physics-focus/frozen/Conv32-2x3-srsgd500-seed321.json.samples.npz",
+      "bytes": 634753,
+      "sha256": "05b0b9645a328b2c73578a8ccba9cd6243bc8a0f8b254e43dd659f4830d714ca",
+      "Lx": 2,
+      "Ly": 3,
+      "pbc_x": true,
+      "pbc_y": true,
+      "report": "outputs/2026-11-01-physics-focus/frozen/Conv32-2x3-srsgd500-seed321.json"
+    },
+    {
+      "path": "outputs/2026-11-01-physics-focus/frozen/Conv32-2x3-srsgd500-seed654.json.samples.npz",
+      "bytes": 625647,
+      "sha256": "364d856017a65482d9fc4533c7aa5320f8236c4372c868c18b4b0357f4fd335a",
+      "Lx": 2,
+      "Ly": 3,
+      "pbc_x": true,
+      "pbc_y": true,
+      "report": "outputs/2026-11-01-physics-focus/frozen/Conv32-2x3-srsgd500-seed654.json"
+    },
+    {
+      "path": "outputs/2026-11-01-physics-focus/frozen/FC32-2x3-srsgd500-seed321.json.samples.npz",
+      "bytes": 632802,
+      "sha256": "e10f3077eb245eccf09b071160136368dbc956abf6aac284b81edb2d73c4c815",
+      "Lx": 2,
+      "Ly": 3,
+      "pbc_x": true,
+      "pbc_y": true,
+      "report": "outputs/2026-11-01-physics-focus/frozen/FC32-2x3-srsgd500-seed321.json"
+    },
+    {
+      "path": "outputs/2026-11-01-physics-focus/frozen/FC32-2x3-srsgd500-seed654.json.samples.npz",
+      "bytes": 627022,
+      "sha256": "314c7633ac644b8a5690a2407f259424cd91632b025cccb06cc5d63384e094d0",
+      "Lx": 2,
+      "Ly": 3,
+      "pbc_x": true,
+      "pbc_y": true,
+      "report": "outputs/2026-11-01-physics-focus/frozen/FC32-2x3-srsgd500-seed654.json"
+    }
+  ],
+  "statistical_limit": "Saved summaries/plots remain valid historical results. Reblocking, mixing analysis or new estimators for these cylinder samples require fresh sampling; deleted chains are not reproducible from summaries."
+}

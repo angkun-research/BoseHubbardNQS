@@ -48,6 +48,20 @@ none was cleared for removal or relocation. Historical preview PDF/provenance
 pairs also remain together. The four old root documents are archived; no
 checkpoint, raw sample, experiment failure or numerical source was removed.
 
+## Subsequently approved raw-chain retirement
+
+The user subsequently approved removing34 unselected raw archives (300MiB),
+then the remaining29 large cylinder archives (472MiB). Six small2×3 validation
+chains remain (3.64MiB), together with all checkpoints, reports and logs.
+This explicit approval is an exception to the general retention rule above.
+
+The original artifact inventory is a pre-pruning snapshot. Exact deletion
+receipts are under `outputs/cleanup-plans/`; retired cylinder inputs and their
+hashes are recorded in
+[retired-mc-chains.json](../slides/retired-mc-chains.json). Saved slide values and
+summaries are unchanged and still render. Reblocking or checking mixing on
+discarded cylinder samples now requires fresh sampling.
+
 ## Verification
 
 The CPU regression log is [cpu-regression.log](cpu-regression.log). CLI help,

@@ -30,4 +30,15 @@ observable tests do not require the research archive.
 The rendered PDF and compact slide manifests can be read from Git. Regenerating
 the complete data-backed presentation, running archival comparisons, and the
 documented existing-checkpoint API example require the local artifact bundle.
-The four user-retired style templates remain optional; numerical inputs do not.
+The four user-retired style templates remain optional. Large cylinder raw
+chains have also been intentionally retired by the user, with original hashes
+and retained reports listed in [retired-mc-chains.json](../slides/retired-mc-chains.json).
+All six small2×3 validation chains remain locally available, as do every
+checkpoint, report and log. The earlier inventory is a historical snapshot;
+local deletion receipts live under `outputs/cleanup-plans/`.
+
+Cached slide expectations and reported cylinder summaries remain available.
+Future rendering records the retired raw-chain inputs explicitly. Reanalysing
+those cylinder chains (different blocking, mixing checks or new observables)
+requires fresh sampling; saved summaries do not restore the deleted samples.
+No other missing input is silently accepted.

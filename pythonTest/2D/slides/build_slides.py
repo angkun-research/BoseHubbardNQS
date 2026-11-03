@@ -315,12 +315,23 @@ def render(slide, number):
 
 
 def input_hashes(inputs):
-    """Keep user-retired style templates distinct from required numerical inputs."""
+    """Record explicitly retired inputs; reject every other missing input."""
     retirement = ROOT / 'slides/retired-style-references.json'
     retired = json.loads(retirement.read_text())['retired_style_references'] if retirement.exists() else {}
     allowed = {f'BoseNQS{date}-2026.pdf' for date in ('05-29', '06-05', '07-07', '07-31')}
     if set(retired) - allowed:
         raise ValueError('Only the four original style templates may be retired')
+    chains_path = ROOT / 'slides/retired-mc-chains.json'
+    if chains_path.exists():
+        chains = json.loads(chains_path.read_text())
+        if chains.get('status') != 'USER_APPROVED_RETIREMENT':
+            raise ValueError('Raw-chain retirement requires explicit approval')
+        for name, record in chains['retired_chains'].items():
+            if (not name.startswith('outputs/') or not name.endswith('.samples.npz')
+                    or record['Lx'] not in (4, 6) or record['Ly'] != 4
+                    or record['pbc_x'] is not False or record['pbc_y'] is not True):
+                raise ValueError('Only approved cylinder raw chains may be retired')
+            retired[name] = record['sha256']
     hashes, omitted = {}, {}
     for path in inputs:
         name = str(path.relative_to(ROOT))
@@ -330,6 +341,8 @@ def input_hashes(inputs):
             hashes[name] = hashlib.sha256(path.read_bytes()).hexdigest()
     if retirement.exists():
         hashes[str(retirement.relative_to(ROOT))] = hashlib.sha256(retirement.read_bytes()).hexdigest()
+    if chains_path.exists():
+        hashes[str(chains_path.relative_to(ROOT))] = hashlib.sha256(chains_path.read_bytes()).hexdigest()
     return hashes, omitted
 
 
@@ -361,7 +374,8 @@ def main():
                   "page_points": [1920, 1080], "sources_sha256": hashes,
                   "pdf_sha256": hashlib.sha256(output.read_bytes()).hexdigest()}
     if retired:
-        provenance['intentionally_retired_style_references'] = retired
+        provenance['intentionally_retired_style_references'] = {n: h for n, h in retired.items() if n.endswith('.pdf')}
+        provenance['intentionally_retired_monte_carlo_chains'] = {n: h for n, h in retired.items() if n.endswith('.samples.npz')}
     output.with_suffix(".provenance.json").write_text(json.dumps(provenance, indent=2) + "\n")
     print(output)
 
