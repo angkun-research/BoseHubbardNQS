@@ -13,7 +13,7 @@ been performed.**
 | [Benchmark workflows](BENCHMARKING.md) | ED → supervised → VMC → frozen measurement; reproduction |
 | [Julia preparation](docs/JULIA_PREPARATION.md) | Existing PythonCall boundary, data contract and future merge sequence |
 | [Current results](STATUS.md) | Accepted evidence and known limitations |
-| [Next steps](PLAN.md) | Preparation and review gates before any merge |
+| [Research plan](PLAN.md) | Log-MSE/VMC representation reduction, prior symmetry results, and Julia preparation boundaries |
 | [Cleanup record](docs/CLEANUP.md) | Removed disposable files, archived history and protected evidence |
 | [Storage and Git policy](docs/STORAGE.md) | Pushable source versus local-only checkpoints and benchmark data |
 | [Slide sources](slides/README.md) | Reproduce the accepted 55-page presentation |
