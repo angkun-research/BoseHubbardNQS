@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 import torch
 import unittest
+import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src/python'))
 import Bose_Hubbard_NQS as bridge
 
@@ -12,5 +13,8 @@ class Baseline(unittest.TestCase):
         torch.manual_seed(123)
         model = bridge.build_model('FCNet', 3, 2, 4)
         configs = [[0, 1, 2], [2, 0, 1], [0, 0, 0]]
-        self.assertEqual([bridge.predict_scalar(model, c) for c in configs], [
-            0.3105006217956543, 0.308648943901062, 0.35193121433258057])
+        # CPU kernels can round float32 results differently across machines.
+        np.testing.assert_allclose(
+            [bridge.predict_scalar(model, c) for c in configs],
+            [0.3105006217956543, 0.308648943901062, 0.35193121433258057],
+            rtol=0, atol=1e-7)

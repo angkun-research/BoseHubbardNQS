@@ -19,8 +19,9 @@ torch.set_num_threads(1)
         @test m isa Py
         configs = [0 2 0; 1 0 0; 2 1 0]
         gold = [0.3105006217956543, 0.308648943901062, 0.35193121433258057]
-        @test [nn_value(m, c) for c in eachcol(configs)] == gold
-        @test ansatz_log_amplitude(m, configs[:,1]) === gold[1]
+        # Allow float32 rounding differences between CPU kernel implementations.
+        @test [nn_value(m, c) for c in eachcol(configs)] ≈ gold rtol=0 atol=1e-7
+        @test ansatz_log_amplitude(m, configs[:,1]) ≈ gold[1] rtol=0 atol=1e-7
         @test nn_values(m, configs; chunk_size=2) ≈ gold rtol=2e-6 atol=2e-6
         @test nn_values(m, @view(configs[:,3:-1:1])) ≈ reverse(gold) rtol=2e-6 atol=2e-6
         @test nn_values(m, zeros(Int, 3, 0)) == Float64[]
