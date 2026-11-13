@@ -3,6 +3,9 @@
 Neural quantum states for one- and two-dimensional Bose–Hubbard models, with
 PyTorch training, CPU/CUDA variational Monte Carlo, and a Julia interface.
 
+**[Documentation](https://angkun-research.github.io/BoseHubbardNQS/)**
+— guides, API reference, examples, and benchmark results.
+
 The Python numerical engines provide ED references, supervised fitting,
 fixed-number sampling, energy gradients, stochastic reconfiguration and
 observables. Julia evaluates the same models one configuration or one batch of
