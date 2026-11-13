@@ -10,7 +10,7 @@ existing 2D training and measurement workflows.
 | Capability | 1D | 2D |
 | --- | --- | --- |
 | Fixed-particle-number ED references | Supported for small sectors | Supported with dimension and memory guards |
-| Supervised NQS training | ED amplitude/log-amplitude experiments | Normalized log-MSE with Adam |
+| Supervised NQS training | Normalized log-MSE/Adam helper recipe | Normalized log-MSE with Adam |
 | Energy-based VMC | CPU/CUDA, native gradients and SR | One CPU/CUDA core, native gradients and SR |
 | Julia inference | Scalar and batched configurations | Scalar and batched configurations with geometry metadata |
 | Spatial symmetry | Architecture-dependent | Includes a D4-tied group-equivariant CNN |
@@ -18,6 +18,8 @@ existing 2D training and measurement workflows.
 ## Choose a starting point
 
 - [Install and run a small example](getting-started.md).
+- [Choose a 1D ansatz, train it in Python, and load it in Julia](model-1d.md).
+- [Choose a 2D ansatz, train it in Python, and load it in Julia](model-2d.md).
 - [Train and measure a state in Python](python.md).
 - [Use the Julia interface](julia.md).
 - [Evaluate batches on CPU or CUDA](batching.md).

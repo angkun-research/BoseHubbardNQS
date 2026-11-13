@@ -3,6 +3,9 @@
 The Python implementations provide the numerical engine used from both Python
 and Julia. All examples run from the repository root.
 
+For architecture formulas, training keyword tables and matching Julia examples,
+start with the [1D model guide](model-1d.md) or [2D model guide](model-2d.md).
+
 ## 1D VMC
 
 ```bash
@@ -14,8 +17,10 @@ and Julia. All examples run from the repository root.
 ```
 
 Use `--update_method sr --optimizer sgd` for stochastic reconfiguration.
-Dense SR memory grows with parameter count; use the trainer's resource
-controls and start small. The 1D ED implementation allocates a dense matrix,
+The 1D SR implementation uses an uncentered, unnormalized Gram matrix and
+has no pre-allocation memory guard; start with small networks. Its regularization
+and learning-rate values are not directly transferable to the centered,
+sample-normalized 2D SR implementation; see [the SR equations](physics.md#training-objectives-log-mse-and-vmc). The 1D ED implementation allocates a dense matrix,
 so use `--ed-reference` only when the sector is small.
 
 ## 2D supervised learning
@@ -53,7 +58,7 @@ proposals, not complete lattice sweeps. Initial walkers are valid configurations
 not equilibrium samples. A fixed update budget does not establish convergence.
 
 The same `vmc.py` handles CPU and CUDA. SR uses the centered, sample-normalized
-Jacobian and native SGD; `--update-method native --optimizer adam` selects the
+Jacobian and `torch.optim.SGD`; `--update-method native --optimizer adam` selects the
 existing energy-gradient route. ED is opt-in, so larger VMC cases do not trigger
 an exponentially large reference calculation.
 

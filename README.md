@@ -1,5 +1,7 @@
 # BoseHubbardNQS
 
+[![Documentation](https://img.shields.io/badge/documentation-online-blue)](https://angkun-research.github.io/BoseHubbardNQS/)
+
 Neural quantum states for one- and two-dimensional Bose–Hubbard models, with
 PyTorch training, CPU/CUDA variational Monte Carlo, and a Julia interface.
 
@@ -12,6 +14,8 @@ observables. Julia evaluates the same models one configuration or one batch of
 walkers at a time, and launches the existing 2D workflows.
 
 - [Getting started](docs/site/getting-started.md)
+- [1D model and examples](docs/site/model-1d.md)
+- [2D model and examples](docs/site/model-2d.md)
 - [Python workflows](docs/site/python.md) and [API](docs/site/api/python.md)
 - [Julia interface](docs/site/julia.md) and [API](docs/site/api/julia.md)
 - [Batching and CUDA](docs/site/batching.md)

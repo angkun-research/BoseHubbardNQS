@@ -7,7 +7,7 @@ using BoseHubbardNQS
 ## 1D loading and evaluation
 
 ```julia
-load_nn(path="data/bose_hubbard_nqs.pt";
+load_nn(path::String="data/bose_hubbard_nqs.pt";
         arch=nothing, n_sites=nothing, nmax=nothing, hidden_dim=nothing,
         map_location="cpu", device=nothing)
 nn_value(model, sigma::AbstractVector{<:Integer}; nmax=nothing)
@@ -19,7 +19,9 @@ nn_values(model, configs::AbstractMatrix{<:Integer}; nmax=nothing, chunk_size=10
 CPU defaults and scalar `Float64` results remain available. A supplied execution
 `device` controls model placement; `map_location` retains its deserialization
 meaning. The batch method returns a `Vector{Float64}` with one result per
-configuration column. All outputs are raw log amplitudes.
+configuration column. All outputs are raw log amplitudes. The 1D path argument is a `String`; use
+`String(path)` for a `SubString` or another string subtype. The 2D loader
+accepts `AbstractString`.
 
 ## 2D loading and evaluation
 

@@ -25,6 +25,9 @@ theme:
 nav:
   - Overview: index.md
   - Getting started: getting-started.md
+  - Models and examples:
+      - 1D Bose–Hubbard: model-1d.md
+      - 2D Bose–Hubbard: model-2d.md
   - Physics and conventions: physics.md
   - Python workflows: python.md
   - Julia interface: julia.md

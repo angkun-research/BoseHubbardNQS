@@ -3,6 +3,10 @@
 Julia uses PythonCall to evaluate the existing PyTorch networks. The current
 1D scalar API remains available; batching and 2D entry points are additive.
 
+The [1D model guide](model-1d.md#use-the-trained-state-in-julia) and
+[2D model guide](model-2d.md#use-the-trained-state-in-julia) provide complete
+Python-training-to-Julia examples and tables of loading/evaluation keywords.
+
 ## Existing 1D calls
 
 ```julia

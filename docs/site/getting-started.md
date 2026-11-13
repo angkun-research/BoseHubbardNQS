@@ -79,3 +79,43 @@ logpsi = nn_value(model, sigma)
 See [the Julia guide](julia.md) for 2D, batches and device selection. Set
 `JULIA_PYTHONCALL_EXE` before loading PythonCall if you use another environment;
 the interpreter must contain the required Python packages.
+
+## Switch between Python and Julia
+
+These are two language environments connected to **the same PyTorch runtime**.
+Python trains and saves a checkpoint; Julia calls that Python interpreter
+through PythonCall and loads the same file. A checkpoint produced by the Julia
+2D workflow wrappers can also be reopened from Python. No weight-format
+conversion or second training run is needed.
+
+| Task | Python | Julia |
+| --- | --- | --- |
+| 1D log-MSE fitting | Supervised helper recipe in the [1D guide](model-1d.md#fit-a-small-ed-state-with-log-mse-and-adam) | Load its checkpoint with `load_nn` |
+| 1D energy-based VMC | `TrainVMCstates.py` | Load its checkpoint with `load_nn`; no dedicated 1D training wrapper |
+| 2D log-MSE / VMC / measurements | `train_ed.py` / `train.py` / `evaluate.py` | `train_ed_2d` / `train_vmc_2d` / `evaluate_2d` delegate to those Python programs |
+| Scalar / batch inference | [1D reopening example](model-1d.md#reopen-the-same-checkpoint-in-python) / [2D reopening example](model-2d.md#reopen-the-same-checkpoint-in-python) | `nn_value` / `nn_values` for either dimension |
+
+Keep the working directory at the repository root and use `.venv/bin/python`
+for Python and `./julia-local` for Julia. This avoids accidentally using a
+system Python with a different PyTorch/CUDA installation. Install Julia
+packages in the Julia project and Python packages in `.venv`; Julia inference
+uses PyTorch's device support, not a separate Julia CUDA model.
+
+If you prefer a custom interpreter, select it **before starting Julia**:
+
+```bash
+JULIA_CONDAPKG_BACKEND=Null \
+JULIA_PYTHONCALL_EXE="$PWD/.venv/bin/python" julia --project=.
+```
+
+The launcher sets these variables for you. To confirm the interpreter actually
+used by a Julia session:
+
+```julia
+using PythonCall
+pyconvert(String, pyimport("sys").executable)
+```
+
+For end-to-end training and loading commands, use the [1D guide](model-1d.md)
+and [2D guide](model-2d.md). Both distinguish log-MSE from energy-based VMC and
+state the keyword, path and output conventions.
