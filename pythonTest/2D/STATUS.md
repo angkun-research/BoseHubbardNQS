@@ -1,5 +1,10 @@
 # Current 2D status
 
+The symmetry-inspired CNN representation-reduction direction was **closed by
+the user on 2026-11-06**. Experimental runners, tests and the pooled model were
+retired after verified local archival. No new research campaign is active.
+See [the findings and closure record](docs/CLOSED_REPRESENTATION_STUDY.md).
+
 The building/benchmarking milestone is complete. Current work prepares API
 handoff and future Julia integration; **1D and 2D have not been merged**.
 The current [presentation](BoseNQS2D-progress-2026-10-31.pdf) has55 pages,

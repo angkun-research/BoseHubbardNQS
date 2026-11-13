@@ -30,3 +30,7 @@ deleted or moved as scratch without breaking that chain. See
 For current commands and selection rules, use [../BENCHMARKING.md](../BENCHMARKING.md).
 Checkpoint weights and raw chains stay at the locations recorded under
 `../outputs/`; a JSON report and its raw NPZ companion belong together.
+
+The CNN representation-reduction direction is closed. Its experimental
+runners and tests are archived locally rather than kept as supported tools;
+see [the closure note](../docs/CLOSED_REPRESENTATION_STUDY.md).

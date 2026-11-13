@@ -1,5 +1,16 @@
 # Documentation and cleanup disposition
 
+## Closed representation-reduction direction (2026-11-06)
+
+The user closed the flatten-head/pooled-CNN representation-reduction work.
+Its experimental model, 11 runners/analysis scripts and four test modules
+were retired from the active tree. The complete experiment evidence and
+historical sources are retained in a verified, Git-ignored local archive;
+this explicitly supersedes in-place retention for these two dated campaigns.
+Established benchmarks, their tests, accepted slides and all 1D/Julia code
+are preserved. See the [closure note](CLOSED_REPRESENTATION_STUDY.md) and
+[exact cleanup receipt](closed-representation-cleanup.json).
+
 ## Group-CNN cleanup before GitHub
 
 The group-CNN addition is prepared for commit with the numerical implementation,

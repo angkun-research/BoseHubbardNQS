@@ -1,0 +1,67 @@
+{
+  "status": "CLOSED_AND_ARCHIVE_VERIFIED",
+  "recorded_at": "2026-11-06T19:20:36.676883+00:00",
+  "authorization": "User requested closing this research direction and cleaning tests/unnecessary files.",
+  "archive": "outputs/research-archives/2026-11-06-closed-representation-study.tar.gz",
+  "archive_sha256": "d2e53d1a95f8bfa80fc2b598d6655955e6d3ef76be22fb45bf4071df7cd4a80c",
+  "archive_bytes": 27073545,
+  "archived_file_count": 329,
+  "archived_original_bytes": 71012339,
+  "removed_active_files": [
+    "benchmarks/analyze_kernel_weights.py",
+    "benchmarks/inspect_representation_projection.py",
+    "benchmarks/plot_pooled_representation.py",
+    "benchmarks/pooled_representation_analysis.py",
+    "benchmarks/representation_analysis.py",
+    "benchmarks/representation_projection.py",
+    "benchmarks/run_pooled_representation_study.py",
+    "benchmarks/run_representation_recovery.py",
+    "benchmarks/run_representation_study.py",
+    "benchmarks/summarize_pooled_representation.py",
+    "benchmarks/summarize_representation_study.py",
+    "tests/test_pooled_conv.py",
+    "tests/test_pooled_representation.py",
+    "tests/test_representation_analysis.py",
+    "tests/test_representation_projection.py",
+    "docs/kernel-weights-results.json",
+    "docs/pooled-representation-results.json",
+    "docs/representation-cleanup.json",
+    "docs/representation-study-results.json"
+  ],
+  "restored_established_versions": [
+    "BENCHMARKING.md",
+    "README.md",
+    "STATUS.md",
+    "benchmarks/README.md",
+    "docs/API.md",
+    "docs/CLEANUP.md",
+    "docs/api-signatures.json",
+    "models.py",
+    "tests/test_group_equivariant.py"
+  ],
+  "retired_dated_directories": [
+    "outputs/2026-11-05-pooled-representation",
+    "outputs/2026-11-05-representation",
+    "benchmarks/results/2026-11-05-pooled-representation",
+    "benchmarks/results/2026-11-05-representation"
+  ],
+  "protected_tracked_files_verified": 152,
+  "new_training": false,
+  "git_commit_or_push": false,
+  "historical_manifest": "CLOSURE-MANIFEST.json inside archive",
+  "verification": "Each archived member SHA256 matched original before removing active files/directories; all protected tracked file hashes unchanged.",
+  "tests": {
+    "command": "OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 PYTHONDONTWRITEBYTECODE=1 .venv/bin/python -B -m unittest discover -s pythonTest/2D/tests -p test_*.py",
+    "tests_run": 132,
+    "status": "PASSED",
+    "elapsed_seconds": 15.851
+  },
+  "post_cleanup_checks": [
+    "archive SHA256 unchanged",
+    "archive ignored by Git",
+    "established models, legacy test, API catalog and usage docs identical to pre-experiment HEAD",
+    "new closure links resolve",
+    "only pythonTest/2D paths changed",
+    "git diff --check passed"
+  ]
+}

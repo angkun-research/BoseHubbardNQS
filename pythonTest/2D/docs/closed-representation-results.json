@@ -1,0 +1,154 @@
+{
+  "status": "CLOSED_BY_USER",
+  "closed_date": "2026-11-06",
+  "system": {
+    "Lx": 3,
+    "Ly": 3,
+    "N": 9,
+    "Nmax": 4,
+    "U": 16.74,
+    "t": 1,
+    "pbc_x": true,
+    "pbc_y": true
+  },
+  "matrix": "conv.weight[H,5,3,3].reshape(H,45); raw, bias excluded, no centering or data weighting",
+  "criterion": "r99=min r with sum(sigma[r:]**2)/sum(sigma**2)<=0.01",
+  "optimizer": "Adam with normalized full-sector log-MSE; 10000 updates",
+  "rows": [
+    {
+      "width": 64,
+      "seed": 123,
+      "r99": {
+        "initial": 40,
+        "fixed_final": 35,
+        "best_by_loss": 35
+      },
+      "numerical_rank": {
+        "initial": 45,
+        "fixed_final": 45,
+        "best_by_loss": 45
+      },
+      "checkpoint_sha256": {
+        "initial": "c86861181cce9c99fb36efc1da7b812834ee9990b88f53e624031cf2773d45f5",
+        "fixed_final": "6d085a9746c6905e8fd2e9a901e1745d49f95d3141097f1c722a2f7c8f7ae71d",
+        "best_by_loss": "dfd4b43a0a44ae5ae54460eb1efa65b23910b46d5544aea8d4a8fa1658052f7a"
+      },
+      "best_by_loss_epoch": 10000,
+      "final_absolute_overlap": 0.9981157817744262,
+      "final_energy_error_per_site": 0.009021291167043878
+    },
+    {
+      "width": 64,
+      "seed": 321,
+      "r99": {
+        "initial": 40,
+        "fixed_final": 34,
+        "best_by_loss": 34
+      },
+      "numerical_rank": {
+        "initial": 45,
+        "fixed_final": 45,
+        "best_by_loss": 45
+      },
+      "checkpoint_sha256": {
+        "initial": "a43ed9743efe8c5a3eb07ef4f5a5d732abd4c012ed20f4c0f61a1471c5dadbe0",
+        "fixed_final": "467c88f5e2773cb6ffc220e473d1db22ee57e1e5c35e988733e61f2db510c6c5",
+        "best_by_loss": "0941a967dea07b05f37b30167a57aafb29d3ddbbf7933d45fc78fb38e8f0e221"
+      },
+      "best_by_loss_epoch": 10000,
+      "final_absolute_overlap": 0.998569400405466,
+      "final_energy_error_per_site": 0.007188253144193012
+    },
+    {
+      "width": 64,
+      "seed": 654,
+      "r99": {
+        "initial": 40,
+        "fixed_final": 34,
+        "best_by_loss": 34
+      },
+      "numerical_rank": {
+        "initial": 45,
+        "fixed_final": 45,
+        "best_by_loss": 45
+      },
+      "checkpoint_sha256": {
+        "initial": "b1b723ec88da859990289c73c982b87cab53e537d32721571c943f5ae043c566",
+        "fixed_final": "6e4fc282ad0405e736c1472d30345d08651e519babf868351ea0033ade5f9bbf",
+        "best_by_loss": "8584b799ced5bf899e47643bb1db025edb85c8db8d4415f31c23ad295d656d99"
+      },
+      "best_by_loss_epoch": 10000,
+      "final_absolute_overlap": 0.9984526804157777,
+      "final_energy_error_per_site": 0.007628239575049594
+    },
+    {
+      "width": 256,
+      "seed": 123,
+      "r99": {
+        "initial": 44,
+        "fixed_final": 43,
+        "best_by_loss": 44
+      },
+      "numerical_rank": {
+        "initial": 45,
+        "fixed_final": 45,
+        "best_by_loss": 45
+      },
+      "checkpoint_sha256": {
+        "initial": "d088ec6b8819d60f56fb166689fd3a25d1dafdd1081083d31915ed6e028995f8",
+        "fixed_final": "bac5866a27527f4b4cdc4c57ea96797052ed022f0090fdf5937788aa7f1ad311",
+        "best_by_loss": "681c29eec3eccbe01d188d4a4519aad8c979a903bee937aba3c2a45eead75372"
+      },
+      "best_by_loss_epoch": 9959,
+      "final_absolute_overlap": 0.9984195669583888,
+      "final_energy_error_per_site": 0.0070586864688239916
+    },
+    {
+      "width": 256,
+      "seed": 321,
+      "r99": {
+        "initial": 44,
+        "fixed_final": 44,
+        "best_by_loss": 44
+      },
+      "numerical_rank": {
+        "initial": 45,
+        "fixed_final": 45,
+        "best_by_loss": 45
+      },
+      "checkpoint_sha256": {
+        "initial": "1668e35196010ed8f16c33a2c6872daf8e60df5e77420487abc24c34aae8053f",
+        "fixed_final": "b5aa038f0e58aa10110177f92636bbede4cc7ca5e0680263b840d5331ff59e1c",
+        "best_by_loss": "9760d84ff33b9dc7c97cf6fc66f3ee603873438a46ba237ca4638c92955cc2de"
+      },
+      "best_by_loss_epoch": 9895,
+      "final_absolute_overlap": 0.998463020501394,
+      "final_energy_error_per_site": 0.006629949197106516
+    },
+    {
+      "width": 256,
+      "seed": 654,
+      "r99": {
+        "initial": 44,
+        "fixed_final": 43,
+        "best_by_loss": 43
+      },
+      "numerical_rank": {
+        "initial": 45,
+        "fixed_final": 45,
+        "best_by_loss": 45
+      },
+      "checkpoint_sha256": {
+        "initial": "46796cbdf54de76cacf1f6b1425bd57752a8ff19b6e4a6ff1d4ed68d14c9b31b",
+        "fixed_final": "58ea3ca75180bcfa740929fa754ff4e9499b5c5fd8d23cf48ca5cb6f9822f4db",
+        "best_by_loss": "00d77ccc0313882572a25f23be906a9bc09317bc415b9d430b996d45f0d4bf2f"
+      },
+      "best_by_loss_epoch": 9926,
+      "final_absolute_overlap": 0.9980066193247678,
+      "final_energy_error_per_site": 0.009203388319927916
+    }
+  ],
+  "conclusion": "No systematic symmetry-based reduction in nonlinear channel width established. Activation covariance and raw kernel spectra measure different quantities.",
+  "archive": "outputs/research-archives/2026-11-06-closed-representation-study.tar.gz",
+  "archive_sha256": "d2e53d1a95f8bfa80fc2b598d6655955e6d3ef76be22fb45bf4071df7cd4a80c"
+}
