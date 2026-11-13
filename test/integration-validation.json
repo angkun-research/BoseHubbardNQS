@@ -1,0 +1,97 @@
+{
+  "date": "2026-11-13",
+  "status": "passed",
+  "commands": [
+    {
+      "command": "OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python -m unittest discover -s pythonTest/2D/tests -v",
+      "tests_passed": 135,
+      "log": "/tmp/bhnqs-2d-integration-tests.log"
+    },
+    {
+      "command": "BHNQS_TEST_CUDA=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 .venv/bin/python -m unittest discover -s tests -v",
+      "tests_passed": 8,
+      "actual_cuda": true,
+      "log": "/tmp/bhnqs-bridge-cuda-tests.log"
+    },
+    {
+      "command": "BHNQS_TEST_CUDA=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 ./julia-local test/runtests.jl",
+      "checks_passed": 654,
+      "groups": {
+        "legacy_scalar_and_batch": 14,
+        "all_2d_architectures_dtypes_boundaries": 570,
+        "isolated_workflows": 15,
+        "actual_cuda": 55
+      },
+      "actual_cuda": true,
+      "log": "/tmp/bhnqs-julia-cuda-tests.log"
+    },
+    {
+      "command": "OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 ./julia-local example/integration_2d.jl",
+      "status": "passed",
+      "log": "/tmp/bhnqs-integration-example.log"
+    },
+    {
+      "command": "git diff --check",
+      "status": "passed"
+    }
+  ],
+  "exports": [
+    "load_nn",
+    "nn_value",
+    "nn_values",
+    "ansatz_log_amplitude",
+    "NQS2D",
+    "load_nn_2d",
+    "train_vmc_2d",
+    "train_ed_2d",
+    "evaluate_2d"
+  ],
+  "defaults": {
+    "load_nn": {
+      "path": "data/bose_hubbard_nqs.pt",
+      "arch": null,
+      "n_sites": null,
+      "nmax": null,
+      "hidden_dim": null,
+      "map_location": "cpu",
+      "device": null
+    },
+    "load_nn_2d": {
+      "device": null
+    },
+    "nn_value": {
+      "nmax": null
+    },
+    "ansatz_log_amplitude": {
+      "nmax": null
+    },
+    "nn_values": {
+      "nmax": null,
+      "chunk_size": 1024
+    },
+    "workflows": {
+      "options": "forwarded to existing CLI; device defaults to auto",
+      "return_keys": [
+        "report",
+        "paths",
+        "stdout",
+        "stderr"
+      ]
+    }
+  },
+  "contracts_verified": [
+    "Pre-edit seeded FCNet scalar golden values remain exact.",
+    "Batch sites x walkers, views, reversed strides, empty batches, integer/range/site validation.",
+    "1D raw Py return, float32 behavior, deserialize-only map_location and opt-in model device placement.",
+    "2D all seven architectures, saved float32/float64, rectangular geometry, valid open/PBC/mixed axes; GCNN periodic-only and rectangular D2 metadata.",
+    "Native nested Julia Dict/Vector metadata and workflow reports; caller-relative Julia paths; actual PythonCall sys.executable.",
+    "Fresh-process imports for every public 2D core/entrypoint module; foreign models module with __file__=None; mixed import routes rejected in both orders.",
+    "Child workflow import remains valid with an unrelated regular src package on PYTHONPATH.",
+    "All three real Julia workflows use tiny generated checkpoints, retain CLI path guards, accept repeated pair lists, and preserve parent Torch RNG.",
+    "Huge explicit CUDA indices (256/99999) fail in inference and child workflows before training.",
+    "Open-chain length-four Hamiltonian parity with U_2D = 2 * U_1D.",
+    "Existing GCNN legacy AST fixture hash is unchanged."
+  ],
+  "example": "example/integration_2d.jl",
+  "scope": "No commits, pushes, deployment, or research training; only tiny fixture training. Existing evidence archives preserved."
+}

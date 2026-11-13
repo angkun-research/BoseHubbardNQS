@@ -16,7 +16,7 @@ end
 
 function load_nn(path::String="data/bose_hubbard_nqs.pt";
                  arch=nothing, n_sites=nothing, nmax=nothing, hidden_dim=nothing,
-                 map_location::String="cpu")
+                 map_location::String="cpu", device=nothing)
     return bhnet().load_model(
         path;
         arch=arch,
@@ -24,6 +24,7 @@ function load_nn(path::String="data/bose_hubbard_nqs.pt";
         nmax=nmax,
         hidden_dim=hidden_dim,
         map_location=map_location,
+        device=device,
     )
 end
 
@@ -35,4 +36,10 @@ end
 
 function ansatz_log_amplitude(model, sigma::AbstractVector{<:Integer}; nmax=nothing)
     return nn_value(model, sigma; nmax=nmax)
+end
+
+"""Evaluate unnormalized real log amplitudes; columns are walkers, rows are sites."""
+function nn_values(model, configs::AbstractMatrix{<:Integer}; nmax=nothing, chunk_size=1024)
+    values = bhnet().predict_values(model, Py(Matrix{Int}(configs)); nmax=nmax, chunk_size=chunk_size)
+    return pyconvert(Vector{Float64}, values)
 end

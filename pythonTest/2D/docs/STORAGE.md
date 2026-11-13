@@ -10,6 +10,14 @@ Keep these separate when committing:
 | `benchmarks/results/` — dated reports, trajectories, logs and experiment evidence | Local only; ignored |
 | Slide previews and Python caches | Ignore; regenerate as needed |
 
+The completed GCNN study has a Git-visible [report](GCNN_STUDY.md),
+[compact results](gcnn-study-results.json) and
+[cleanup receipt](gcnn-study-cleanup.json). Its checkpoints, full reports,
+raw chains, pilot failures and exact pre-cleanup source snapshot stay under
+ignored `outputs/2026-11-13-gcnn-study/`. Preserve that directory when backing
+up or moving the study; Git alone does not retain the numerical evidence or
+historical source snapshot.
+
 Adding an ignore rule does not unstage files that were already added. The
 previously staged generated `benchmarks/results/` files are removed from the
 index, while their local files remain intact. No history rewrite, numerical-data

@@ -23,13 +23,26 @@ import time
 
 import torch
 
-from lattice import lattice_shape, add_boundary_arguments, resolve_cli_boundaries
-from models import ARCH_BUILDERS, ROOT, build_model, load_model, parameter_count, save_model
-from vmc import (
-    DEFAULT_MAX_SR_BYTES, DEFAULT_MAX_SR_PARAMETERS, MAX_JACOBIAN_BATCH_SIZE, MAX_VMAP_JACOBIAN_BATCH_SIZE, SR_CONVENTION, MINSR_CONVENTION,
-    check_sr_budget, generate_initial_states, local_energy, native_vmc_update,
-    physical_parameters, sample, sr_update,
-)
+if __package__:
+    from .lattice import lattice_shape, add_boundary_arguments, resolve_cli_boundaries
+else:
+    from lattice import lattice_shape, add_boundary_arguments, resolve_cli_boundaries
+if __package__:
+    from .models import ARCH_BUILDERS, ROOT, build_model, load_model, parameter_count, save_model
+else:
+    from models import ARCH_BUILDERS, ROOT, build_model, load_model, parameter_count, save_model
+if __package__:
+    from .vmc import (
+        DEFAULT_MAX_SR_BYTES, DEFAULT_MAX_SR_PARAMETERS, MAX_JACOBIAN_BATCH_SIZE, MAX_VMAP_JACOBIAN_BATCH_SIZE, SR_CONVENTION, MINSR_CONVENTION,
+        check_sr_budget, generate_initial_states, local_energy, native_vmc_update,
+        physical_parameters, sample, sr_update,
+    )
+else:
+    from vmc import (
+        DEFAULT_MAX_SR_BYTES, DEFAULT_MAX_SR_PARAMETERS, MAX_JACOBIAN_BATCH_SIZE, MAX_VMAP_JACOBIAN_BATCH_SIZE, SR_CONVENTION, MINSR_CONVENTION,
+        check_sr_budget, generate_initial_states, local_energy, native_vmc_update,
+        physical_parameters, sample, sr_update,
+    )
 
 
 def _output_path(value):
@@ -239,7 +252,10 @@ def main(argv=None):
     optimizer = optimizer_class(model.parameters(), lr=args.lr)
     ed_energy = None
     if args.ed_reference:
-        from exact_diagonalization import exact_ground_state
+        if __package__:
+            from .exact_diagonalization import exact_ground_state
+        else:
+            from exact_diagonalization import exact_ground_state
 
         ed_energy, _, _, _ = exact_ground_state(
             args.Lx, args.Ly, args.Ntot, args.Nmax, args.t, args.U, args.mu, args.pbc,

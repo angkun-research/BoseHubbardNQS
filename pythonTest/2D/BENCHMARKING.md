@@ -4,6 +4,23 @@ Run from the repository root using the existing environments. These are usage
 examples, not instructions to rerun a research campaign. Detailed callable APIs
 are in [docs/API.md](docs/API.md); accepted results are in [STATUS.md](STATUS.md).
 
+## GCNN uses the same workflows
+
+Select `--arch GroupEquivariantConv2DNet` in the existing trainers. The study
+uses `--width 8` with `train_ed.py` and `--hidden-dim 8` with `train.py`;
+the model constructor default remains 16 for compatibility. Both axes must be
+periodic. Squares enforce D4; rectangles keep D4-tied local filters and enforce
+D2 lattice symmetry. All models still use the same Hamiltonian, ED, sampler,
+local energies, optimizer implementations and frozen measurements.
+
+Small supervised cases use `train_ed.py` directly. The completed 3x4 benchmark
+uses exact symmetry-orbit batching to reduce activation memory while retaining
+the full-sector normalized log-MSE objective and the existing Adam optimizer.
+This batching is a benchmark
+helper, not another loss or ED solver. Full protocols, results, source snapshots
+and the distinction between overlap and squared fidelity are in
+[the GCNN study record](docs/GCNN_STUDY.md).
+
 ## ED and supervised qualification
 
 ```bash

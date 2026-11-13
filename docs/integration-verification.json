@@ -1,0 +1,84 @@
+{
+  "date": "2026-11-13",
+  "status": "passed_local_validation",
+  "environment": {
+    "python": "3.13.3",
+    "julia": "1.13.3",
+    "torch": "2.11.0+cu128",
+    "gpu": "NVIDIA RTX A6000"
+  },
+  "runtime_validation": "test/integration-validation.json",
+  "additional_validation": [
+    {
+      "command": "OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 .venv/bin/python -B pythonTest/vmc_gpu_test.py --self-test --device cpu",
+      "tests_passed": 4
+    },
+    {
+      "command": "/tmp/bhnqs-docs-venv/bin/zensical build --strict",
+      "status": "passed",
+      "elapsed_seconds": 0.45
+    },
+    {
+      "command": "python docs/tools/prepare_reference.py --check",
+      "status": "passed"
+    },
+    {
+      "command": "python docs/tools/check_reference.py",
+      "documented_julia_exports": 9
+    },
+    {
+      "command": "python docs/tools/check_site.py",
+      "html_pages": 11,
+      "verified_local_links_assets_anchors": 365
+    },
+    {
+      "check": "Chromium desktop and mobile rendering plus browser MathJax",
+      "status": "passed",
+      "local_previews": "pythonTest/2D/outputs/docs-preview/",
+      "rendered_math_containers": 14
+    },
+    {
+      "command": "./julia-local example/integration_2d.jl",
+      "status": "passed"
+    }
+  ],
+  "numerical_preservation": {
+    "status": "VERIFIED",
+    "scope": "Julia/PyTorch software integration and documentation",
+    "numerical_ast_unchanged_modules": {
+      "lattice.py": "a3bb6c5841c4fe68712c7d7e3085d358b10f38106d577b04d8d73fe10b1b0bf9",
+      "exact_diagonalization.py": "7199a990f8ce2ddc3a248394084ec30e38fb6d2f06f250b76e5abd56423e74fc",
+      "square_group.py": "5484df26d13f61d554052b6f0f9f236108fd365a48546cf5cb5aa39ee36fd4bd",
+      "models.py": "202ad7bab5fb43e7ad72fbefa324891084aeade3970fe97b719ff180995601d3",
+      "vmc.py": "492b5e11c0b976004f59a07072f8210d200a2262bbf6aa62abe5907f6867a0b2",
+      "observables.py": "560f8ca7b42fa7b6fae67fb437e8c1b5ebe9a4dbdd3cf4ac6451777cd523e513",
+      "train.py": "24b01a6bf2e80f95704b2ff5acfda6727f9e69aceaf10da6f5300109c5c9bafc",
+      "train_ed.py": "de69a67b970134a8903262399c62612449e9cf623cd7657139644e78c85d3056",
+      "evaluate.py": "29825b37ba90111f500091a4728cb1e553acee212c9df17cd50ef48742b5498d",
+      "leakage_analysis.py": "ade302698b60be5b733a1d4948a758dd0694935e57c6f576065871b8d7674b15"
+    },
+    "normalization": "Imports, __package__ import-only branches, duplicate-import guards and docstrings excluded; all remaining statements compared exactly",
+    "protected_study_files_verified": 67,
+    "retained_result_record_unchanged_byte_for_byte": true,
+    "baseline": "pythonTest/2D/outputs/integration-baseline-2026-11-13",
+    "new_research_training": false
+  },
+  "review": {
+    "implementation": "Independent Codex worker with primary Codex and Claude review",
+    "repository_owner": "GitHub API redirects old angkunwu remote to angkun-research/BoseHubbardNQS; site links use canonical owner",
+    "action_tags": "All six workflow major tags verified against GitHub API on this date"
+  },
+  "deployment": {
+    "github_ci_executed": false,
+    "pages_published": false,
+    "required_next_steps": [
+      "Commit and push the reviewed changes",
+      "Set repository Pages source to GitHub Actions"
+    ]
+  },
+  "limits": [
+    "Local tests do not establish GitHub-hosted CI success",
+    "GPU checks are optional locally; hosted CI runs CPU checks",
+    "No new research training or ground-state accuracy claims"
+  ]
+}

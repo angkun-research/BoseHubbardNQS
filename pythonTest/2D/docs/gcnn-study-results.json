@@ -1,0 +1,557 @@
+{
+  "study": "minimal D4-tied GCNN,2026-11-13",
+  "parameter_count": 4993,
+  "environment_at_collection": {
+    "python": "3.13.3 (main, May 23 2026, 16:52:01) [GCC 9.4.0]",
+    "torch": "2.11.0+cu128",
+    "numpy": "2.3.3",
+    "scipy": "1.17.1",
+    "torch_cuda_build": "12.8",
+    "hardware": "two NVIDIA RTX A6000 48GiB;125GiB host RAM",
+    "timing_scope": "concurrent jobs; wall times are not isolated performance benchmarks"
+  },
+  "physics": {
+    "t": 1.0,
+    "U": 16.74,
+    "mu": 0.0,
+    "Nmax": 4,
+    "filling": 1,
+    "pbc_x": true,
+    "pbc_y": true
+  },
+  "ansatz": "width8 lifting3x3+SiLU,group3x3+SiLU,space/orientation mean,linear head",
+  "rectangular_symmetry": "D4-tied local filters; only D2 and translations on each rectangle",
+  "supervised": [
+    {
+      "shape": "2x3",
+      "status": "completed",
+      "report": "outputs/2026-11-13-gcnn-study/ed-2x3/report.json",
+      "amplitude_overlap_abs_unsquared": 0.9999999476199003,
+      "fidelity_squared": 0.9999998952398034,
+      "energy": -2.5810867740670504,
+      "energy_error_per_site": 4.563071153521984e-07,
+      "variance": 8.85562452937606e-05,
+      "best_epoch": 9996,
+      "best_training_log_mse": 2.2686053853249177e-06,
+      "elapsed_seconds": 60.38396984292194,
+      "orbit_dimension": 46,
+      "dimension": 426,
+      "ED": {
+        "solver_energy": -2.5810895119097426,
+        "energy": -2.581089511909749,
+        "energy_variance": 1.1178438818410803e-27,
+        "norm": 1.0,
+        "amplitude_overlap_abs_unsquared": 1.0,
+        "minimum_abs_amplitude": 8.514042016127617e-06
+      },
+      "floored_target_count": 0,
+      "working_overlap_gate": {
+        "threshold_abs_unsquared": 0.99,
+        "passed": true
+      },
+      "tiny_system_gate_passed": true
+    },
+    {
+      "shape": "3x4",
+      "status": "completed",
+      "report": "outputs/2026-11-13-gcnn-study/ed-3x4/report.json",
+      "amplitude_overlap_abs_unsquared": 0.9842388185460501,
+      "fidelity_squared": 0.9687260519329246,
+      "energy": -7.126938177471516,
+      "energy_error_per_site": 0.04297246419122014,
+      "variance": 10.881321693524269,
+      "best_epoch": 10000,
+      "best_training_log_mse": 0.016953017562627792,
+      "elapsed_seconds": 2522.6176622398198,
+      "orbit_dimension": 21600,
+      "dimension": 975338,
+      "ED": {
+        "solver_energy": -7.642607747766157,
+        "energy": -7.64260774776611,
+        "energy_variance": 1.3717402701146285e-26,
+        "norm": 1.0,
+        "amplitude_overlap_abs_unsquared": 1.0,
+        "minimum_abs_amplitude": 6.375215130695328e-13
+      },
+      "floored_target_count": 4,
+      "working_overlap_gate": {
+        "threshold_abs_unsquared": 0.99,
+        "passed": false
+      }
+    },
+    {
+      "shape": "3x3",
+      "status": "completed",
+      "report": "outputs/2026-11-13-gcnn-study/ed-3x3-width8.pt.json",
+      "amplitude_overlap_abs_unsquared": 0.9976990571446567,
+      "fidelity_squared": 0.9954034086273369,
+      "energy": -5.997208551986896,
+      "energy_error_per_site": 0.011931558494988614,
+      "variance": 2.5807738220461482,
+      "best_epoch": 10000
+    }
+  ],
+  "vmc": [
+    {
+      "shape": "3x3",
+      "status": "completed",
+      "suite": "outputs/2026-11-13-gcnn-study/vmc-3x3-seed123/suite.json",
+      "training_seed": 123,
+      "frozen": [
+        {
+          "seed": 321,
+          "energy": -6.055998769112237,
+          "energy_per_site": -0.6728887521235819,
+          "local_energy_variance": 0.663094759879068,
+          "sampling": {
+            "attempts": 147456,
+            "accepted": 25237,
+            "moved": 15263,
+            "valid_proposals": 137482,
+            "accepted_rate": 0.1711493598090278,
+            "moved_rate": 0.10350884331597222,
+            "valid_proposal_rate": 0.9323594835069444,
+            "proposal_steps_per_sample": 9,
+            "retained_steps_per_walker": 256,
+            "postburn_proposal_steps_per_walker": 2304,
+            "burnin_proposal_steps_per_walker": 4096,
+            "attempts_unit": "one bond/direction proposal for one walker, not a lattice sweep",
+            "time_axis_unit": "one retained configuration per walker after proposal_steps_per_sample proposals",
+            "diagnostics_scope": "all post-burn proposals, including intervals between retained samples; burn-in excluded"
+          },
+          "block_stability": [
+            {
+              "block_length": 16,
+              "energy_mean": -6.055998769112236,
+              "conditional_block_SEM": 0.010583790309076937,
+              "between_chain_SEM": 0.010667678081303353
+            },
+            {
+              "block_length": 32,
+              "energy_mean": -6.055998769112236,
+              "conditional_block_SEM": 0.01110182842304656,
+              "between_chain_SEM": 0.010667678081303353
+            },
+            {
+              "block_length": 64,
+              "energy_mean": -6.055998769112236,
+              "conditional_block_SEM": 0.011788818478761549,
+              "between_chain_SEM": 0.010667678081303353
+            },
+            {
+              "block_length": 128,
+              "energy_mean": -6.055998769112237,
+              "conditional_block_SEM": 0.011766044219866989,
+              "between_chain_SEM": 0.010667678081303353
+            }
+          ],
+          "conditional_errors_only": true,
+          "report": "outputs/2026-11-13-gcnn-study/vmc-3x3-seed123/frozen-321.json"
+        },
+        {
+          "seed": 654,
+          "energy": -6.060730013364912,
+          "energy_per_site": -0.6734144459294347,
+          "local_energy_variance": 0.6912228861021894,
+          "sampling": {
+            "attempts": 147456,
+            "accepted": 25203,
+            "moved": 15070,
+            "valid_proposals": 137323,
+            "accepted_rate": 0.17091878255208334,
+            "moved_rate": 0.1021999782986111,
+            "valid_proposal_rate": 0.9312811957465278,
+            "proposal_steps_per_sample": 9,
+            "retained_steps_per_walker": 256,
+            "postburn_proposal_steps_per_walker": 2304,
+            "burnin_proposal_steps_per_walker": 4096,
+            "attempts_unit": "one bond/direction proposal for one walker, not a lattice sweep",
+            "time_axis_unit": "one retained configuration per walker after proposal_steps_per_sample proposals",
+            "diagnostics_scope": "all post-burn proposals, including intervals between retained samples; burn-in excluded"
+          },
+          "block_stability": [
+            {
+              "block_length": 16,
+              "energy_mean": -6.060730013364912,
+              "conditional_block_SEM": 0.01102160123465069,
+              "between_chain_SEM": 0.011298009372154904
+            },
+            {
+              "block_length": 32,
+              "energy_mean": -6.060730013364912,
+              "conditional_block_SEM": 0.011659247551693832,
+              "between_chain_SEM": 0.011298009372154904
+            },
+            {
+              "block_length": 64,
+              "energy_mean": -6.060730013364912,
+              "conditional_block_SEM": 0.01244132014095855,
+              "between_chain_SEM": 0.011298009372154904
+            },
+            {
+              "block_length": 128,
+              "energy_mean": -6.060730013364912,
+              "conditional_block_SEM": 0.012665592889196033,
+              "between_chain_SEM": 0.011298009372154904
+            }
+          ],
+          "conditional_errors_only": true,
+          "report": "outputs/2026-11-13-gcnn-study/vmc-3x3-seed123/frozen-654.json"
+        }
+      ],
+      "final_training_measurement": {
+        "energy": -6.0578198416986355,
+        "energy_per_site": -0.6730910935220706,
+        "local_energy_variance": 0.6635451434386215,
+        "n_samples": 1024,
+        "sampling": {
+          "attempts": 9216,
+          "accepted": 1530,
+          "moved": 890,
+          "valid_proposals": 8576,
+          "accepted_rate": 0.166015625,
+          "moved_rate": 0.09657118055555555,
+          "valid_proposal_rate": 0.9305555555555556,
+          "proposal_steps_per_sample": 9,
+          "retained_steps_per_walker": 16,
+          "postburn_proposal_steps_per_walker": 144,
+          "burnin_proposal_steps_per_walker": 64,
+          "attempts_unit": "one bond/direction proposal for one walker, not a lattice sweep",
+          "time_axis_unit": "one retained configuration per walker after proposal_steps_per_sample proposals",
+          "diagnostics_scope": "all post-burn proposals, including intervals between retained samples; burn-in excluded"
+        },
+        "measurement_timing": "after_final_update_from_saved_checkpoint"
+      },
+      "training_seconds": 479.9931468036957,
+      "checkpoint_sha256": "1849f18f7ef450cc737d20cfc6b18755ca29d0c84b8c4c6b44cd7b13fb92d144",
+      "training_tail": {
+        "first_half_mean_energy": -6.037803039246456,
+        "second_half_mean_energy": -6.059735791534863,
+        "number_of_measurements": 100,
+        "interpretation": "descriptive correlated training measurements; no convergence test"
+      },
+      "exact_saved_state": {
+        "ed_energy": -6.104592578441793,
+        "energy": -6.061444148939648,
+        "energy_error_per_site": 0.004794269944682818,
+        "variance": 0.7969278673471089,
+        "amplitude_overlap_abs_unsquared": 0.9980917331167878,
+        "fidelity_squared": 0.9961871077160731,
+        "basis_dimension": 19855,
+        "precision": "direct full-sector float64 saved-state evaluation"
+      }
+    },
+    {
+      "shape": "4x4",
+      "status": "completed",
+      "suite": "outputs/2026-11-13-gcnn-study/vmc-4x4-seed123/suite.json",
+      "training_seed": 123,
+      "frozen": [
+        {
+          "seed": 321,
+          "energy": -9.285655805763064,
+          "energy_per_site": -0.5803534878601915,
+          "local_energy_variance": 2.979486099829796,
+          "sampling": {
+            "attempts": 262144,
+            "accepted": 45237,
+            "moved": 26616,
+            "valid_proposals": 243523,
+            "accepted_rate": 0.17256546020507812,
+            "moved_rate": 0.101531982421875,
+            "valid_proposal_rate": 0.9289665222167969,
+            "proposal_steps_per_sample": 16,
+            "retained_steps_per_walker": 256,
+            "postburn_proposal_steps_per_walker": 4096,
+            "burnin_proposal_steps_per_walker": 4096,
+            "attempts_unit": "one bond/direction proposal for one walker, not a lattice sweep",
+            "time_axis_unit": "one retained configuration per walker after proposal_steps_per_sample proposals",
+            "diagnostics_scope": "all post-burn proposals, including intervals between retained samples; burn-in excluded"
+          },
+          "block_stability": [
+            {
+              "block_length": 16,
+              "energy_mean": -9.285655805763064,
+              "conditional_block_SEM": 0.02387133567413408,
+              "between_chain_SEM": 0.029380389262004872
+            },
+            {
+              "block_length": 32,
+              "energy_mean": -9.285655805763062,
+              "conditional_block_SEM": 0.025750471061297776,
+              "between_chain_SEM": 0.029380389262004872
+            },
+            {
+              "block_length": 64,
+              "energy_mean": -9.285655805763064,
+              "conditional_block_SEM": 0.02755889801780616,
+              "between_chain_SEM": 0.029380389262004872
+            },
+            {
+              "block_length": 128,
+              "energy_mean": -9.285655805763064,
+              "conditional_block_SEM": 0.028886264891273397,
+              "between_chain_SEM": 0.029380389262004872
+            }
+          ],
+          "conditional_errors_only": true,
+          "report": "outputs/2026-11-13-gcnn-study/vmc-4x4-seed123/frozen-321.json"
+        },
+        {
+          "seed": 654,
+          "energy": -9.336146070874028,
+          "energy_per_site": -0.5835091294296267,
+          "local_energy_variance": 3.079149323391845,
+          "sampling": {
+            "attempts": 262144,
+            "accepted": 45931,
+            "moved": 26916,
+            "valid_proposals": 243129,
+            "accepted_rate": 0.17521286010742188,
+            "moved_rate": 0.1026763916015625,
+            "valid_proposal_rate": 0.9274635314941406,
+            "proposal_steps_per_sample": 16,
+            "retained_steps_per_walker": 256,
+            "postburn_proposal_steps_per_walker": 4096,
+            "burnin_proposal_steps_per_walker": 4096,
+            "attempts_unit": "one bond/direction proposal for one walker, not a lattice sweep",
+            "time_axis_unit": "one retained configuration per walker after proposal_steps_per_sample proposals",
+            "diagnostics_scope": "all post-burn proposals, including intervals between retained samples; burn-in excluded"
+          },
+          "block_stability": [
+            {
+              "block_length": 16,
+              "energy_mean": -9.33614607087403,
+              "conditional_block_SEM": 0.02368980548388555,
+              "between_chain_SEM": 0.02746573508118375
+            },
+            {
+              "block_length": 32,
+              "energy_mean": -9.33614607087403,
+              "conditional_block_SEM": 0.02501140315006476,
+              "between_chain_SEM": 0.02746573508118375
+            },
+            {
+              "block_length": 64,
+              "energy_mean": -9.33614607087403,
+              "conditional_block_SEM": 0.026649325953769547,
+              "between_chain_SEM": 0.02746573508118375
+            },
+            {
+              "block_length": 128,
+              "energy_mean": -9.336146070874028,
+              "conditional_block_SEM": 0.027723949419267466,
+              "between_chain_SEM": 0.02746573508118375
+            }
+          ],
+          "conditional_errors_only": true,
+          "report": "outputs/2026-11-13-gcnn-study/vmc-4x4-seed123/frozen-654.json"
+        }
+      ],
+      "final_training_measurement": {
+        "energy": -9.273752095101349,
+        "energy_per_site": -0.5796095059438343,
+        "local_energy_variance": 3.19805619169194,
+        "n_samples": 1024,
+        "sampling": {
+          "attempts": 16384,
+          "accepted": 2917,
+          "moved": 1694,
+          "valid_proposals": 15161,
+          "accepted_rate": 0.17803955078125,
+          "moved_rate": 0.1033935546875,
+          "valid_proposal_rate": 0.92535400390625,
+          "proposal_steps_per_sample": 16,
+          "retained_steps_per_walker": 16,
+          "postburn_proposal_steps_per_walker": 256,
+          "burnin_proposal_steps_per_walker": 64,
+          "attempts_unit": "one bond/direction proposal for one walker, not a lattice sweep",
+          "time_axis_unit": "one retained configuration per walker after proposal_steps_per_sample proposals",
+          "diagnostics_scope": "all post-burn proposals, including intervals between retained samples; burn-in excluded"
+        },
+        "measurement_timing": "after_final_update_from_saved_checkpoint"
+      },
+      "training_seconds": 749.8309506969526,
+      "checkpoint_sha256": "5c737c24de5a2e0c3e1c73ad23b43e73d0f0018330aa825e861537042b03c1b4",
+      "training_tail": {
+        "first_half_mean_energy": -9.263207934626383,
+        "second_half_mean_energy": -9.278218646348076,
+        "number_of_measurements": 100,
+        "interpretation": "descriptive correlated training measurements; no convergence test"
+      }
+    },
+    {
+      "shape": "5x5",
+      "status": "completed",
+      "suite": "outputs/2026-11-13-gcnn-study/vmc-5x5-seed123/suite.json",
+      "training_seed": 123,
+      "frozen": [
+        {
+          "seed": 321,
+          "energy": -13.607893353218474,
+          "energy_per_site": -0.5443157341287389,
+          "local_energy_variance": 5.745980016361095,
+          "sampling": {
+            "attempts": 409600,
+            "accepted": 75789,
+            "moved": 44515,
+            "valid_proposals": 378326,
+            "accepted_rate": 0.18503173828125,
+            "moved_rate": 0.10867919921875,
+            "valid_proposal_rate": 0.9236474609375,
+            "proposal_steps_per_sample": 25,
+            "retained_steps_per_walker": 256,
+            "postburn_proposal_steps_per_walker": 6400,
+            "burnin_proposal_steps_per_walker": 4096,
+            "attempts_unit": "one bond/direction proposal for one walker, not a lattice sweep",
+            "time_axis_unit": "one retained configuration per walker after proposal_steps_per_sample proposals",
+            "diagnostics_scope": "all post-burn proposals, including intervals between retained samples; burn-in excluded"
+          },
+          "block_stability": [
+            {
+              "block_length": 16,
+              "energy_mean": -13.607893353218474,
+              "conditional_block_SEM": 0.035452705465671426,
+              "between_chain_SEM": 0.03469318454879722
+            },
+            {
+              "block_length": 32,
+              "energy_mean": -13.607893353218472,
+              "conditional_block_SEM": 0.03892648075423165,
+              "between_chain_SEM": 0.03469318454879722
+            },
+            {
+              "block_length": 64,
+              "energy_mean": -13.607893353218476,
+              "conditional_block_SEM": 0.03813452465084227,
+              "between_chain_SEM": 0.03469318454879722
+            },
+            {
+              "block_length": 128,
+              "energy_mean": -13.607893353218476,
+              "conditional_block_SEM": 0.03641410763484784,
+              "between_chain_SEM": 0.03469318454879722
+            }
+          ],
+          "conditional_errors_only": true,
+          "report": "outputs/2026-11-13-gcnn-study/vmc-5x5-seed123/frozen-321.json"
+        },
+        {
+          "seed": 654,
+          "energy": -13.555549091425345,
+          "energy_per_site": -0.5422219636570138,
+          "local_energy_variance": 5.676695888502916,
+          "sampling": {
+            "attempts": 409600,
+            "accepted": 76796,
+            "moved": 45304,
+            "valid_proposals": 378108,
+            "accepted_rate": 0.187490234375,
+            "moved_rate": 0.11060546875,
+            "valid_proposal_rate": 0.923115234375,
+            "proposal_steps_per_sample": 25,
+            "retained_steps_per_walker": 256,
+            "postburn_proposal_steps_per_walker": 6400,
+            "burnin_proposal_steps_per_walker": 4096,
+            "attempts_unit": "one bond/direction proposal for one walker, not a lattice sweep",
+            "time_axis_unit": "one retained configuration per walker after proposal_steps_per_sample proposals",
+            "diagnostics_scope": "all post-burn proposals, including intervals between retained samples; burn-in excluded"
+          },
+          "block_stability": [
+            {
+              "block_length": 16,
+              "energy_mean": -13.555549091425346,
+              "conditional_block_SEM": 0.034074292979908445,
+              "between_chain_SEM": 0.038935587124960806
+            },
+            {
+              "block_length": 32,
+              "energy_mean": -13.555549091425345,
+              "conditional_block_SEM": 0.03680034592638456,
+              "between_chain_SEM": 0.038935587124960806
+            },
+            {
+              "block_length": 64,
+              "energy_mean": -13.555549091425346,
+              "conditional_block_SEM": 0.03781008397998316,
+              "between_chain_SEM": 0.038935587124960806
+            },
+            {
+              "block_length": 128,
+              "energy_mean": -13.555549091425346,
+              "conditional_block_SEM": 0.03836371992569123,
+              "between_chain_SEM": 0.038935587124960806
+            }
+          ],
+          "conditional_errors_only": true,
+          "report": "outputs/2026-11-13-gcnn-study/vmc-5x5-seed123/frozen-654.json"
+        }
+      ],
+      "final_training_measurement": {
+        "energy": -13.459338750622138,
+        "energy_per_site": -0.5383735500248855,
+        "local_energy_variance": 6.303999691054366,
+        "n_samples": 1024,
+        "sampling": {
+          "attempts": 25600,
+          "accepted": 4882,
+          "moved": 2909,
+          "valid_proposals": 23627,
+          "accepted_rate": 0.190703125,
+          "moved_rate": 0.1136328125,
+          "valid_proposal_rate": 0.9229296875,
+          "proposal_steps_per_sample": 25,
+          "retained_steps_per_walker": 16,
+          "postburn_proposal_steps_per_walker": 400,
+          "burnin_proposal_steps_per_walker": 64,
+          "attempts_unit": "one bond/direction proposal for one walker, not a lattice sweep",
+          "time_axis_unit": "one retained configuration per walker after proposal_steps_per_sample proposals",
+          "diagnostics_scope": "all post-burn proposals, including intervals between retained samples; burn-in excluded"
+        },
+        "measurement_timing": "after_final_update_from_saved_checkpoint"
+      },
+      "training_seconds": 2365.441239472013,
+      "checkpoint_sha256": "2b040ddf9253a7b94b6d9fa1fa18dfd45ec780713f48bf2eddd67d460c086566",
+      "training_tail": {
+        "first_half_mean_energy": -13.42745412941851,
+        "second_half_mean_energy": -13.508439655830152,
+        "number_of_measurements": 100,
+        "interpretation": "descriptive correlated training measurements; no convergence test"
+      }
+    }
+  ],
+  "deferred": {
+    "3x5": "existing full ED exceeds resource budget; new orbit-reduced solver explicitly deferred",
+    "4x5": "existing full ED exceeds resource budget; replaced with2x3 exact test"
+  },
+  "limitations": [
+    "single training seed per size; frozen seeds are independent measurements, not optimization replicas",
+    "fixed training budget does not establish convergence or an architecture capacity limit",
+    "no exact fidelity for4x4 or5x5; sampled energy is not an exact variational bound",
+    "block errors are conditional; stability diagnostics do not establish mixing or ESS",
+    "2x3 periodic length-two axis aliases opposite convolution offsets"
+  ],
+  "pilots": {
+    "3x3_float64": "completed; pipeline check only",
+    "5x5_float32_lr.02_tau.001": "failed: explosive sampled energy then nonfinite local energies",
+    "5x5_float64_lr.002_tau.01": "10 stable updates; conservative protocol selected"
+  },
+  "independent_saved_checkpoint_fidelity_audit": [
+    {
+      "shape": "2x3",
+      "status": "passed",
+      "checkpoint_dtype": "float64",
+      "full_sector_states": 426,
+      "fidelity_squared": 0.9999998952398034,
+      "reported_overlap_difference": 0.0
+    },
+    {
+      "shape": "3x4",
+      "status": "passed",
+      "checkpoint_dtype": "float64",
+      "full_sector_states": 975338,
+      "fidelity_squared": 0.9687260519329246,
+      "reported_overlap_difference": 0.0
+    }
+  ]
+}

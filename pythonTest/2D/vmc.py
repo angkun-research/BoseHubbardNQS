@@ -13,8 +13,14 @@ import math
 import torch
 from torch.nn import functional as F
 
-from lattice import _integer, bonds_2d
-from exact_diagonalization import _physical_scalar
+if __package__:
+    from .lattice import _integer, bonds_2d
+else:
+    from lattice import _integer, bonds_2d
+if __package__:
+    from .exact_diagonalization import _physical_scalar
+else:
+    from exact_diagonalization import _physical_scalar
 
 
 SR_CONVENTION = "centered Jc; S=Jc.T@Jc/M; f=Jc.T@(E-Emean)/M; (S+tau*I)delta=f; no extra 2"

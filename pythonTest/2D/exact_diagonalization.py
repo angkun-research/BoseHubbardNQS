@@ -14,7 +14,10 @@ import numpy as np
 from scipy.sparse import coo_matrix
 from scipy.sparse.linalg import eigsh
 
-from lattice import _integer, bonds_2d, lattice_shape
+if __package__:
+    from .lattice import _integer, bonds_2d, lattice_shape
+else:
+    from lattice import _integer, bonds_2d, lattice_shape
 
 
 DEFAULT_MAX_DIMENSION = 20_000

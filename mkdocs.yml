@@ -1,0 +1,67 @@
+site_name: BoseHubbardNQS
+site_description: Neural quantum states and variational Monte Carlo for the Bose–Hubbard model, with Julia and PyTorch
+site_url: https://angkun-research.github.io/BoseHubbardNQS/
+repo_url: https://github.com/angkun-research/BoseHubbardNQS
+repo_name: GitHub
+edit_uri: edit/main/docs/site/
+docs_dir: docs/site
+site_dir: site
+use_directory_urls: true
+strict: true
+
+theme:
+  name: material
+  variant: classic
+  font: false
+  palette:
+    primary: white
+    accent: indigo
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - content.code.copy
+
+nav:
+  - Overview: index.md
+  - Getting started: getting-started.md
+  - Physics and conventions: physics.md
+  - Python workflows: python.md
+  - Julia interface: julia.md
+  - Batching and CUDA: batching.md
+  - API reference:
+      - Python: api/python.md
+      - Julia: api/julia.md
+  - Benchmarks and limitations: benchmarks.md
+  - Development and documentation: development.md
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+  - toc:
+      permalink: true
+
+extra_css:
+  - stylesheets/extra.css
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
+
+validation:
+  nav:
+    omitted_files: warn
+    not_found: warn
+  links:
+    not_found: warn
+    anchors: warn
+
+copyright: BoseHubbardNQS contributors · Source code and reproducible workflows

@@ -10,6 +10,7 @@ diagnostics or historical experiments; they are not a second VMC backend.
 | Matched-reference analysis | `validate_dmrg_reference.py`, `compare_dmrg_vmc.py`, `compare_dmrg_sizes.py`, `assess_refinement.py` |
 | Exact/frozen observable helpers | `periodic_observables.py`, `check_torus_ed.py` |
 | Square-symmetry qualification | `check_square_symmetry.py`, `check_square_symmetry_independent.py`, `train_square_group.py` |
+| Completed GCNN study | `train_rectangular_group.py` (exact orbit-batched log-MSE), `run_group_vmc_study.py` (shared trainer/evaluator launcher), `summarize_group_study.py` (compact results and reblocking) |
 | Dated evidence reproduction | `run_small_vmc_proof.py`, `finalize_small_vmc_proof.py`, `run_periodic_benchmarks.py`, `run_backup_extension.py`, the two `run_*6_stable_retry.py` scripts |
 | Development/performance diagnostics | `benchmark_*.py`, `calibrate_conv_sr.py`, `check_training.py`, `prepare_width128.py`, `widen_conv.py` |
 | Historical ansatz/optimizer diagnostics | `check_jastrow_*.py`, `check_exact_jastrow_sr.py`, `check_minsr_frozen.py`, `minsr_prototype.py` |
@@ -28,6 +29,10 @@ deleted or moved as scratch without breaking that chain. See
 [cleanup policy and disposition](../docs/CLEANUP.md).
 
 For current commands and selection rules, use [../BENCHMARKING.md](../BENCHMARKING.md).
+The final GCNN matrix and limitations are in
+[the study record](../docs/GCNN_STUDY.md). Its source snapshot preserves the
+exact experiment versions before maintenance cleanup. No GCNN-specific sampler,
+local-energy implementation, optimizer or ED solver is maintained here.
 Checkpoint weights and raw chains stay at the locations recorded under
 `../outputs/`; a JSON report and its raw NPZ companion belong together.
 

@@ -8,8 +8,14 @@ Block errors are conditional estimates, not a claim of equilibration or ESS.
 
 import torch
 
-from lattice import _integer, bonds_2d, lattice_shape
-from vmc import _states, _batch_size, _log_amplitudes, local_energy, physical_parameters, sample
+if __package__:
+    from .lattice import _integer, bonds_2d, lattice_shape
+else:
+    from lattice import _integer, bonds_2d, lattice_shape
+if __package__:
+    from .vmc import _states, _batch_size, _log_amplitudes, local_energy, physical_parameters, sample
+else:
+    from vmc import _states, _batch_size, _log_amplitudes, local_energy, physical_parameters, sample
 
 
 DEFAULT_MAX_OBSERVABLE_BYTES = 512 * 1024**2

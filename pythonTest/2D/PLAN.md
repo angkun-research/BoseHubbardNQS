@@ -1,20 +1,26 @@
-# 2D research status and scope
+# Completed GCNN study and remaining scope
 
-The symmetry-inspired CNN representation-reduction direction is **closed**
-by the user as of 2026-11-06. This includes flatten-head/pooling comparisons,
-feature/kernel SVD analysis and proposed SVD/RG channel truncation.
-No further experiments are scheduled in this direction.
+The requested GCNN test matrix is complete and accepted as the final study
+record. Results and reproduction commands are in
+[the study report](docs/GCNN_STUDY.md), with exact values in
+[the compact results](docs/gcnn-study-results.json).
 
-The goal, findings, limitations and cleanup are recorded in
-[the closure note](docs/CLOSED_REPRESENTATION_STUDY.md). The complete previous
-research plan is preserved in the ignored local closure archive identified
-there; it is historical scope, not authorization for future runs.
+The same width-8 ansatz was tested using log-MSE/Adam on 2x3, 3x3 and 3x4,
+and energy-based VMC/SR+SGD on 3x3, 4x4 and 5x5. Squares have D4 symmetry;
+rectangles retain D4-tied filters with D2 lattice symmetry. The shared physics,
+ED, sampler, local energies and optimizers are unchanged.
 
-The established 2D ED, supervised-learning, VMC and square-symmetry benchmarks
-remain available; see [STATUS.md](STATUS.md) and [BENCHMARKING.md](BENCHMARKING.md).
-The seven established model families and shared PyTorch VMC implementation
-remain supported. No new direction has been selected.
+The 3x4 fit misses the previous 0.99 absolute-overlap working criterion.
+Exact fidelity and ground-state convergence are not established for 4x4/5x5.
+These limits remain part of the final record; no further fitting or architecture
+search is active. The larger rectangular ED cases were replaced by 2x3, and
+building a symmetry-reduced ED solver remains deferred.
 
-All 1D and Julia functionality remains separate and unchanged. Future Julia
-integration is prepared in [docs/JULIA_PREPARATION.md](docs/JULIA_PREPARATION.md),
-but has not been merged or initiated by this closure.
+The separate CNN representation/SVD compression direction remains
+[closed](docs/CLOSED_REPRESENTATION_STUDY.md). Its original plan and evidence
+remain in the verified local archive identified there.
+
+The numerical 1D and 2D backends remain separate. The implemented
+[Julia integration contract](docs/JULIA_PREPARATION.md) exposes scalar and batch
+inference, device selection, and isolated 2D training/evaluation workflows.
+This software integration does not add numerical study results.

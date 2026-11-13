@@ -12,8 +12,12 @@ import numpy as np
 import torch
 from torch.nn import functional as F
 
-from lattice import _integer
-from exact_diagonalization import count_basis_states
+if __package__:
+    from .lattice import _integer
+    from .exact_diagonalization import count_basis_states
+else:
+    from lattice import _integer
+    from exact_diagonalization import count_basis_states
 
 
 DEFAULT_MAX_STATES = 2_000_000

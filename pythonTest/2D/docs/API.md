@@ -1,7 +1,8 @@
 # 2D Python API reference
 
-This documents the current implementation for a future Julia handoff. No
-1D/2D merge or Julia adapter is implemented. Exact public signatures and source
+This documents the current Python implementation, also exposed through the
+Julia bridge. Embedded Python uses the `pythonTest.bosehubbard2d` namespace;
+standalone scripts retain their existing paths. Exact public signatures and source
 hashes are also available in [api-signatures.json](api-signatures.json).
 Names beginning with `_` are implementation details. Benchmark recipes are
 not an alternative public VMC API.
@@ -26,8 +27,10 @@ not an alternative public VMC API.
   casts input dtype but does not move an existing tensor to that device; VMC
   occupation wrappers perform explicit device conversion. `load_model`
   preserves the saved floating dtype. Explicit `.double()` changes in-memory
-  arithmetic, not checkpoint bytes. No CUDA-to-host copy is implicit in the
-  proposed Julia contract; see [JULIA_PREPARATION.md](JULIA_PREPARATION.md).
+  arithmetic, not checkpoint bytes. Julia scalar/batch inference explicitly
+  returns host values, with one bulk copy for a batch. Training workflows keep
+  their device computations inside the Python subprocess; see
+  [JULIA_PREPARATION.md](JULIA_PREPARATION.md).
 - Relative checkpoint/report paths resolve from `pythonTest/2D/`, not shell cwd.
   Guarded writes stay in2D. Inference checkpoints do not contain optimizer,
   walker or RNG state and cannot exactly resume training.
@@ -58,7 +61,7 @@ The factory does not normalize amplitudes or enforce total N.
 | RBMNet | `n_hidden=64`; softplus binary-hidden expression used as log amplitude |
 | TransformerNet | Width32; one head, learned x/y positions, mean pool; deterministic zero dropout |
 | Conv2DTransformerNet | Width32 divisible by4; conv/SiLU → one four-head block (FF=2h) → flattened dense/SiLU head; no positional embeddings, zero dropout |
-| GroupEquivariantConv2DNet | Width16; square fully periodic geometry only; D4 lifting/SiLU → true D4 group convolution/SiLU → mean over sites and orientations → linear scalar head |
+| GroupEquivariantConv2DNet | Default width16; fully periodic geometry; D4-tied lifting/SiLU → group convolution/SiLU → mean over sites and orientations → linear scalar head. D4 lattice symmetry on squares, D2 on rectangles |
 
 Recent width32 benchmarks do not change constructor defaults. `parameter_count`
 returns an integer including trainable Jastrow redundancies. `spatial_symmetries`
@@ -72,10 +75,12 @@ strictly. Invalid architecture, settings, metadata, shape or convention fails
 rather than inferring a different lattice/model. File/PyTorch errors propagate.
 `BASELINE_ARCHITECTURES` keeps the original five default sweep;
 `GENERAL_ARCHITECTURES` adds the hybrid for geometry-generic checks.
-`ARCH_BUILDERS` also registers the square-only group CNN. The group CNN has
-exact translation/rotation/reflection invariance for any weights; it does not
+`ARCH_BUILDERS` also registers the periodic group CNN. It guarantees translations
+and D4 invariance on squares, and translations and D2 invariance on rectangles.
+The same D4-tied local filters are used on both; a quarter turn maps a rectangle
+to its transposed shape, not to a state on the original lattice. It does not
 number-project its raw log amplitude. `lift_features(x)` and
-`forward_features(x)` return `(batch,8,hidden_dim,L,L)` regular-representation
+`forward_features(x)` return `(batch,8,hidden_dim,Ly,Lx)` regular-representation
 fields; `group_features(features)` accepts the same shape and mixes all eight
 relative orientations. These expose the layers for independent verification,
 while `forward(x)` retains the standard `(batch,)` output contract.
@@ -405,8 +410,9 @@ is fixed to zero for deterministic VMC forwards in train and eval mode.
 GroupEquivariantConv2DNet(Lx, Ly=None, Nmax=4, pbc=True, hidden_dim=16, *, pbc_x=None, pbc_y=None)
 ```
 
-Square-PBC D4 regular-representation CNN with invariant scalar readout.
-Only square fully periodic geometries are accepted. Feature methods are
+Periodic D4-tied regular-representation CNN with invariant scalar readout.
+Both square and rectangular fully periodic geometries are accepted, with D4
+and D2 lattice symmetry respectively. Feature methods are
 documented above; no particle-number mask is applied by the model.
 
 ```python

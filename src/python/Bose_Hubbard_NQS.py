@@ -27,8 +27,11 @@ def build_model(arch, n_sites, nmax, hidden_dim=128):
     return model
 
 
-def load_model(path=MODEL_PATH, arch=None, n_sites=None, nmax=None, hidden_dim=None, map_location="cpu"):
+def load_model(path=MODEL_PATH, arch=None, n_sites=None, nmax=None, hidden_dim=None, map_location="cpu", device=None):
     ckpt = torch.load(path, map_location=map_location)
+
+    if isinstance(ckpt, dict) and isinstance(ckpt.get("metadata"), dict):
+        raise ValueError("2D checkpoint: use load_nn_2d instead of load_nn")
 
     # New style: full checkpoint with metadata.
     if isinstance(ckpt, dict) and "state_dict" in ckpt:
@@ -40,25 +43,12 @@ def load_model(path=MODEL_PATH, arch=None, n_sites=None, nmax=None, hidden_dim=N
 
         model = build_model(arch=arch_f, n_sites=int(n_sites_f), nmax=int(nmax_f), hidden_dim=int(hidden_f))
         model.load_state_dict(sd)
+        if device is not None:
+            model.to(resolve_device(device))
         model.eval()
         return model
 
     raise ValueError("unsupported checkpoint format")
 
-@torch.no_grad()
-def predict_scalar(model, occupation_config, nmax=None):
-    cfg = [int(v) for v in occupation_config]
-    n_sites = len(cfg)
-
-    if nmax is None:
-        if not hasattr(model, "nmax"):
-            raise ValueError("nmax not provided and not found on model")
-        nmax = int(model.nmax)
-
-    if any(v < 0 or v > nmax for v in cfg):
-        raise ValueError(f"occupation values must be within [0, {nmax}]")
-
-    x_np = basis_to_one_hot([tuple(cfg)], n_sites=n_sites, nmax=int(nmax))
-    x = torch.tensor(x_np, dtype=torch.float32)
-    y = model(x)
-    return float(y.item())
+# Transport keeps the 1D float32 forward contract unchanged.
+from bosehubbard_nqs_inference import resolve_device, predict_scalar, predict_values

@@ -11,11 +11,19 @@ tables; cylinder reflection orbits retain ordered edge/bulk occupations. Sharing
 reduces capacity relative to independent site-pair
 tables and excludes higher-body terms in log amplitude. FCNet, RBMNet, the
 flattened Conv2DNet head, and position-aware TransformerNet impose no spatial
-invariance. GroupEquivariantConv2DNet enforces the square-torus translations,
-rotations and reflections using regular-representation features and pooling.
+invariance. GroupEquivariantConv2DNet uses D4-tied local filters and pooling:
+square tori have D4 symmetry; rectangular tori have only D2 lattice symmetry.
 Checkpoint format version 2 records explicit axis boundaries;
 architecture_settings records every configurable architecture parameter.
 """
+
+# Reject the other import route before creating a second set of model classes.
+import sys as _sys
+from pathlib import Path as _Path
+_counterpart = "models" if __package__ else "pythonTest.bosehubbard2d.models"
+_other = _sys.modules.get(_counterpart)
+if _other is not None and getattr(_other, "__file__", None) and _Path(_other.__file__).resolve() == _Path(__file__).resolve():
+    raise ImportError("2D model import routes cannot be mixed; use a fresh interpreter")
 
 from pathlib import Path
 import math
@@ -24,9 +32,18 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-from lattice import _integer, lattice_shape, resolve_boundaries
-from square_group import D4_ELEMENTS, d4_inverse, d4_product, kernel_pullbacks
-from exact_diagonalization import _physical_scalar
+if __package__:
+    from .lattice import _integer, lattice_shape, resolve_boundaries
+else:
+    from lattice import _integer, lattice_shape, resolve_boundaries
+if __package__:
+    from .square_group import D4_ELEMENTS, d4_inverse, d4_product, kernel_pullbacks
+else:
+    from square_group import D4_ELEMENTS, d4_inverse, d4_product, kernel_pullbacks
+if __package__:
+    from .exact_diagonalization import _physical_scalar
+else:
+    from exact_diagonalization import _physical_scalar
 
 
 ROOT = Path(__file__).resolve().parent
@@ -282,21 +299,23 @@ class Conv2DTransformerNet(nn.Module):
 
 
 class GroupEquivariantConv2DNet(nn.Module):
-    """Square-PBC D4 regular-representation CNN with invariant scalar readout.
+    """Periodic D4-tied regular-representation CNN with invariant readout.
 
-    Features have shape(batch,8,hidden_dim,L,L), h=R**r S**m, index r+4*m.
+    Features have shape(batch,8,hidden_dim,Ly,Lx), h=R**r S**m, index r+4*m.
     Cross-correlation uses K(h^-1 delta) for lifting and
     W(h^-1 delta,h^-1 a) for group convolution, including all8 input a.
     Shared orientation biases and pointwise SiLU preserve equivariance.
     Mean over space/orientation followed by Linear(hidden_dim,1) is invariant.
+    On rectangles only the D2 subgroup preserves the lattice. Quarter turns
+    relate models on transposed shapes, not states on the same rectangle.
     No particle-number mask or extra position encoding is introduced.
     """
     def __init__(self, Lx, Ly=None, Nmax=4, pbc=True, hidden_dim=16, *, pbc_x=None, pbc_y=None):
         super().__init__()
         hidden_dim = _integer(hidden_dim, "hidden_dim", 1)
         _setup(self, Lx, Ly, Nmax, pbc, {"hidden_dim": hidden_dim}, pbc_x, pbc_y)
-        if self.Lx != self.Ly or not self.pbc_x or not self.pbc_y:
-            raise ValueError("GroupEquivariantConv2DNet requires a square periodic in both axes")
+        if not self.pbc_x or not self.pbc_y:
+            raise ValueError("GroupEquivariantConv2DNet requires periodic boundaries in both axes")
         self.register_buffer("kernel_pullback", kernel_pullbacks())
         self.register_buffer("relative_group", torch.tensor([
             [d4_product(d4_inverse(h), a) for a in D4_ELEMENTS] for h in D4_ELEMENTS], dtype=torch.long))
@@ -311,7 +330,7 @@ class GroupEquivariantConv2DNet(nn.Module):
         self.head = nn.Linear(hidden_dim, 1)
 
     def lift_features(self, x):
-        """One-hot(batch,sites,channels) -> SiLU lift(batch,8,h,L,L)."""
+        """One-hot(batch,sites,channels) -> SiLU lift(batch,8,h,Ly,Lx)."""
         x = _input(self, x).transpose(1, 2).reshape(-1, self.channels, self.Ly, self.Lx)
         h = self.lift_weight.shape[0]
         weights = self.lift_weight.flatten(-2)[..., self.kernel_pullback]
@@ -323,7 +342,7 @@ class GroupEquivariantConv2DNet(nn.Module):
         """A true D4 group convolution+SiLU, mixing all relative orientations."""
         h = self.group_weight.shape[0]
         if features.ndim != 5 or tuple(features.shape[1:]) != (8, h, self.Ly, self.Lx):
-            raise ValueError("features must have shape(batch,8,hidden_dim,L,L)")
+            raise ValueError("features must have shape(batch,8,hidden_dim,Ly,Lx)")
         weights = self.group_weight.flatten(-2)[:, :, self.relative_group]
         indices = self.kernel_pullback[None, None, :, None, :].expand(h, h, 8, 8, 9)
         weights = weights.gather(-1, indices).permute(2, 0, 3, 1, 4).reshape(8 * h, 8 * h, 3, 3)
@@ -357,6 +376,8 @@ def parameter_count(model):
 def spatial_symmetries(model):
     """Guaranteed symmetries; additional accidental ones depend on parameters."""
     if isinstance(model, GroupEquivariantConv2DNet):
+        if model.Lx != model.Ly:
+            return ["x_periodic_translations", "y_periodic_translations", "D2_rotations_reflections"]
         return ["x_periodic_translations", "y_periodic_translations", "D4_rotations_reflections"]
     if isinstance(model, JastrowNet):
         return (["x_reflection", "y_reflection"]

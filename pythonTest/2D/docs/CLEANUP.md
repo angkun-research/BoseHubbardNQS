@@ -1,5 +1,42 @@
 # Documentation and cleanup disposition
 
+## Julia integration after the completed study
+
+The Julia bridge now supports 1D/2D device-aware scalar and batch inference and
+isolated calls to the existing 2D workflows. Namespace-relative imports and
+duplicate-import guards extend embedded use without moving source/evidence or
+altering numerical formulas. Earlier cleanup receipts describe their own
+point-in-time source versions; later import changes legitimately change current
+file hashes. The GCNN source snapshot and all measured records remain intact.
+
+See [the integration contract](JULIA_PREPARATION.md) and the
+[public documentation](../../../docs/site/julia.md). The pre-integration patch
+and source snapshot are local under `outputs/integration-baseline-2026-11-13/`.
+
+## Completed GCNN accuracy study (2026-11-13)
+
+The accepted study is recorded in [GCNN_STUDY.md](GCNN_STUDY.md) and its
+[compact numeric results](gcnn-study-results.json). The production addition is
+the GCNN ansatz and geometry support; shared ED, VMC, local energies, optimizers
+and frozen evaluation are unchanged. No new fitting campaign is active.
+
+- Consolidated results, protocols and limitations into one study record and
+  replaced the completed research plan with a short scope record.
+- Cleaned the three benchmark tools for readability, removed an unused import,
+  exposed output paths, and made exact saved-state evaluation use checkpoint
+  metadata. The supervised benchmark reloads its selected checkpoint before
+  full-sector evaluation. No optimizer, objective or selection rule changed.
+- Preserved exact copies of all 12 training-hash-pinned sources, the original
+  launchers/tests/docs and temporary audit scripts in the ignored
+  `outputs/2026-11-13-gcnn-study/source-snapshot/` before editing. Report hashes
+  continue to identify those historical versions.
+- Retained every checkpoint, raw chain, ED reference, report, failure and pilot.
+  No numerical evidence was deleted. Regression tests remain permanent.
+
+[The cleanup receipt](gcnn-study-cleanup.json) records source/evidence hashes,
+verification and the unchanged numerical result record. Cleanup does not commit
+or push, merge 1D/2D, alter presentations, or start new training.
+
 ## Closed representation-reduction direction (2026-11-06)
 
 The user closed the flatten-head/pooled-CNN representation-reduction work.

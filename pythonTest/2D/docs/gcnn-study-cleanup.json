@@ -1,0 +1,69 @@
+{
+  "status": "VERIFIED",
+  "date": "2026-11-13",
+  "scope": "Completed GCNN ansatz study; documentation and benchmark maintenance only",
+  "main_addition": "GCNN ansatz and periodic rectangular geometry/symmetry support",
+  "unchanged_shared_core_sha256": {
+    "vmc.py": "eba1882cc2bea82f220ad828ed6d46ecfb465de1c1434708ea97ccf9fb54f609",
+    "lattice.py": "d58e10d11afff9f4219a2d8092e3228e8c4e2dcaf25f565c05a3499a0a021e9d",
+    "exact_diagonalization.py": "da46ef21ceb2a56c168ebde9db0be48c50d9721c518bdae48f22f65f0ebb6543",
+    "train.py": "de1a682388227657e9e517d4d319150f797a67e60c74571343da05f6eb4d4c3f",
+    "evaluate.py": "0a8c6b249bb731916099a28bd31860ca1ed9ab0a6d8381e485fcb06518535e3f",
+    "observables.py": "fd2491b064ad3cc7558b869c84703fa6e436cdbbd807a7a863f09ca59a64adb1"
+  },
+  "protected_evidence": {
+    "verified_files": 67,
+    "verified_bytes": 15850920,
+    "manifest": "outputs/2026-11-13-gcnn-study/cleanup-baseline.json",
+    "manifest_sha256": "31859cfbbaf3b10a069da364a39025e8e5b176eb65a4e27a3b62857d345775b0",
+    "source_snapshot": "outputs/2026-11-13-gcnn-study/source-snapshot",
+    "training_pinned_sources_verified": {
+      "train.py": "de1a682388227657e9e517d4d319150f797a67e60c74571343da05f6eb4d4c3f",
+      "vmc.py": "eba1882cc2bea82f220ad828ed6d46ecfb465de1c1434708ea97ccf9fb54f609",
+      "models.py": "bc7896573f07ac61943a65a58bb2eef77479719a9162bbc5e4892cd3e94a74c6",
+      "lattice.py": "d58e10d11afff9f4219a2d8092e3228e8c4e2dcaf25f565c05a3499a0a021e9d",
+      "exact_diagonalization.py": "da46ef21ceb2a56c168ebde9db0be48c50d9721c518bdae48f22f65f0ebb6543",
+      "square_group.py": "b49524f4b2ab1e76869904fafe7ee26114d3a6a4e0df4237eb73cb4e51ea0c22",
+      "train_ed.py": "ef181766e9b60ce20765ea8dba27c6d6ad2a37127f66ace9ff877031849374cf",
+      "benchmarks/train_square_group.py": "9cef355aaaf9c09b73b9e92737bdb85b6d6ad66fdfadc8c48e75c4051d953d6e",
+      "benchmarks/periodic_observables.py": "e7910510523d8b6ea7d36617356c9eb262f224418f38d3e949dd9dfbbaac8a90",
+      "evaluate.py": "0a8c6b249bb731916099a28bd31860ca1ed9ab0a6d8381e485fcb06518535e3f",
+      "observables.py": "fd2491b064ad3cc7558b869c84703fa6e436cdbbd807a7a863f09ca59a64adb1",
+      "benchmarks/train_rectangular_group.py": "a7b487ceb38741d5d0d1c86d6cc17d3092e89bf6d2435dfa6c95900cd8048bfa"
+    },
+    "compact_results_sha256": "54cad0ea4522ae13cd2a66d34a0167b66c8592f096ac191c2774b7afb852b2e8",
+    "compact_results_unchanged_byte_for_byte": true,
+    "numerical_evidence_deleted": []
+  },
+  "code_cleanup": [
+    "Formatted and split benchmark reporting into readable helpers",
+    "Removed unused import and redundant device conversion",
+    "Exposed output/study paths while retaining historical defaults and overwrite protection",
+    "Derived exact-reference physics and dimensions from checkpoint metadata",
+    "Reloaded supervised saved weights before full-sector evaluation",
+    "Corrected GCNN feature-shape documentation and refreshed the API inventory"
+  ],
+  "documentation_cleanup": [
+    "Consolidated results/protocol/limitations in GCNN_STUDY.md",
+    "Replaced completed research plan with a short final scope record",
+    "Documented GCNN as another ansatz using shared ED, VMC and optimizers",
+    "Indexed benchmark tools and documented historical sources versus maintained versions"
+  ],
+  "verification": {
+    "cpu_regression_tests": 135,
+    "cpu_regression_status": "PASSED",
+    "cpu_regression_seconds": 22.656,
+    "command": "OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MPLCONFIGDIR=/tmp/bhnqs-mpl .venv/bin/python -B -m unittest discover -s pythonTest/2D/tests",
+    "cleaned_summary_matches_original_results": true,
+    "comparison_exclusion": "environment_at_collection describes collection time/environment",
+    "cli_help": "All three maintained benchmark tools passed",
+    "current_documentation_links_verified": 55,
+    "api_source_hash_verified": true,
+    "claude_review": "Three benchmark tools reviewed and cleaned; original 3x3 exact metrics reproduced on CPU within 1.6e-14",
+    "claude_final_read_only_review": "No blocking findings; shared infrastructure and all numerical limitations confirmed"
+  },
+  "new_training": false,
+  "new_optimizer_or_ed_solver": false,
+  "one_d_or_julia_changes": false,
+  "commit_or_push": false
+}

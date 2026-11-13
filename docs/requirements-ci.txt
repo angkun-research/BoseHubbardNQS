@@ -1,0 +1,5 @@
+# Install torch from its CPU index before this file in GitHub Actions.
+torch==2.11.0
+numpy==2.3.3
+scipy==1.17.1
+matplotlib==3.10.9

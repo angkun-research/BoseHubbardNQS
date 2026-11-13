@@ -22,12 +22,24 @@ import time
 import numpy as np
 import torch
 
-from exact_diagonalization import (
-    DEFAULT_MAX_DIMENSION, DEFAULT_MAX_SPARSE_BYTES, _physical_scalar,
-    basis_to_one_hot, exact_ground_state,
-)
-from lattice import _integer, lattice_shape, resolve_boundaries, add_boundary_arguments, resolve_cli_boundaries
-from models import ARCH_BUILDERS, ROOT, build_model, load_model, parameter_count, save_model
+if __package__:
+    from .exact_diagonalization import (
+        DEFAULT_MAX_DIMENSION, DEFAULT_MAX_SPARSE_BYTES, _physical_scalar,
+        basis_to_one_hot, exact_ground_state,
+    )
+else:
+    from exact_diagonalization import (
+        DEFAULT_MAX_DIMENSION, DEFAULT_MAX_SPARSE_BYTES, _physical_scalar,
+        basis_to_one_hot, exact_ground_state,
+    )
+if __package__:
+    from .lattice import _integer, lattice_shape, resolve_boundaries, add_boundary_arguments, resolve_cli_boundaries
+else:
+    from lattice import _integer, lattice_shape, resolve_boundaries, add_boundary_arguments, resolve_cli_boundaries
+if __package__:
+    from .models import ARCH_BUILDERS, ROOT, build_model, load_model, parameter_count, save_model
+else:
+    from models import ARCH_BUILDERS, ROOT, build_model, load_model, parameter_count, save_model
 
 
 LOSS_DEFINITION = "mean((logpsi-0.5*logsumexp(2*logpsi)-normalize(log(abs(raw_ED).clamp_min(eps))))**2) over the entire fixed-N sector"
@@ -304,8 +316,8 @@ def parse_args(argv=None):
     try:
         args.Lx, args.Ly = lattice_shape(args.Lx, args.Ly)
         resolve_cli_boundaries(args)
-        if args.arch == "GroupEquivariantConv2DNet" and (args.Lx != args.Ly or not args.pbc_x or not args.pbc_y):
-            raise ValueError("GroupEquivariantConv2DNet requires a square periodic in both axes")
+        if args.arch == "GroupEquivariantConv2DNet" and (not args.pbc_x or not args.pbc_y):
+            raise ValueError("GroupEquivariantConv2DNet requires periodic boundaries in both axes")
         if args.arch == "JastrowNet" and args.pair_sharing == "reflection_orbit" and (args.pbc_x or not args.pbc_y):
             raise ValueError("reflection_orbit requires --no-pbc-x --pbc-y")
         args.Ntot = args.Lx * args.Ly if args.Ntot is None else args.Ntot

@@ -135,9 +135,9 @@ class GroupCNNTests(unittest.TestCase):
             torch.testing.assert_close(loaded(x),model(x),rtol=0,atol=0)
             self.assertIn('D4_rotations_reflections',metadata['spatial_symmetries'])
             self.assertEqual(metadata['architecture_settings'],{'hidden_dim':2})
-        for kw in ({'Ly':2},{'pbc':False},{'pbc_x':False},{'pbc_y':False},{'hidden_dim':0}):
+        for kw in ({'pbc':False},{'pbc_x':False},{'pbc_y':False},{'hidden_dim':0}):
             with self.assertRaises(ValueError): GroupEquivariantConv2DNet(3,**kw)
-        with self.assertRaises(SystemExit): train_ed.parse_args(['--arch','GroupEquivariantConv2DNet','--Lx','3','--Ly','2'])
+        self.assertEqual(train_ed.parse_args(['--arch','GroupEquivariantConv2DNet','--Lx','3','--Ly','4']).Ly, 4)
         self.assertEqual(len(GENERAL_ARCHITECTURES),6)
 
     def test_weighted338_loss_and_all_parameter_gradients_match_full19855(self):
@@ -168,13 +168,29 @@ class GroupCNNTests(unittest.TestCase):
 
     def test_all_six_legacy_checkpoints_against_pre_extension_source(self):
         source=(ROOT/'models.py').read_text()
+        lines = source.splitlines(True)
+        integration_tree = ast.parse(source)
+        edits = []
+        for node in ast.walk(integration_tree):
+            if isinstance(node, ast.If) and isinstance(node.test, ast.Name) and node.test.id == '__package__':
+                edits.append((node.lineno - 1, node.end_lineno,
+                              ''.join(line[4:] for item in node.orelse
+                                      for line in lines[item.lineno - 1:item.end_lineno])))
+        start = next(i for i, line in enumerate(lines) if line == 'import sys as _sys\n')
+        stop = next(i for i in range(start, len(lines)) if lines[i] == 'from pathlib import Path\n')
+        edits.append((start, stop, ''))
+        for start, stop, replacement in sorted(edits, reverse=True):
+            lines[start:stop] = [replacement]
+        source = ''.join(lines)
         old=source.replace('import math\n','').replace('from square_group import D4_ELEMENTS, d4_inverse, d4_product, kernel_pullbacks\n','')
         start=old.index('class GroupEquivariantConv2DNet')
         stop=old.index('BASELINE_ARCHITECTURES',start)
         old=old[:start]+old[stop:]
         old=old.replace('GENERAL_ARCHITECTURES = (*BASELINE_ARCHITECTURES, "Conv2DTransformerNet")\n','')
         old=old.replace(', Conv2DTransformerNet, GroupEquivariantConv2DNet)',', Conv2DTransformerNet)')
-        old=old.replace('    if isinstance(model, GroupEquivariantConv2DNet):\n        return ["x_periodic_translations", "y_periodic_translations", "D4_rotations_reflections"]\n','')
+        start=old.index('    if isinstance(model, GroupEquivariantConv2DNet):')
+        stop=old.index('    if isinstance(model, JastrowNet):', start)
+        old=old[:start]+old[stop:]
         fixture=json.loads((ROOT/'tests/fixtures/legacy-six-models.json').read_text())
         tree=ast.parse(old);tree.body=tree.body[1:]  # module prose is not behavior
         self.assertEqual(hashlib.sha256(ast.dump(tree,include_attributes=False).encode()).hexdigest(),

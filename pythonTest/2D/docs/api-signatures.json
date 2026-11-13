@@ -37,406 +37,406 @@
       ]
     },
     "models.py": {
-      "sha256": "a6d214091e64b25cadfff54823a27b7dc6c5c18482f58996f75a5d943f5a0bab",
+      "sha256": "878a3965ea8059820fb115097f20acf4fbbc8d24511b9e7b54381b5a3f044edc",
       "public_definitions": [
         {
           "kind": "class",
           "signature": "FCNet(self, Lx, Ly=None, Nmax=4, pbc=True, hidden_dim=64, *, hidden_layers=2, depth=None, pbc_x=None, pbc_y=None)",
-          "line": 54,
+          "line": 71,
           "docstring": "Tanh MLP with positive hidden_layers (default two); depth is an alias.\n\nDefault depth preserves the legacy net.0/net.2/net.4 state_dict keys.\ndepth overrides the default hidden_layers=2; conflicting nondefault values\nare rejected. Only FCNet changes capacity through this setting."
         },
         {
           "kind": "class",
           "signature": "JastrowNet(self, Lx, Ly=None, Nmax=4, pbc=True, *, pbc_x=None, pbc_y=None, pair_sharing='displacement')",
-          "line": 83,
+          "line": 100,
           "docstring": "Onsite table plus all unordered pairs, shared by absolute (dx, dy).\n\nPeriodic distances use the minimum along each axis; open distances do not wrap.\nDefault displacement tables are averaged with their transpose. Optional\nreflection_orbit is restricted to open-x/periodic-y cylinders: onsite tables\nuse x-reflection orbits, pairs use reflected unordered x pairs and minimal\nperiodic |dy|. Reflected canonicalization swaps occupation roles. Only same-x\nor self-reflection pair classes are transpose-symmetric; edge/bulk tables\nretain ordered occupation roles. Pair buffers avoid Python forward loops;\ngather storage scales as batch * number_of_site_pairs."
         },
         {
           "kind": "function",
           "signature": "lift_jastrow_reflection_orbit(model)",
-          "line": 164,
+          "line": 181,
           "docstring": "Lift displacement cylinder weights exactly; no optimizer or jitter.\n\nOld symmetric pair tables are copied by (dx, minimal periodic |dy|).\nNon-self-reflection orbits subsequently allow ordered occupation tables."
         },
         {
           "kind": "class",
           "signature": "Conv2DNet(self, Lx, Ly=None, Nmax=4, pbc=True, hidden_dim=64, *, pbc_x=None, pbc_y=None)",
-          "line": 183,
+          "line": 200,
           "docstring": "One 3x3 convolution and a dense head; no translation invariance.\n\nEach axis is padded separately, circular when periodic and zero otherwise,\nincluding length-one axes. Zero feature padding is not an occupation-zero\none-hot outside site. Legacy convolution/head state_dict keys are unchanged."
         },
         {
           "kind": "class",
           "signature": "RBMNet(self, Lx, Ly=None, Nmax=4, pbc=True, n_hidden=64, *, pbc_x=None, pbc_y=None)",
-          "line": 207,
+          "line": 224,
           "docstring": "Binary-hidden RBM expression interpreted directly as log amplitude."
         },
         {
           "kind": "class",
           "signature": "TransformerNet(self, Lx, Ly=None, Nmax=4, pbc=True, hidden_dim=32, feedforward_dim=None, *, pbc_x=None, pbc_y=None)",
-          "line": 223,
+          "line": 240,
           "docstring": "One non-autoregressive, one-head attention block; learned x/y positions."
         },
         {
           "kind": "class",
           "signature": "Conv2DTransformerNet(self, Lx, Ly=None, Nmax=4, pbc=True, hidden_dim=32, *, pbc_x=None, pbc_y=None)",
-          "line": 248,
+          "line": 265,
           "docstring": "2D generalization of the 1D ConvTransformer, for optional backup studies.\n\nA boundary-aware 3x3 convolution and SiLU produce physical-order tokens\ni=y*Lx+x. One four-head encoder uses FF width 2h and ReLU, followed by\nthe original flattened dense/SiLU/scalar head. There are no positional\nembeddings or mean pooling. The flattened head imposes no translation\ninvariance. Unlike the 1D module's framework-default dropout=0.1, dropout\nis fixed to zero for deterministic VMC forwards in train and eval mode."
         },
         {
           "kind": "class",
           "signature": "GroupEquivariantConv2DNet(self, Lx, Ly=None, Nmax=4, pbc=True, hidden_dim=16, *, pbc_x=None, pbc_y=None)",
-          "line": 284,
-          "docstring": "Square-PBC D4 regular-representation CNN with invariant scalar readout.\n\nFeatures have shape(batch,8,hidden_dim,L,L), h=R**r S**m, index r+4*m.\nCross-correlation uses K(h^-1 delta) for lifting and\nW(h^-1 delta,h^-1 a) for group convolution, including all8 input a.\nShared orientation biases and pointwise SiLU preserve equivariance.\nMean over space/orientation followed by Linear(hidden_dim,1) is invariant.\nNo particle-number mask or extra position encoding is introduced."
+          "line": 301,
+          "docstring": "Periodic D4-tied regular-representation CNN with invariant readout.\n\nFeatures have shape(batch,8,hidden_dim,Ly,Lx), h=R**r S**m, index r+4*m.\nCross-correlation uses K(h^-1 delta) for lifting and\nW(h^-1 delta,h^-1 a) for group convolution, including all8 input a.\nShared orientation biases and pointwise SiLU preserve equivariance.\nMean over space/orientation followed by Linear(hidden_dim,1) is invariant.\nOn rectangles only the D2 subgroup preserves the lattice. Quarter turns\nrelate models on transposed shapes, not states on the same rectangle.\nNo particle-number mask or extra position encoding is introduced."
         },
         {
           "kind": "function",
           "signature": "build_model(arch, Lx, Ly=None, Nmax=4, pbc=True, *, pbc_x=None, pbc_y=None, **settings)",
-          "line": 346,
+          "line": 365,
           "docstring": null
         },
         {
           "kind": "function",
           "signature": "parameter_count(model)",
-          "line": 352,
+          "line": 371,
           "docstring": "Raw trainable parameter count, including Jastrow redundancies."
         },
         {
           "kind": "function",
           "signature": "spatial_symmetries(model)",
-          "line": 357,
+          "line": 376,
           "docstring": "Guaranteed symmetries; additional accidental ones depend on parameters."
         },
         {
           "kind": "function",
           "signature": "save_model(path, model, Ntot=None, t=1.0, U=16.74, mu=0.0)",
-          "line": 368,
+          "line": 389,
           "docstring": "Save an inference checkpoint under 2D/ (relative paths start there).\n\nStores no optimizer, random-generator, or walker state; not an exact training\nresume checkpoint. Path resolution rejects symlink escapes before writing."
         },
         {
           "kind": "function",
           "signature": "load_model(path, device='cpu')",
-          "line": 407,
+          "line": 428,
           "docstring": "Return (eval-mode model, metadata), preserving saved floating dtype."
         }
       ]
     },
     "square_group.py": {
-      "sha256": "b49524f4b2ab1e76869904fafe7ee26114d3a6a4e0df4237eb73cb4e51ea0c22",
+      "sha256": "6f22b12a705755802008b24d6087d8078d8a0c9d2a4e89b40cec8f581c370d77",
       "public_definitions": [
         {
           "kind": "function",
           "signature": "d4_product(left, right)",
-          "line": 15,
+          "line": 18,
           "docstring": "Index of left*right (right acts first)."
         },
         {
           "kind": "function",
           "signature": "d4_inverse(element)",
-          "line": 22,
+          "line": 25,
           "docstring": null
         },
         {
           "kind": "function",
           "signature": "d4_coordinate(element, x, y)",
-          "line": 26,
+          "line": 29,
           "docstring": "Apply R**r S**m to integer coordinates about the origin."
         },
         {
           "kind": "function",
           "signature": "kernel_pullbacks()",
-          "line": 35,
+          "line": 38,
           "docstring": "Long tensor [h,delta_index] locating h^-1*delta in a3x3 stencil."
         },
         {
           "kind": "function",
           "signature": "site_pullback(L, element, tx=0, ty=0, device='cpu')",
-          "line": 48,
+          "line": 51,
           "docstring": "Return p with transformed[...,r]=original[...,p[r]], i=y*L+x."
         },
         {
           "kind": "function",
           "signature": "space_group_pullbacks(L)",
-          "line": 62,
+          "line": 65,
           "docstring": "All8*L\u00b2 pullbacks, ordered (D4element,ty,tx); rows need not be faithful."
         },
         {
           "kind": "function",
           "signature": "transform_features(features, element, tx=0, ty=0)",
-          "line": 69,
+          "line": 72,
           "docstring": "Pull back (batch,orientation,channel,y,x) regular features."
         }
       ]
     },
     "exact_diagonalization.py": {
-      "sha256": "da46ef21ceb2a56c168ebde9db0be48c50d9721c518bdae48f22f65f0ebb6543",
+      "sha256": "31e7fd20f66ecc307142eeb74f230eb3eb6c75460efb3e2e76d8d2510d32b894",
       "public_definitions": [
         {
           "kind": "function",
           "signature": "count_basis_states(n_sites, Ntot, Nmax=4)",
-          "line": 34,
+          "line": 37,
           "docstring": "Exact bounded-sector count, using integer DP before enumerating states.\n\nParticle-hole symmetry reduces work near full filling. No basis is allocated.\nAt most MAX_COUNTING_WORK DP cells may be processed; larger requests raise\nValueError before allocating the particle-count-sized workspace."
         },
         {
           "kind": "function",
           "signature": "generate_basis(n_sites, Ntot, Nmax=4, max_dimension=DEFAULT_MAX_DIMENSION)",
-          "line": 66,
+          "line": 69,
           "docstring": "Enumerate bounded fixed-number occupation tuples in lexicographic order."
         },
         {
           "kind": "function",
           "signature": "basis_to_one_hot(basis, n_sites, nmax)",
-          "line": 99,
+          "line": 102,
           "docstring": "Return float32 one-hot features shaped (dimension, n_sites, nmax+1)."
         },
         {
           "kind": "function",
           "signature": "estimate_sparse_bytes(dimension, n_sites, n_bonds)",
-          "line": 115,
+          "line": 118,
           "docstring": "Conservative planning estimate, not a hard process-memory bound.\n\nAllow one diagonal and two directed hops per bond per column, even when\noccupation constraints forbid them. Budget 64 bytes per possible entry for\nCOO arrays, CSR conversion and temporaries; also budget Python basis/index\nstorage and 32 float64 eigensolver vectors. No dense matrix is included."
         },
         {
           "kind": "function",
           "signature": "build_bose_hubbard_hamiltonian(Lx, Ly=None, Ntot=None, Nmax=4, t=1.0, U=16.74, mu=0.0, pbc=True, max_dimension=DEFAULT_MAX_DIMENSION, max_sparse_bytes=DEFAULT_MAX_SPARSE_BYTES, *, pbc_x=None, pbc_y=None)",
-          "line": 144,
+          "line": 147,
           "docstring": "Return (CSR Hamiltonian, basis); guard allocations before enumeration.\n\nDefaults are a square periodic lattice at unit filling. Both dimension and\nestimated sparse-memory limits must pass; increase either explicitly if needed.\nCounting also has a fixed MAX_COUNTING_WORK budget before workspace allocation."
         },
         {
           "kind": "function",
           "signature": "exact_ground_state(Lx, Ly=None, Ntot=None, Nmax=4, t=1.0, U=16.74, mu=0.0, pbc=True, max_dimension=DEFAULT_MAX_DIMENSION, max_sparse_bytes=DEFAULT_MAX_SPARSE_BYTES, *, pbc_x=None, pbc_y=None)",
-          "line": 203,
+          "line": 206,
           "docstring": "Return (energy, normalized real state, basis, CSR Hamiltonian)."
         }
       ]
     },
     "vmc.py": {
-      "sha256": "eba1882cc2bea82f220ad828ed6d46ecfb465de1c1434708ea97ccf9fb54f609",
+      "sha256": "a94c76a1887600cba2116914c646d7fbc592a3eafa216ed1ebf022225ad55abe",
       "public_definitions": [
         {
           "kind": "function",
           "signature": "physical_parameters(t=1.0, U=16.74, mu=0.0)",
-          "line": 28,
+          "line": 34,
           "docstring": null
         },
         {
           "kind": "function",
           "signature": "occupancy_tensor_to_onehot(states, Nmax, dtype=torch.float32)",
-          "line": 37,
+          "line": 43,
           "docstring": null
         },
         {
           "kind": "function",
           "signature": "generate_initial_states(n_sites, Ntot, Nmax=4, n_walkers=64, device='cpu')",
-          "line": 68,
+          "line": 74,
           "docstring": "Generate feasible integer walkers; initialization is not a target sample."
         },
         {
           "kind": "function",
           "signature": "propose_hops(states, bonds, Nmax)",
-          "line": 101,
+          "line": 107,
           "docstring": "Return (proposals, valid-hop mask); choose all bonds/directions uniformly.\n\nStates and bonds are device-resident long tensors, with unique non-self bonds.\nInvalid hops and the no-bond case return self proposals, never resampled moves."
         },
         {
           "kind": "function",
           "signature": "sample(model, initial_states, n_steps, burnin_steps=0, evaluation_batch_size=256, *, proposal_steps_per_sample=1)",
-          "line": 122,
+          "line": 128,
           "docstring": "Return (samples, final walkers, diagnostics), flattened step then walker.\n\nBurn-in proposals are excluded from diagnostics and samples. Accepted includes\naccepted self proposals; moved counts only accepted occupation changes. Caches\nare local to this call and cannot survive parameter updates.\nn_steps counts RETAINED samples per walker. After burnin_steps proposals,\nadvance proposal_steps_per_sample proposals between retained configurations.\nDiagnostics count every post-burn proposal, including discarded intervals.\nThe default stride one preserves the previous seeded trajectory exactly."
         },
         {
           "kind": "function",
           "signature": "local_energy(model, states, t=1.0, U=16.74, mu=0.0, evaluation_batch_size=256)",
-          "line": 169,
+          "line": 175,
           "docstring": "Detached H psi / psi with U/2, bounded connected-state allocations.\n\nTraverse directed bonds sequentially inside each sample block. At most one\nevaluation batch of connected occupations exists at a time, rather than a\nbatch times coordination-number expansion. Returns one energy per state."
         },
         {
           "kind": "function",
           "signature": "native_vmc_update(model, states, energies, optimizer, evaluation_batch_size=256)",
-          "line": 210,
+          "line": 216,
           "docstring": "Accumulate 2*mean((E-Emean).detach()*logpsi) gradients per chunk."
         },
         {
           "kind": "function",
           "signature": "check_sr_budget(model, n_samples, max_sr_parameters=DEFAULT_MAX_SR_PARAMETERS, max_sr_bytes=DEFAULT_MAX_SR_BYTES, *, solver='auto', jacobian_batch_size=1, jacobian_method='vjp', regularizer='ridge')",
-          "line": 270,
+          "line": 276,
           "docstring": "Guard before allocating J or float64 dense solve arrays.\n\nBudget three MxP float64 Jacobians (input/conversion/centered), eight DxD\nfloat64 arrays for covariance, regularization, solver copies/workspace, and\nvectors, D=P or M according to solver. Auto selects min(P,M). The explicit\nbyte budget guards M*P even for sample-space solves. The generous parameter\ncap is a separate fail-safe, not a substitute for this allocation guard.\nOptional MinSR budgets eight additional DxD arrays plus spectral vectors\nbefore any Jacobian/eigh allocation. This conservative estimate does not\nbound model activations, all vendor-library memory, or total process memory."
         },
         {
           "kind": "function",
           "signature": "compute_log_psi_jacobian(model, states, max_sr_parameters=DEFAULT_MAX_SR_PARAMETERS, max_sr_bytes=DEFAULT_MAX_SR_BYTES, *, solver='auto', jacobian_batch_size=1, jacobian_method='vjp', regularizer='ridge')",
-          "line": 291,
+          "line": 297,
           "docstring": "Guarded log-amplitude Jacobian; default one-sample reference is unchanged.\n\nB>1 evaluates B inputs once and uses is_grads_batched=True with an identity\ncotangent matrix, returning B parameter VJPs. Attention explicitly uses the\nmath SDPA backend because fused attention backward lacks batching rules.\nGuards include returned VJP/cotangent arrays, not model activation memory;\nintermediate backward work can scale quadratically in B. Cap B at 64.\nOpt-in vmap(grad(functional_call)) differentiates one configuration at a time,\nvectorized in chunks up to 128. Guards include returned gradient/input blocks;\nmodel activations and total process memory are not bounded by this estimate."
         },
         {
           "kind": "function",
           "signature": "sr_gradient(jacobian, energies, tau=0.001, max_sr_parameters=DEFAULT_MAX_SR_PARAMETERS, max_sr_bytes=DEFAULT_MAX_SR_BYTES, *, solver='auto', return_diagnostics=False, regularizer='ridge', rpinv=1e-12, apinv=0.0)",
-          "line": 429,
+          "line": 435,
           "docstring": "Centered, sample-normalized imaginary-time direction with no extra 2.\n\nCall check_sr_budget before constructing the input Jacobian. The training API\ndoes this automatically; the solve also checks before allocating workspace.\nAll covariance and solve arithmetic uses float64.\nSample space: delta=Jc.T @ solve(Jc@Jc.T + M*tau*I, E-Emean).\nIt is exactly equivalent to the parameter-space ridge direction, with no\nextra factor two. Auto solves in the smaller space; it still stores J.\nOptional real MinSR uses the Methods20-23 soft spectral pseudoinverse from\nChen/Heyl (2024), power6, rather than a ridge. Gram formation, eigh and\nbackprojection are float64; tau is unused. The equivalent parameter-space\nform applies the same filter to A.T@A and then A.T@e. No extra truncation."
         },
         {
           "kind": "function",
           "signature": "sr_update(model, states, energies, optimizer, tau=0.001, max_sr_parameters=DEFAULT_MAX_SR_PARAMETERS, max_sr_bytes=DEFAULT_MAX_SR_BYTES, *, solver='auto', return_diagnostics=False, jacobian_batch_size=1, jacobian_method='vjp', regularizer='ridge', rpinv=1e-12, apinv=0.0)",
-          "line": 484,
+          "line": 490,
           "docstring": "Assign the guarded imaginary-time direction to optimizer gradients."
         }
       ]
     },
     "observables.py": {
-      "sha256": "fd2491b064ad3cc7558b869c84703fa6e436cdbbd807a7a863f09ca59a64adb1",
+      "sha256": "09a127b016f164316fd8b147e47080cb722818f6e406db079b99c4fccb99d3a8",
       "public_definitions": [
         {
           "kind": "function",
           "signature": "check_observable_budget(n_samples, n_sites, n_pairs, max_bytes=DEFAULT_MAX_OBSERVABLE_BYTES)",
-          "line": 47,
+          "line": 53,
           "docstring": "Conservative float64 storage estimate, excluding model/forward workspace."
         },
         {
           "kind": "function",
           "signature": "sample_frozen(model, initial_states, n_steps, burnin_steps=0, evaluation_batch_size=256, *, proposal_steps_per_sample=1)",
-          "line": 60,
+          "line": 66,
           "docstring": "Wrap the stable sampler, returning occupations as (time, walker, site)."
         },
         {
           "kind": "function",
           "signature": "one_body_estimators(model, chains, pairs=None, evaluation_batch_size=256, max_observable_bytes=DEFAULT_MAX_OBSERVABLE_BYTES)",
-          "line": 70,
+          "line": 76,
           "docstring": "Return raw row-action estimators, without averaging or symmetrization.\n\npairs=None explicitly requests full (T,C,N,N) output, intended for tiny\nreferences. Selected physical pairs give (T,C,K), in the supplied order.\nAt most one evaluation batch of connected configurations is constructed."
         },
         {
           "kind": "function",
           "signature": "energy_from_observables(density, onsite_factorial_moment, one_body, Lx, Ly=None, t=1.0, U=16.74, mu=0.0, pbc=True, *, pbc_x=None, pbc_y=None, pairs=None)",
-          "line": 112,
+          "line": 118,
           "docstring": "Linear reconstruction from raw rho and <n(n-1)>; accepts sample axes.\n\nA selected-pair reconstruction requires both directions of every bond.\nMissing entries raise; they are never filled by assuming Hermiticity."
         },
         {
           "kind": "function",
           "signature": "block_mean_statistics(values, block_length)",
-          "line": 149,
+          "line": 155,
           "docstring": "Nonoverlapping time blocks within each walker; never flatten before blocking.\n\nThe block SEM assumes stationary, sufficiently decorrelated blocks and\nindependent walkers. Between-chain SEM is also reported as a diagnostic.\nNeither checks mixing or estimates ESS. Tail steps are explicitly reported;\nthe blocked mean/error use complete blocks, with an all-sample mean separate.\nFewer than two complete blocks per chain yields no block error estimate."
         },
         {
           "kind": "function",
           "signature": "measure_observables(model, chains, t=1.0, U=16.74, mu=0.0, evaluation_batch_size=256, *, pairs=None, block_length=None, max_observable_bytes=DEFAULT_MAX_OBSERVABLE_BYTES)",
-          "line": 184,
+          "line": 190,
           "docstring": "Frozen density, onsite moment, selected/full rho and energy with raw checks."
         }
       ]
     },
     "train_ed.py": {
-      "sha256": "e85c464b27fa5f93a8a388f785d598476dec110c7789e21a907bed82f8ecd3f8",
+      "sha256": "b0b6c8a6e046f7ba1e01205a9314c823ce5bedd350a61b45ab1ca3d004f30deb",
       "public_definitions": [
         {
           "kind": "function",
           "signature": "normalized_log_mse(pred_log, target_log)",
-          "line": 48,
+          "line": 60,
           "docstring": "Uniform MSE in normalized log amplitudes over the supplied full sector."
         },
         {
           "kind": "function",
           "signature": "normalized_infidelity(pred_log, raw_ed_state)",
-          "line": 59,
+          "line": 71,
           "docstring": "Infidelity to the raw ED vector; no target flooring or minibatch norms."
         },
         {
           "kind": "function",
           "signature": "make_ed_dataset(Lx, Ly=None, Ntot=None, Nmax=4, t=1.0, U=16.74, mu=0.0, pbc=True, eps=1e-12, dtype=torch.float64, max_dimension=DEFAULT_MAX_DIMENSION, max_sparse_bytes=DEFAULT_MAX_SPARSE_BYTES, *, pbc_x=None, pbc_y=None)",
-          "line": 81,
+          "line": 93,
           "docstring": "Return one-hot x, target_log, raw_ed_state, sparse H, basis and metadata.\n\nThe return value is a dictionary. Flooring affects only target_log. Reject\nexact zeros or mixed signs rather than hiding them behind abs/clamp. A\nglobally negative ED vector is an equivalent physical global phase."
         },
         {
           "kind": "function",
           "signature": "compare_predictions(model, dataset, loss='log_mse')",
-          "line": 149,
+          "line": 161,
           "docstring": "Report both objectives, labeled gradients and physical raw-ED metrics.\n\nLegacy gradient_norm remains the log-MSE gradient norm for either objective.\nWorking larger-reference assessment applies to n_sites>=9. This threshold\nis a reporting convention, not a physics criterion."
         },
         {
           "kind": "function",
           "signature": "train_model_on_ed(model, dataset, lr=0.001, epochs=2000, device='cpu', eval_every=100, loss='log_mse')",
-          "line": 195,
+          "line": 207,
           "docstring": "Return (final model, JSON-ready report, best-by-loss CPU state_dict).\n\nAdam only, full batch. Select the lowest loss among initialization and every\npost-update state, not only reporting epochs. Fixed epoch budget; no early\nstopping, including when the physical fit gate passes or loss plateaus."
         },
         {
           "kind": "function",
           "signature": "parse_args(argv=None)",
-          "line": 277,
+          "line": 289,
           "docstring": null
         },
         {
           "kind": "function",
           "signature": "main(argv=None)",
-          "line": 335,
+          "line": 347,
           "docstring": null
         }
       ]
     },
     "leakage_analysis.py": {
-      "sha256": "67e139a7041dd1e0e544162ea1a1514d32b67430a61bfc2374bd6265c8e5c6ef",
+      "sha256": "2167b59d0f761ab9970ebe5ced67986511693cf84aa92a0d37180bd077bd2c13",
       "public_definitions": [
         {
           "kind": "function",
           "signature": "state_batches(n_sites, Nmax, sectors=None, batch_size=2048, max_states=DEFAULT_MAX_STATES)",
-          "line": 46,
+          "line": 50,
           "docstring": "Return (iterator, exact sector dimensions), validated before iteration.\n\nFull basis uses vectorized base counting, last physical site fastest. Nearby\nsectors use bounded lexicographic DFS. At most one state/one-hot batch lives\nin memory, apart from model inference workspace. No full basis is retained."
         },
         {
           "kind": "function",
           "signature": "evaluate_logs(model, occupations)",
-          "line": 86,
+          "line": 90,
           "docstring": "Finite real logs on a supplied integer batch, without sector restriction."
         },
         {
           "kind": "function",
           "signature": "summarize_sector_weights(logZ, dimensions, N0, window)",
-          "line": 109,
+          "line": 113,
           "docstring": "Separate window-conditional probabilities from genuine full-cutoff mass."
         },
         {
           "kind": "function",
           "signature": "analyze_sectors(model, N0, sectors=None, *, window=None, batch_size=2048, max_states=DEFAULT_MAX_STATES)",
-          "line": 155,
+          "line": 159,
           "docstring": "Exact enumeration in floating-point arithmetic, no H/ED/optimizer calls."
         },
         {
           "kind": "function",
           "signature": "projected_sector_probabilities(sectors, N0)",
-          "line": 194,
+          "line": 198,
           "docstring": "Exact delta projection, not a finite negative sentinel in log space."
         },
         {
           "kind": "function",
           "signature": "apply_number_gauge(result, a)",
-          "line": 202,
+          "line": 206,
           "docstring": "Analytic f->f+a(N-N0), with no model mutation or new forward pass."
         },
         {
           "kind": "function",
           "signature": "full_overlap(F_N0, P_full_N0)",
-          "line": 217,
+          "line": 221,
           "docstring": "Absolute unsquared overlap against the zero-embedded canonical target."
         }
       ]
     },
     "train.py": {
-      "sha256": "de1a682388227657e9e517d4d319150f797a67e60c74571343da05f6eb4d4c3f",
+      "sha256": "4783030865d9aac819ad240a9e7945836075a626ad8132267b779844a183c430",
       "public_definitions": [
         {
           "kind": "function",
           "signature": "parse_args(argv=None)",
-          "line": 48,
+          "line": 61,
           "docstring": null
         },
         {
           "kind": "function",
           "signature": "main(argv=None)",
-          "line": 197,
+          "line": 210,
           "docstring": null
         }
       ]
     },
     "evaluate.py": {
-      "sha256": "0a8c6b249bb731916099a28bd31860ca1ed9ab0a6d8381e485fcb06518535e3f",
+      "sha256": "5c619fb84a7f3c86d3f50d914b7d2e4929b580c29dd8f7f4545820e352cec598",
       "public_definitions": [
         {
           "kind": "function",
           "signature": "main(argv=None)",
-          "line": 44,
+          "line": 56,
           "docstring": null
         }
       ]

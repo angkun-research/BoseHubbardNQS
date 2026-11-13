@@ -2,8 +2,9 @@
 
 A self-contained Python implementation for rectangular square lattices, with
 ED, supervised fitting, PyTorch VMC, frozen observables and sector diagnostics.
-The 1D code and Julia integration are separate and unchanged. **No merge has
-been performed.**
+Julia can load these models, evaluate configurations or batches, and launch the
+existing training and measurement workflows. The numerical 1D and 2D engines
+and their physical conventions remain separate.
 
 ## Documentation
 
@@ -11,13 +12,14 @@ been performed.**
 | --- | --- |
 | [API reference](docs/API.md) | Function signatures, tensors, returns, validation and examples |
 | [Benchmark workflows](BENCHMARKING.md) | ED → supervised → VMC → frozen measurement; reproduction |
-| [Julia preparation](docs/JULIA_PREPARATION.md) | Existing PythonCall boundary, data contract and future merge sequence |
+| [Julia integration](docs/JULIA_PREPARATION.md) | PythonCall inference, batching, metadata and isolated workflow contract |
 | [Current results](STATUS.md) | Accepted evidence and known limitations |
-| [Research plan](PLAN.md) | Log-MSE/VMC representation reduction, prior symmetry results, and Julia preparation boundaries |
+| [Completed scope](PLAN.md) | Final GCNN study, remaining limitations and deferred integration |
 | [Cleanup record](docs/CLEANUP.md) | Removed disposable files, archived history and protected evidence |
 | [Storage and Git policy](docs/STORAGE.md) | Pushable source versus local-only checkpoints and benchmark data |
 | [Slide sources](slides/README.md) | Reproduce the accepted 55-page presentation |
 | [Square symmetry study](docs/SQUARE_SYMMETRY.md) | 3×3 ED symmetries, orbit reduction and group CNN |
+| [GCNN accuracy study](docs/GCNN_STUDY.md) | Minimal D4-tied CNN, square VMC, rectangular log-MSE fits and exact versus sampled results |
 
 ## Physical and array conventions
 
@@ -40,6 +42,13 @@ number projected. Absolute overlap means unsquared amplitude overlap throughout.
 
 ## One VMC implementation
 
+The GCNN is another NQS ansatz behind the same `--arch` interface. It uses the
+existing ED, Adam/log-MSE training, fixed-number sampler, local energies,
+energy-gradient or SR updates, checkpoint format and frozen evaluation. Its
+features are equivariant and its scalar log-amplitude readout is invariant.
+The study's symmetry-orbit batching is a benchmark acceleration that preserves
+the full-sector log-MSE objective, not a separate optimizer or ED solver.
+
 `vmc.py` is the single batched PyTorch implementation for CPU and CUDA. It
 contains sampling, local energies, the native energy gradient and SR. Jacobian
 `vjp` is the compatibility/reference default (chunk1); optimized `vmap` is opt-in
@@ -54,13 +63,20 @@ default is changed by documentation or cleanup.
 
 ## Layout and execution
 
+For embedded use, import `pythonTest.bosehubbard2d.models`, `.vmc` and the
+other namespaced modules. The existing standalone scripts below keep their
+original paths and CLI behavior. Do not mix legacy bare-module and namespaced
+model imports in one interpreter; the bridge guards against duplicate class
+identities. See the [Julia guide](../../docs/site/julia.md) for usage.
+
 Core: `lattice.py`, `exact_diagonalization.py`, `models.py`, `vmc.py`,
 `observables.py`, `leakage_analysis.py`. Entry points: `train_ed.py`, `train.py`,
 `evaluate.py`; `dmrg_reference.jl` provides the optional ITensor reference.
 `tests/` checks correctness; `benchmarks/` contains reusable analysis and retained
 experiment scripts; `benchmarks/results/` and ignored `outputs/` preserve evidence.
 The seven registered model families include the optional Conv2DTransformerNet
-and square-PBC-only GroupEquivariantConv2DNet. The default benchmark sweep
+and periodic GroupEquivariantConv2DNet (D4 on squares; D4-tied filters with
+D2 lattice symmetry on rectangles). The default benchmark sweep
 remains the original five.
 
 Use the repository's existing Python environment from the repository root:

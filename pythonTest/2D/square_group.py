@@ -7,7 +7,10 @@ These helpers contain geometry only, not ED, training or a particle-number mask.
 """
 import torch
 
-from lattice import _integer
+if __package__:
+    from .lattice import _integer
+else:
+    from lattice import _integer
 
 D4_ELEMENTS = tuple(range(8))
 

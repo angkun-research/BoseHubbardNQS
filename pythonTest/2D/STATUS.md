@@ -1,12 +1,27 @@
 # Current 2D status
 
+The requested minimal GCNN test matrix completed on 2026-11-13. The width-8
+model has 4993 parameters. Exact squared fidelities are 0.9999998952 (2x3
+log-MSE), 0.9954034086 (3x3 log-MSE), 0.9687260519 (3x4 log-MSE), and
+0.9961871077 (3x3 VMC). The 3x4 fit misses the previous 0.99 absolute-overlap
+working criterion; its loss was still falling at the fixed budget. The 4x4/5x5
+VMC runs and two frozen measurements each completed, without an exact fidelity
+reference or convergence claim. Rectangles retain D4-tied local filters with
+only D2 lattice symmetry. The larger rectangular exact fits were replaced by
+2x3; a new orbit-reduced ED solver remains deferred. See the
+[protocol and results](docs/GCNN_STUDY.md) and [scope](PLAN.md).
+All 135 CPU regression tests pass. No experimental jobs remain active.
+
 The symmetry-inspired CNN representation-reduction direction was **closed by
 the user on 2026-11-06**. Experimental runners, tests and the pooled model were
-retired after verified local archival. No new research campaign is active.
+retired after verified local archival. That representation-reduction direction
+remains closed; the new GCNN study does not reopen it.
 See [the findings and closure record](docs/CLOSED_REPRESENTATION_STUDY.md).
 
-The building/benchmarking milestone is complete. Current work prepares API
-handoff and future Julia integration; **1D and 2D have not been merged**.
+The earlier building/benchmarking milestone is complete. Julia now exposes
+1D and 2D checkpoint inference with the same scalar/batch layout, plus 2D
+training and evaluation wrappers. The numerical backends remain separate; see
+the [integration contract](docs/JULIA_PREPARATION.md).
 The current [presentation](BoseNQS2D-progress-2026-10-31.pdf) has55 pages,
 29 main and26 supporting. Its four sections cover ED, supervised NQS,
 small-system VMC and raw particle-sector extension. See the
@@ -23,8 +38,9 @@ variance **0.3902421673t²**. It passes the agreed 0.99 working overlap criterio
 it does not pass the stricter tiny-system overlap/energy gate. See the
 [symmetry study](docs/SQUARE_SYMMETRY.md) and the separate 58-page
 [teaching PDF](BoseNQS2D-symmetry-progress-2026-11-02.pdf) for the construction,
-reviewed results and limitations. All 132 local CPU tests pass; source-only
-verification also passes with three expected archival-check skips.
+reviewed results and limitations. That milestone recorded 132 passing local
+CPU tests; source-only verification also passed with three expected
+archival-check skips. The current expanded suite has 135 passing CPU tests.
 No new VMC or larger-system claim accompanies this supervised study.
 
 - Independent analytic/operator tests validate the ED Hamiltonian conventions.

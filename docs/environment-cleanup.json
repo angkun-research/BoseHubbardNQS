@@ -1,0 +1,56 @@
+{
+  "date": "2026-11-13",
+  "status": "passed",
+  "venv_allocated_bytes_before": 9293742080,
+  "venv_allocated_bytes_after": 7443816448,
+  "reclaimed_bytes": 1849925632,
+  "project_allocated_bytes_after": 7613267968,
+  "removed_distributions": [
+    "nvidia-cublas",
+    "nvidia-cuda-cupti",
+    "nvidia-cuda-nvrtc",
+    "nvidia-cuda-runtime",
+    "nvidia-cudnn-cu13",
+    "nvidia-cufft",
+    "nvidia-cufile",
+    "nvidia-curand",
+    "nvidia-cusolver",
+    "nvidia-cusparse",
+    "nvidia-cusparselt-cu13",
+    "nvidia-nccl-cu13",
+    "nvidia-nvjitlink",
+    "nvidia-nvshmem-cu13",
+    "nvidia-nvtx",
+    "torchaudio",
+    "torchvision"
+  ],
+  "retained_distribution_count": 42,
+  "roots": [
+    "torch",
+    "numpy",
+    "scipy",
+    "matplotlib",
+    "pip"
+  ],
+  "dependency_policy": "Full declared transitive dependency closure, including enabled CUDA toolkit extras. Required libraries retained even if particular experiments do not exercise them.",
+  "environment_lock": "docs/requirements-cuda.txt",
+  "verification": {
+    "pip_check": "passed",
+    "all_required_record_files_exist": true,
+    "shared_file_record_hashes_match": true,
+    "claude_independent_hash_audit": {
+      "files_verified": 12832,
+      "missing": 0,
+      "mismatched": 0,
+      "orphan_nvidia_library_files": 0
+    },
+    "python_1d_tests_passed": 4,
+    "python_2d_tests_passed": 135,
+    "python_bridge_tests_passed": 8,
+    "julia_checks_passed": 654,
+    "actual_cuda": true,
+    "temporary_backup_links_removed": true
+  },
+  "logs": "/tmp/bhnqs-env-cleanup/",
+  "research_artifacts_deleted": false
+}

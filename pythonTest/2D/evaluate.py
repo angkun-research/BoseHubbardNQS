@@ -19,10 +19,22 @@ import time
 import numpy as np
 import torch
 
-from lattice import bonds_2d
-from models import ROOT, load_model
-from observables import DEFAULT_MAX_OBSERVABLE_BYTES, measure_observables, sample_frozen
-from vmc import generate_initial_states
+if __package__:
+    from .lattice import bonds_2d
+else:
+    from lattice import bonds_2d
+if __package__:
+    from .models import ROOT, load_model
+else:
+    from models import ROOT, load_model
+if __package__:
+    from .observables import DEFAULT_MAX_OBSERVABLE_BYTES, measure_observables, sample_frozen
+else:
+    from observables import DEFAULT_MAX_OBSERVABLE_BYTES, measure_observables, sample_frozen
+if __package__:
+    from .vmc import generate_initial_states
+else:
+    from vmc import generate_initial_states
 
 
 def _new_output(value):
@@ -113,7 +125,10 @@ def main(argv=None):
         if any(min(i, j) < 0 or max(i, j) >= model.n_sites for i, j in pairs):
             parser.error("pair site outside the lattice")
     # Check output storage before starting a potentially longer burn-in.
-    from observables import check_observable_budget
+    if __package__:
+        from .observables import check_observable_budget
+    else:
+        from observables import check_observable_budget
     budget = check_observable_budget(args.steps * args.walkers, model.n_sites,
                                      model.n_sites**2 if pairs is None else len(pairs), args.max_observable_bytes)
     initial = generate_initial_states(model.n_sites, metadata["Ntot"], model.Nmax, args.walkers, device)
