@@ -1,0 +1,925 @@
+{
+  "primary": {
+    "window_fraction": 0.0625,
+    "sizes": [
+      96,
+      128
+    ],
+    "coupling_range": [
+      3.27,
+      3.3
+    ],
+    "U_phys_c": 3.276015127971019,
+    "slope": -0.04040548099397394,
+    "bracketed": true
+  },
+  "U_code_c": 1.6380075639855094,
+  "large_pair_bracketed_U_phys_range": [
+    3.273991234971004,
+    3.276173064623793
+  ],
+  "critical_K_fits": {
+    "16": {
+      "U_phys": 3.275,
+      "K_limit": 1.988025459722433,
+      "rms": 0.0012349139323240246
+    },
+    "32": {
+      "U_phys": 3.275,
+      "K_limit": 1.9955895757656599,
+      "rms": 0.00020798097354478973
+    },
+    "48": {
+      "U_phys": 3.275,
+      "K_limit": 1.9972215048290012,
+      "rms": 6.92860900516711e-05
+    }
+  },
+  "Mott_RG_scale_from_continued_flow": [
+    {
+      "U_phys": 3.28,
+      "zeta": 0.9998366679237708,
+      "log_scale_ratio": 79.03931660943621
+    },
+    {
+      "U_phys": 3.29,
+      "zeta": 0.9994324604736675,
+      "log_scale_ratio": 38.881534174887655
+    },
+    {
+      "U_phys": 3.3,
+      "zeta": 0.9990333731945192,
+      "log_scale_ratio": 28.103118419272423
+    },
+    {
+      "U_phys": 3.3456,
+      "zeta": 0.9972827507229327,
+      "log_scale_ratio": 14.143760206285739
+    }
+  ],
+  "Mott_RG_scale_exponent_fits": [
+    {
+      "U_phys_c_assumed": 3.273991234971004,
+      "sigma": 0.7489027277105454,
+      "offset": 2.214414696352806,
+      "amplitude": 1.666841287903359,
+      "rms_log_scale": 0.16730303146652284
+    },
+    {
+      "U_phys_c_assumed": 3.276015127971019,
+      "sigma": 0.5197360029283117,
+      "offset": -4.845848548523395,
+      "amplitude": 4.748513928877162,
+      "rms_log_scale": 0.035821141924552546
+    },
+    {
+      "U_phys_c_assumed": 3.276173064623793,
+      "sigma": 0.5009431426603173,
+      "offset": -5.7305364378443775,
+      "amplitude": 5.217019978669646,
+      "rms_log_scale": 0.054617934840936265
+    }
+  ],
+  "all_critical_coupling_fits": [
+    {
+      "window_fraction": 0.0625,
+      "sizes": [
+        48,
+        64
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.2738396514103814,
+      "slope": -0.04061399570876618,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.0625,
+      "sizes": [
+        48,
+        64
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.273852621394767,
+      "slope": -0.040840672591091406,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.0625,
+      "sizes": [
+        48,
+        64
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.2736215658720442,
+      "slope": -0.03943700494232618,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.0625,
+      "sizes": [
+        64,
+        96
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.2752510761623137,
+      "slope": -0.0404944716212507,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.0625,
+      "sizes": [
+        64,
+        96
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.275256421825632,
+      "slope": -0.040729752424124514,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.0625,
+      "sizes": [
+        64,
+        96
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.2750668293284266,
+      "slope": -0.03926736440431113,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.0625,
+      "sizes": [
+        64,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.275584460767228,
+      "slope": -0.040460880378641186,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.0625,
+      "sizes": [
+        64,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.2755879246951682,
+      "slope": -0.0406990157146821,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.0625,
+      "sizes": [
+        64,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.2754073142197084,
+      "slope": -0.03921211007490931,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.0625,
+      "sizes": [
+        96,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.276015127971019,
+      "slope": -0.04040548099397394,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.0625,
+      "sizes": [
+        96,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.276016089430025,
+      "slope": -0.04064770529280314,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.0625,
+      "sizes": [
+        96,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.2758472356217903,
+      "slope": -0.03912545878421536,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.08333333333333333,
+      "sizes": [
+        48,
+        64
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.2732561096368586,
+      "slope": -0.04073115715223805,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.08333333333333333,
+      "sizes": [
+        48,
+        64
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.2732720713251187,
+      "slope": -0.04095500310937014,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.08333333333333333,
+      "sizes": [
+        48,
+        64
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.2730244538165896,
+      "slope": -0.039569495496802255,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.08333333333333333,
+      "sizes": [
+        64,
+        96
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.275507908250822,
+      "slope": -0.04043938453873292,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.08333333333333333,
+      "sizes": [
+        64,
+        96
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.2755117975258017,
+      "slope": -0.04067601198066033,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.08333333333333333,
+      "sizes": [
+        64,
+        96
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.27533050330769,
+      "slope": -0.03920596338490772,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.08333333333333333,
+      "sizes": [
+        64,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.2757982022149577,
+      "slope": -0.040413378704014874,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.08333333333333333,
+      "sizes": [
+        64,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.275800426247082,
+      "slope": -0.04065239480571129,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.08333333333333333,
+      "sizes": [
+        64,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.2756268683229073,
+      "slope": -0.03915901994009079,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.08333333333333333,
+      "sizes": [
+        96,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.276173044170675,
+      "slope": -0.04036940501758668,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.08333333333333333,
+      "sizes": [
+        96,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.276173064623793,
+      "slope": -0.04061182686793017,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.08333333333333333,
+      "sizes": [
+        96,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.276009615421288,
+      "slope": -0.0390851783051412,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.125,
+      "sizes": [
+        48,
+        64
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.273507575800638,
+      "slope": -0.04068517010348513,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.125,
+      "sizes": [
+        48,
+        64
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.2735222079851227,
+      "slope": -0.04090945571638718,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.125,
+      "sizes": [
+        48,
+        64
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.2732827510173483,
+      "slope": -0.03952204881265878,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.125,
+      "sizes": [
+        64,
+        96
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.2750298070945525,
+      "slope": -0.040553085847043056,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.125,
+      "sizes": [
+        64,
+        96
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.2750363605313275,
+      "slope": -0.040786187978308686,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.125,
+      "sizes": [
+        64,
+        96
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.2748411069594665,
+      "slope": -0.039339551875492575,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.125,
+      "sizes": [
+        64,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.2753944711502316,
+      "slope": -0.04051552221854779,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.125,
+      "sizes": [
+        64,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.275398991724492,
+      "slope": -0.040751095731121206,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.125,
+      "sizes": [
+        64,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.275213563972742,
+      "slope": -0.03928021907402742,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.125,
+      "sizes": [
+        96,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.2758654024165104,
+      "slope": -0.04045389983892174,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.125,
+      "sizes": [
+        96,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.2758672309340837,
+      "slope": -0.0406931015899937,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.125,
+      "sizes": [
+        96,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.275694652562555,
+      "slope": -0.039187006616863446,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.1875,
+      "sizes": [
+        48,
+        64
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.273007121910954,
+      "slope": -0.040790309019069194,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.1875,
+      "sizes": [
+        48,
+        64
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.2730241877761617,
+      "slope": -0.041011140066598895,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.1875,
+      "sizes": [
+        48,
+        64
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.2727726582794294,
+      "slope": -0.03964826294087669,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.1875,
+      "sizes": [
+        64,
+        96
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.2746955307584926,
+      "slope": -0.040641411344808205,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.1875,
+      "sizes": [
+        64,
+        96
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.274703838988692,
+      "slope": -0.04087070032732668,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.1875,
+      "sizes": [
+        64,
+        96
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.2745005123894453,
+      "slope": -0.03944892229958336,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.1875,
+      "sizes": [
+        64,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.2751067505365743,
+      "slope": -0.04059837309315008,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.1875,
+      "sizes": [
+        64,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.2751128252394817,
+      "slope": -0.040830238964000225,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.1875,
+      "sizes": [
+        64,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.2749205534034225,
+      "slope": -0.039384302879856385,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.1875,
+      "sizes": [
+        96,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.275637492998717,
+      "slope": -0.0405280895655392,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.1875,
+      "sizes": [
+        96,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.2756406091958836,
+      "slope": -0.040763772747191104,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.1875,
+      "sizes": [
+        96,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.2754627851551446,
+      "slope": -0.039282426074154206,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.25,
+      "sizes": [
+        48,
+        64
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.272250991804198,
+      "slope": -0.04093948628332423,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.25,
+      "sizes": [
+        48,
+        64
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.2722715719708,
+      "slope": -0.041155251538932805,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.25,
+      "sizes": [
+        48,
+        64
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.2720025737873626,
+      "slope": -0.039827317532428075,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.25,
+      "sizes": [
+        64,
+        96
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.2741952542752055,
+      "slope": -0.04076765558065977,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.25,
+      "sizes": [
+        64,
+        96
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.274206082062328,
+      "slope": -0.04099168423810902,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.25,
+      "sizes": [
+        64,
+        96
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.273991234971004,
+      "slope": -0.03960531590896985,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.25,
+      "sizes": [
+        64,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.274677235918244,
+      "slope": -0.04071720977699289,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.25,
+      "sizes": [
+        64,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.2746855371177954,
+      "slope": -0.04094391451615823,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.25,
+      "sizes": [
+        64,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.274483530892146,
+      "slope": -0.03953356659466196,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.25,
+      "sizes": [
+        96,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.3
+      ],
+      "U_phys_c": 3.2752987190774503,
+      "slope": -0.04063499838060064,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.25,
+      "sizes": [
+        96,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.29
+      ],
+      "U_phys_c": 3.2753036747105346,
+      "slope": -0.040865719156790326,
+      "bracketed": true
+    },
+    {
+      "window_fraction": 0.25,
+      "sizes": [
+        96,
+        128
+      ],
+      "coupling_range": [
+        3.27,
+        3.346
+      ],
+      "U_phys_c": 3.275118433699149,
+      "slope": -0.039419794234777525,
+      "bracketed": true
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+# Raw solver outputs and the downloaded literature archive
+/raw/
+
+# Local run outputs and runtime caches
+/runs/
+/tmp/
+/julia-depot/
+/julia-generic/
+/matplotlib/
+*.log
+*.out
+*.err
+*.tmp
+*.tmp-*
+.pytest_cache/
