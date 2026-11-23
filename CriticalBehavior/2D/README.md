@@ -7,9 +7,7 @@ H=-t\sum_{\langle ij\rangle}(b_i^\dagger b_j+b_j^\dagger b_i)
 $$
 The interaction $U$ and inclusive cutoff `nmax` follow [the established 2D ED model](../../pythonTest/2D/exact_diagonalization.py). The $L=2$ bond convention in that model gives only two neighbors per site, so the finite-size series begins at $L=3$.
 
-The largest calculations are on $6\times6$ tori with $\chi=1024$. The $5\times5$–$6\times6$ charge-gap crossing is at $U^*/t=16.833$. The corresponding effective exponents are $\nu_{\rm eff}=0.721$ and $z_{\rm eff}=1.052$, with $z_{\rm eff}$ evaluated at the published coupling. The midpoint estimates of $\eta$ still depend strongly on which correlator is used. [Final results and convergence checks](GAP-SCALING.md#completed-follow-up)
-
-The [pilot report](RESULTS.md) covers exact-diagonalization validation, momentum-ratio crossings, and the initial bond-dimension study. The [charge-gap follow-up](GAP-SCALING.md) applies the published scaling method. See [the sweep manifests](sweeps/) and [the archived measurements and figures](results/) for the inputs and outputs.
+The [numerical results](RESULTS.md) compare the DMRG estimates through $\chi=1024$ with the published benchmarks and include the pilot and exact-diagonalization checks. The [charge-gap scaling method](GAP-SCALING.md) describes the fits. See the [sweep manifests](sweeps/) and [archived measurements and figures](results/) for the inputs and outputs.
 
 ## Published targets
 

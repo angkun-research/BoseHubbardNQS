@@ -1,18 +1,55 @@
-# Periodic square-lattice pilot results
+# 2D Bose–Hubbard numerical results
 
-The [charge-gap follow-up](GAP-SCALING.md#completed-follow-up) extends this pilot through $\chi=1024$.
+The model is at zero temperature with one boson per site on a square lattice periodic in both directions. The onsite term is $Un_i(n_i-1)/2$. The superfluid–Mott transition is in the 3D XY universality class.
 
-The study treats the zero-temperature superfluid–Mott transition at exactly one boson per site on fully periodic square tori. The published targets are $U_c/t=16.7424(1)$, $\nu=0.671718(23)$, $\eta=0.03816(2)$, and $z=1$. The critical point has emergent Lorentz invariance and belongs to the three-dimensional XY universality class. [Bose–Hubbard QMC](https://doi.org/10.1103/PhysRevLett.110.170403) · [3D XY scaling](https://doi.org/10.1103/1d4g-483z)
+## Critical coupling and exponents
 
-## Exact-diagonalization check
+The largest calculation uses a $6\times6$ torus and bond dimension $\chi=1024$. The numerical column reports finite-size estimates.
 
-At $L=3$, $U/t=16.7424$, and `nmax=4`, the established periodic ED model has 18 bonds and neutral-sector dimension 19,855. The $\chi=128$ DMRG absolute errors relative to ED are $1.9\times10^{-7}t$ in the neutral energy, $2.5\times10^{-6}t$ in the charge gap, and $1.0\times10^{-8}$ in the one-body momentum ratio. The [ED reference data](results/ed.json) record all three sector energies and both first nonzero momenta.
+| Quantity | Our numerical result | Published benchmark |
+| --- | --- | --- |
+| Critical interaction $U_c/t$ | **$16.833$** from the $L=5,6$ charge-gap crossing with $z=1$ fixed | $16.7424(1)$ |
+| Critical interaction $U_c/t$ with both exponents fixed | $16.858$ from a common fit over $L=4,5,6$ with $z=1$ and $\nu=0.671718$ fixed | $16.7424(1)$ |
+| Correlation-length exponent $\nu$ | $\nu_{\rm eff}=0.721$ from the $L=5,6$ scaled-gap slopes with $z=1$ fixed | $0.671718(23)$ |
+| Dynamical exponent $z$ | $z_{\rm eff}=1.052$ from the $L=5,6$ gap ratio at the published $U_c$ | $1$ |
+| Anomalous dimension $\eta$ | $\eta_{\rm eff}=0.028$ along $x$, $0.007$ along $y$, and $-0.078$ along the diagonal, from $L=4,6$ midpoint correlations at the published $U_c$ with $z=1$ fixed | $0.03816(2)$ |
 
-## Finite-size crossings and correlation-length exponent
+The critical interaction comes from Bose–Hubbard QMC. The values of $\nu$ and $\eta$ come from finite-size scaling of an improved 3D XY clock model, and $z=1$ follows from the emergent Lorentz invariance at the unit-filled transition. [Chen et al.](https://doi.org/10.1103/PhysRevLett.110.170403) · [Hasenbusch](https://doi.org/10.1103/1d4g-483z)
 
-These crossings use the $L=4,5$ pair, `nmax=4` and monotone cubic interpolation inside the sampled interval. The effective $\nu$ comes from the ratio of local slopes. The scaled-gap analysis fixes $z=1$.
+The largest-pair crossing is 0.54% above the published critical coupling. The same pair gives $z_{\rm eff}$ and $\nu_{\rm eff}$ about 5% and 7% above their benchmarks. The two axial correlators on $6\times6$ differ by about 0.9% even at $\chi=1024$. The spread across midpoint correlators leaves the universal $\eta$ unresolved. [Final scaling figure](results/gap-scaling-final.pdf) · [Fit details](results/gap-scaling-final.json)
 
-| Observable | Requested $\chi$ | Crossing $U^*/t$ | $\nu_{\rm eff}$ |
+### Charge-gap crossings
+
+Following the published QMC procedure, we fit straight lines to $L\Delta_c/t$ versus $t/U$ near the transition. In the final scan, the fits use maximum bond dimensions $\chi=384,512,1024$ for $L=4,5,6$, respectively. [Capogrosso-Sansone et al., Fig. 2](https://arxiv.org/pdf/0710.2703#page=2) · [Analysis method](GAP-SCALING.md)
+
+| Pair of torus sizes | Crossing $U^*/t$ | Slope-based $\nu_{\rm eff}$ |
+| --- | ---: | ---: |
+| $L=4,5$ | 16.893 | 0.766 |
+| $L=4,6$ | 16.861 | 0.745 |
+| $L=5,6$ | 16.833 | 0.721 |
+
+Dropping the largest interaction from the common fit gives $U^*/t=16.856$. The coarse-grid baseline gave $16.841$ for the $L=4,5$ crossing and $16.889$ for a common fit over $L=3,4,5$. The narrower baseline window yielded no bracketed common-fit crossing. The drift across size pairs and the pilot observable dependence limit the precision of a thermodynamic coupling estimate. [Baseline figure](results/gap-scaling-baseline.pdf) · [Baseline analysis](results/gap-scaling-baseline.json)
+
+## Bond dimension and onsite cutoff
+
+The table shows the staged charge gaps at the published $U_c/t=16.7424$ with inclusive onsite cutoff $N_{\max}=4$.
+
+| Torus | $\Delta_c/t$ at $\chi=384$ | $\chi=512$ | $\chi=768$ | $\chi=1024$ |
+| --- | ---: | ---: | ---: | ---: |
+| $5\times5$ | 2.63198 | 2.63319 | — | — |
+| $6\times6$ | 2.15131 | 2.15961 | 2.16941 | 2.17368 |
+
+On $5\times5$, the gap changed by 0.046% from $\chi=384$ to 512. On $6\times6$, it changed by 0.65% from $\chi=512$ to 1024, with 0.20% on the final step. Increasing the largest bond dimension moved the $L=5,6$ crossing from $16.899$ to $16.833$ and moved $z_{\rm eff}$ from $1.087$ to $1.052$. [Analysis through $\chi=512$](results/gap-scaling-through-512.json) · [Final analysis](results/gap-scaling-final.json)
+
+At $\chi=256$, increasing $N_{\max}$ from 4 to 5 and changing the starting seed each altered the $5\times5$ gap by less than $2\times10^{-4}t$. On $6\times6$ at $\chi=512$, raising $N_{\max}$ from 4 to 5 changed the gap by 0.044% and $n(0)$ by 0.024%. These checks measure sensitivity at the published coupling and the stated finite bond dimensions.
+
+## Exact-diagonalization check and pilot results
+
+On the $3\times3$ torus at $U/t=16.7424$ and $N_{\max}=4$, DMRG at $\chi=128$ agrees with sparse ED within $1.9\times10^{-7}t$ in the neutral energy, $2.5\times10^{-6}t$ in the charge gap, and $1.0\times10^{-8}$ in the one-body momentum ratio. The ED neutral sector has 19,855 states on an 18-bond torus. [ED reference](results/ed.json)
+
+The pilot used monotone cubic interpolation for $L=4,5$ at $N_{\max}=4$. Across observables, its highest-$\chi$ crossings range from $U^*/t=15.884$ to $16.931$. The momentum-ratio crossing at $16.734$ is particularly close to the benchmark, and its drift with $\chi$ and the spread across observables show the size of the numerical systematics. At the highest scanned $\chi$ for each observable, linear interpolation gives $16.734$ for $R$, $15.909$ for $\xi_{\rm 2nd}/L$, and $16.911$ for $L\Delta_c$. [Pilot figure](results/summary.pdf) · [Pilot fit details](results/summary.json)
+
+| Pilot observable | $\chi$ | Crossing $U^*/t$ | $\nu_{\rm eff}$ |
 | --- | ---: | ---: | ---: |
 | Momentum ratio $R$ | 128 | 16.932 | 0.714 |
 | Momentum ratio $R$ | 256 | 16.802 | 0.757 |
@@ -22,30 +59,10 @@ These crossings use the $L=4,5$ pair, `nmax=4` and monotone cubic interpolation 
 | Second-moment ratio $\xi_{\rm 2nd}/L$ | 384 | 15.884 | 0.825 |
 | Scaled charge gap $L\Delta_c$ | 256 | 16.931 | 0.740 |
 
-The $\chi=384$ momentum-ratio crossing lies within $0.01t$ of the published critical coupling. Raising $\chi$ from 256 to 384 moved that crossing by $0.068t$, and the three observables span $1.05t$ at their highest scanned $\chi$. The smaller $L=3,4$ pair at $\chi=256$ puts the momentum-ratio crossing at $17.243t$ and the scaled-gap crossing at $17.068t$. This drift limits the coupling result to a finite-size comparison. Linear interpolation gives $U^*/t=16.734,\ 15.909,\ 16.911$ for the three highest-$\chi$ entries, respectively. The corresponding $\nu_{\rm eff}$ values are $0.778,\ 0.829,\ 0.713$, compared with the published $0.672$.
+The $6\times6$ pilot gap changed from $2.07838t$ at $\chi=128$ to $2.14064t$ at $\chi=256$, a 3.00% increase. The $L=5,6$ gap ratio at $\chi=256$ gave $z_{\rm eff}=1.119$. On $6\times6$, $n(0)$ changed by 1.09% from $\chi=256$ to 384. These changes motivated the staged bond-dimension study above.
 
-## Scaling at the published coupling
+At the published coupling, the pilot $L=4,5$ estimate at $\chi=384$ gave $\eta_{\rm eff}=-0.085$ from $n(0)$ and $-0.084$ after subtracting the average occupation at the first nonzero momenta. For $L=5,6$, the estimate from $n(0)$ shifted from $-0.140$ to $-0.088$ as $\chi$ increased from 256 to 384. That shift alone exceeds the predicted $\eta$. The $6\times6$ pilot also gave a midpoint chemical potential of $\mu_{\rm mid}/t=6.22487$ at $\chi=256$, compared with the published $\mu_c/t=6.21(2)$. [Bose–Hubbard QMC](https://doi.org/10.1103/PhysRevLett.110.170403) · [Pilot measurements](results/summary.csv)
 
-These values use $U/t=16.7424$, onsite cutoff `nmax=4`, and seed 123. The momentum occupation $n(0)$ is defined with a factor $L^{-2}$ in the Fourier sum.
+## Reproduce the results
 
-| $L$ | Requested $\chi$ | $n(0)$ | $R$ | $\Delta_c/t$ |
-| ---: | ---: | ---: | ---: | ---: |
-| 3 | 256 | 4.01288 | 0.80805 | 4.55178 |
-| 4 | 384 | 5.54750 | 0.81377 | 3.33554 |
-| 5 | 256 | 7.07786 | 0.81468 | 2.62534 |
-| 5 | 384 | 7.06684 | 0.81365 | 2.63157 |
-| 6 | 128 | 8.78012 | 0.82237 | 2.07838 |
-| 6 | 256 | 8.71239 | 0.81803 | 2.14064 |
-| 6 | 384 | 8.61738 | 0.81485 | — |
-
-At $\chi=256$, the charge-gap exponents for size pairs $(3,4)$, $(4,5)$ and $(5,6)$ are $z_{\rm eff}=1.081,\ 1.072,\ 1.119$. The same-parity pairs give $1.077$ for $(3,5)$ and $1.093$ for $(4,6)$. The $\chi=384$ estimate from $(4,5)$ is approximately $1.06$. The gaps show approximately inverse-linear scaling over these sizes, with visible deviations from $z=1$.
-
-At $\chi=384$, the $(4,5)$ pair gives $\eta_{\rm eff}=-0.085$ from $n(0)$, or $-0.084$ using $n(0)-\bar n_k$, with $z=1$ fixed. The $(5,6)$ raw estimate moves from $-0.140$ at $\chi=256$ to $-0.088$ at $\chi=384$. This shift is larger than the published anomalous dimension. The data resolve growth close to $n(0)\propto L$ and leave the universal value of $\eta$ unresolved. The $6\times6$ midpoint chemical potential at $\chi=256$ is $\mu_{\rm mid}/t=6.22487$ compared with the published $\mu_c/t=6.21(2)$. [Bose–Hubbard QMC](https://doi.org/10.1103/PhysRevLett.110.170403)
-
-## Bond-dimension limit
-
-At $L=5$, raising $\chi$ from 256 to 384 changes $n(0)$ by 0.16% and the gap by 0.24%. Raising the onsite cutoff from 4 to 5 and changing the seed at $\chi=256$ each change the gap by less than $2\times10^{-4}t$. At $L=6$, $n(0)$ changes by 1.09% from $\chi=256$ to 384 and the charge gap changes by 3.00% from $\chi=128$ to 256. The $6\times6$ torus exceeds the 1% convergence target and sets the stopping point. Its largest available neutral result uses $\chi=384$, and its largest verified three-sector gap uses $\chi=256$.
-
-## Reproducibility
-
-The solver was checked against `pythonTest/2D`. The [figure](results/summary.pdf), [65 measurement rows](results/summary.csv), and [crossings, exponents, and convergence comparisons](results/summary.json) document the exact-diagonalization and DMRG runs. The CSV records the TOML source of each sector. The [replay archive](results/measurements.tar.gz) contains the sector measurements and ED reference.
+The [measurement archive](results/measurements.tar.gz) contains the original sector energies, correlation measurements, and ED reference data. The [study README](README.md#reproduce-the-analysis) gives the replay commands for the pilot and the final analysis. The pilot CSV records the source of each charge-gap sector.

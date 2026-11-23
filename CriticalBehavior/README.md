@@ -1,6 +1,6 @@
 # BKT transition of the unit-filled 1D Bose–Hubbard model
 
-For the zero-temperature square lattice with periodic boundaries, see the [2D study](2D/README.md) and its [final results through $\chi=1024$](2D/GAP-SCALING.md#completed-follow-up).
+For the zero-temperature square lattice with periodic boundaries, see the [2D study](2D/README.md) and its [numerical results through $\chi=1024$](2D/RESULTS.md).
 
 We study the zero-temperature chain at fixed $N=L$ with nearest-neighbor hopping $t=1$. This directory uses `U_phys` for the coefficient in the conventional onsite term $U_{\rm phys}n(n-1)/2$. The original 1D Python and Julia examples use `U_code = U_phys / 2`. The occupation cutoff `nmax` is inclusive.
 
