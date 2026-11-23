@@ -13,3 +13,6 @@
 *.tmp
 *.tmp-*
 .pytest_cache/
+
+# Machine-specific launchers and local run instructions
+/HPCtemp/

@@ -25,20 +25,6 @@ At $L=32$ and matched bond cap $\chi=384$, changing `Nmax` from 4 to 6 changes $
 
 For comparison, a plain power-law fit of $G_1$ on the same ITensor rings gives $\eta=0.231$–$0.233$. Fixing $\eta=1/4$ and fitting the power of the logarithm gives $0.112$–$0.126$, close to $1/8$. The available ring sizes constrain these fits with either the power-law or logarithmic exponent fixed. Periodic ED through $L=12$ gives $z_{\rm eff}=0.983$. The Mott-side charge gaps at $L\le256$ are too size-dependent near the transition to fit the essential exponent directly. [Independent plot](figures/independent.pdf) · [Independent fit details](results/independent.json)
 
-## Slurm verification
+## Verification and archived measurements
 
-The final analysis job `6635752` completed with exit code `0:0`. It analyzed 81 Julia ITensor outputs and 54 ED size/coupling/cutoff points. The analysis job was submitted before the cutoff-matched array `6635856`, and that array was added to its dependency list while it was pending. Slurm accounting on November 20, 2026 shows the last cutoff-matched task ended at 18:56:27 and the final analysis started at 20:48:09.
-
-| Work | Slurm job ID |
-|---|---|
-| Published-data reproduction | `6635852` |
-| Sparse ED sweep | `6635630` |
-| Eight-site ITensor comparison | `6635623` |
-| 32-site warm-start check | `6635837` |
-| Periodic ring sweep, `rings.tsv` | `6635637` |
-| Open-chain sweep, `chains.tsv` | `6635638` |
-| Cutoff sweep, `cutoffs.tsv` | `6635701` |
-| Matched-bond-dimension cutoff sweep, `cutoff-matched.tsv` | `6635856` |
-| Final independent analysis | `6635752` |
-
-Open-chain task `6635638_3` reached its wall-time limit at $L=256$ and $\chi=192$. The corresponding $\chi=288$ task `6635638_26` completed and supplies the $L=256$ critical gap used here. The job logs and original outputs are under `$SCRATCHDIR/CriticalBehavior`. The local `raw/` directory includes the ITensor/ED comparison and the completed sweep outputs.
+The final analysis used 81 Julia ITensor outputs and 54 ED size, coupling, and cutoff points. The $L=256$, $\chi=192$ open-chain run reached its time limit. The completed $\chi=288$ run supplies the $L=256$ gap in the fit. [Archived measurements](results/measurements.tar.gz)

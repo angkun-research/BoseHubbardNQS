@@ -1,0 +1,476 @@
+{
+  "coupling_grid": [
+    16.6,
+    16.7424,
+    16.9,
+    17.1
+  ],
+  "fixed_nu": 0.671718,
+  "fixed_z": 1,
+  "fits": {
+    "4": {
+      "intercept": 13.351860287946508,
+      "slope": -941.6557872533804,
+      "chi": 384,
+      "max_residual": 0.013597498602180735
+    },
+    "5": {
+      "intercept": 13.181962878262745,
+      "slope": -1260.0256612776407,
+      "chi": 512,
+      "max_residual": 0.021446263946746313
+    },
+    "6": {
+      "intercept": 12.980466367829843,
+      "slope": -1623.6213512003367,
+      "chi": 512,
+      "max_residual": 0.03469090512150785
+    }
+  },
+  "crossings": [
+    {
+      "sizes": [
+        4,
+        5
+      ],
+      "crossing_U": 16.893334277898408,
+      "nu_effective": 0.766164523353203
+    },
+    {
+      "sizes": [
+        4,
+        6
+      ],
+      "crossing_U": 16.896458528310948,
+      "nu_effective": 0.7442805837293895
+    },
+    {
+      "sizes": [
+        5,
+        6
+      ],
+      "crossing_U": 16.899195118209686,
+      "nu_effective": 0.7191406780051485
+    }
+  ],
+  "fixed_exponent_fit": {
+    "U": 16.89102416299398,
+    "max_residual": 0.048945098814876076
+  },
+  "L6_through_512_crossings": [
+    {
+      "sizes": [
+        4,
+        5
+      ],
+      "crossing_U": 16.893334277898408,
+      "nu_effective": 0.766164523353203
+    },
+    {
+      "sizes": [
+        4,
+        6
+      ],
+      "crossing_U": 16.896458528310948,
+      "nu_effective": 0.7442805837293895
+    },
+    {
+      "sizes": [
+        5,
+        6
+      ],
+      "crossing_U": 16.899195118209686,
+      "nu_effective": 0.7191406780051485
+    }
+  ],
+  "narrower_window_fit": {
+    "U": 16.890270827611808,
+    "max_residual": 0.025553386414278734
+  },
+  "gap_exponents_at_published_Uc": [
+    {
+      "sizes": [
+        3,
+        4
+      ],
+      "chi": [
+        256,
+        384
+      ],
+      "z_effective": 1.0806532719582822
+    },
+    {
+      "sizes": [
+        3,
+        5
+      ],
+      "chi": [
+        256,
+        512
+      ],
+      "z_effective": 1.0714457338244883
+    },
+    {
+      "sizes": [
+        3,
+        6
+      ],
+      "chi": [
+        256,
+        512
+      ],
+      "z_effective": 1.07565950753911
+    },
+    {
+      "sizes": [
+        4,
+        5
+      ],
+      "chi": [
+        384,
+        512
+      ],
+      "z_effective": 1.0595751525914294
+    },
+    {
+      "sizes": [
+        4,
+        6
+      ],
+      "chi": [
+        384,
+        512
+      ],
+      "z_effective": 1.0721163752973584
+    },
+    {
+      "sizes": [
+        5,
+        6
+      ],
+      "chi": [
+        512,
+        512
+      ],
+      "z_effective": 1.087465591383672
+    }
+  ],
+  "eta_effective_at_published_Uc": [
+    {
+      "sizes": [
+        4,
+        6
+      ],
+      "chi": [
+        384,
+        512
+      ],
+      "G_mid_x": 0.026574515147104627,
+      "G_mid_y": -0.01597552247460976,
+      "G_mid_diag": -0.09985662138266838
+    }
+  ],
+  "convergence_at_published_Uc": [
+    {
+      "L": 5,
+      "parameter": "chi_requested",
+      "files": [
+        "L5-U16.7424-n4-seed123-neutral-chi384.toml",
+        "L5-U16.7424-n4-seed123-neutral-chi512.toml"
+      ],
+      "second_minus_first": {
+        "energy": -0.012093107057733476,
+        "n0": -0.0018882876427399609,
+        "n0_minus_nk": -0.0034263846165156764,
+        "ratio": -0.0002674670788141986,
+        "gap": 0.0012135120997207594
+      }
+    },
+    {
+      "L": 6,
+      "parameter": "chi_requested",
+      "files": [
+        "L6-U16.7424-n4-seed123-neutral-chi384.toml",
+        "L6-U16.7424-n4-seed123-neutral-chi512.toml"
+      ],
+      "second_minus_first": {
+        "energy": -0.04955274080478489,
+        "n0": -0.016961178615826356,
+        "n0_minus_nk": -0.02419433048894959,
+        "ratio": -0.0012049808783489713,
+        "gap": 0.008300978949939974
+      }
+    },
+    {
+      "L": 6,
+      "parameter": "nmax",
+      "files": [
+        "L6-U16.7424-n4-seed123-neutral-chi384.toml",
+        "L6-U16.7424-n5-seed123-neutral-chi384.toml"
+      ],
+      "second_minus_first": {
+        "energy": -0.00037028977140352026,
+        "n0": -0.001098474435520913,
+        "n0_minus_nk": -0.0013024208924807823,
+        "ratio": -4.7218754092082094e-05,
+        "gap": 0.0008186363930988705
+      }
+    },
+    {
+      "L": 6,
+      "parameter": "nmax",
+      "files": [
+        "L6-U16.7424-n4-seed123-neutral-chi512.toml",
+        "L6-U16.7424-n5-seed123-neutral-chi512.toml"
+      ],
+      "second_minus_first": {
+        "energy": 0.00047384800851801856,
+        "n0": 0.0020995582711655913,
+        "n0_minus_nk": 0.002312444848534767,
+        "ratio": 7.013664759780713e-05,
+        "gap": -0.0009604447287188123
+      }
+    },
+    {
+      "L": 6,
+      "parameter": "chi_requested",
+      "files": [
+        "L6-U16.7424-n5-seed123-neutral-chi384.toml",
+        "L6-U16.7424-n5-seed123-neutral-chi512.toml"
+      ],
+      "second_minus_first": {
+        "energy": -0.04870860302486335,
+        "n0": -0.013763145909139851,
+        "n0_minus_nk": -0.02057946474793404,
+        "ratio": -0.001087625476659082,
+        "gap": 0.006521897828122292
+      }
+    }
+  ],
+  "benchmark": [
+    {
+      "L": 3,
+      "U": 16.7424,
+      "nmax": 4,
+      "chi_requested": 256,
+      "seed": 123,
+      "sweeps_requested": 10,
+      "energy": -6.103271038902835,
+      "n0": 4.012881842334262,
+      "nkx": 0.7702716572532091,
+      "nky": 0.7702716568402912,
+      "ratio": 0.808050252334694,
+      "density_range": 1.9994561561986757e-11,
+      "G_mid_x": 0.4255708593358072,
+      "G_mid_y": 0.42557085947344653,
+      "G_mid_diag": 0.32764960117893843,
+      "n0_minus_nk": 3.242610185287512,
+      "xi_over_L": 0.39486035375090234,
+      "relative_axis_difference": 1.0289810124005067e-10,
+      "gap": 4.5517777812780995,
+      "mu_mid": 6.168289321014758,
+      "scaled_gap": 13.655333343834299,
+      "achieved_chi": 213,
+      "final_sweep_energy_change": 1.4210854715202004e-14,
+      "final_truncation": 9.37681238738807e-13,
+      "file": "L3-U16.7424-n4-seed123-neutral-chi256.toml",
+      "sector_files": "{\"-1\": \"L3-U16.7424-n4-seed123-hole-chi256.toml\", \"0\": \"L3-U16.7424-n4-seed123-neutral-chi256.toml\", \"1\": \"L3-U16.7424-n4-seed123-particle-chi256.toml\"}"
+    },
+    {
+      "L": 4,
+      "U": 16.7424,
+      "nmax": 4,
+      "chi_requested": 384,
+      "seed": 123,
+      "sweeps_requested": 13,
+      "energy": -9.56849989588414,
+      "n0": 5.547500339289409,
+      "nkx": 1.0333380237315777,
+      "nky": 1.0328710500097449,
+      "ratio": 0.8137711629229042,
+      "density_range": 2.0141071556123435e-06,
+      "G_mid_x": 0.28881602333212164,
+      "G_mid_y": 0.2888796015089937,
+      "G_mid_diag": 0.23734021851558407,
+      "n0_minus_nk": 4.514395802418748,
+      "xi_over_L": 0.36953254512069456,
+      "relative_axis_difference": 8.417732190578163e-05,
+      "gap": 3.3355357292837056,
+      "mu_mid": 6.195254599094584,
+      "scaled_gap": 13.342142917134822,
+      "achieved_chi": 384,
+      "final_sweep_energy_change": 1.0960047685415475e-05,
+      "final_truncation": 5.966916848244499e-06,
+      "file": "L4-U16.7424-n4-seed123-neutral-chi384.toml",
+      "sector_files": "{\"-1\": \"L4-U16.7424-n4-seed123-hole-chi384.toml\", \"0\": \"L4-U16.7424-n4-seed123-neutral-chi384.toml\", \"1\": \"L4-U16.7424-n4-seed123-particle-chi384.toml\"}"
+    },
+    {
+      "L": 5,
+      "U": 16.7424,
+      "nmax": 4,
+      "chi_requested": 384,
+      "seed": 123,
+      "sweeps_requested": 13,
+      "energy": -14.25165436458061,
+      "n0": 7.0677901903664155,
+      "nkx": 1.321874814923017,
+      "nky": 1.3116674988506873,
+      "ratio": 0.8136940795608724,
+      "density_range": 9.057227147524216e-05,
+      "G_mid_x": 0.24151521658729053,
+      "G_mid_y": 0.24275704911526946,
+      "G_mid_diag": 0.19881774438817032,
+      "n0_minus_nk": 5.7510190334795634,
+      "xi_over_L": 0.35554826578127907,
+      "relative_axis_difference": 0.0014442019071594062,
+      "gap": 2.631976233942833,
+      "mu_mid": 6.205609179321774,
+      "scaled_gap": 13.159881169714165,
+      "achieved_chi": 384,
+      "final_sweep_energy_change": 0.00030021808217384205,
+      "final_truncation": 2.7667175324338514e-05,
+      "file": "L5-U16.7424-n4-seed123-neutral-chi384.toml",
+      "sector_files": "{\"-1\": \"L5-U16.7424-n4-seed123-hole-chi384.toml\", \"0\": \"L5-U16.7424-n4-seed123-neutral-chi384.toml\", \"1\": \"L5-U16.7424-n4-seed123-particle-chi384.toml\"}"
+    },
+    {
+      "L": 5,
+      "U": 16.7424,
+      "nmax": 4,
+      "chi_requested": 512,
+      "seed": 123,
+      "sweeps_requested": 19,
+      "energy": -14.263747471638343,
+      "n0": 7.065901902723676,
+      "nkx": 1.3216067127422202,
+      "nky": 1.3150117949790348,
+      "ratio": 0.8134266124820582,
+      "density_range": 5.6580853666776676e-05,
+      "G_mid_x": 0.24164385555092857,
+      "G_mid_y": 0.24245739072668251,
+      "G_mid_diag": 0.19864649040028926,
+      "n0_minus_nk": 5.747592648863048,
+      "xi_over_L": 0.3552349231663989,
+      "relative_axis_difference": 0.0009333440874183819,
+      "gap": 2.6331897460425537,
+      "mu_mid": 6.204960498744299,
+      "scaled_gap": 13.165948730212769,
+      "achieved_chi": 512,
+      "final_sweep_energy_change": 6.864908742976183e-05,
+      "final_truncation": 1.6593197087307475e-05,
+      "file": "L5-U16.7424-n4-seed123-neutral-chi512.toml",
+      "sector_files": "{\"-1\": \"L5-U16.7424-n4-seed123-hole-chi512.toml\", \"0\": \"L5-U16.7424-n4-seed123-neutral-chi512.toml\", \"1\": \"L5-U16.7424-n4-seed123-particle-chi512.toml\"}"
+    },
+    {
+      "L": 6,
+      "U": 16.7424,
+      "nmax": 4,
+      "chi_requested": 384,
+      "seed": 123,
+      "sweeps_requested": 13,
+      "energy": -19.990992025472544,
+      "n0": 8.623219607750663,
+      "nkx": 1.6202393862241058,
+      "nky": 1.569748818217466,
+      "ratio": 0.8150349666628942,
+      "density_range": 0.0002588870690147793,
+      "G_mid_x": 0.19059681219123478,
+      "G_mid_y": 0.19500312087027966,
+      "G_mid_diag": 0.16565659918396927,
+      "n0_minus_nk": 7.028225505529877,
+      "xi_over_L": 0.3498581962244572,
+      "relative_axis_difference": 0.0058551875405397635,
+      "gap": 2.1513087469515355,
+      "mu_mid": 6.2126839623110675,
+      "scaled_gap": 12.907852481709213,
+      "achieved_chi": 384,
+      "final_sweep_energy_change": 0.01722643257906853,
+      "final_truncation": 6.502285730327792e-05,
+      "file": "L6-U16.7424-n4-seed123-neutral-chi384.toml",
+      "sector_files": "{\"-1\": \"L6-U16.7424-n4-seed123-hole-chi384.toml\", \"0\": \"L6-U16.7424-n4-seed123-neutral-chi384.toml\", \"1\": \"L6-U16.7424-n4-seed123-particle-chi384.toml\"}"
+    },
+    {
+      "L": 6,
+      "U": 16.7424,
+      "nmax": 4,
+      "chi_requested": 512,
+      "seed": 123,
+      "sweeps_requested": 19,
+      "energy": -20.04054476627733,
+      "n0": 8.606258429134837,
+      "nkx": 1.6209977289670983,
+      "nky": 1.5834567792207208,
+      "ratio": 0.8138299857845452,
+      "density_range": 0.0001982462923262318,
+      "G_mid_x": 0.1904804836269924,
+      "G_mid_y": 0.19383793171200392,
+      "G_mid_diag": 0.16476461845733686,
+      "n0_minus_nk": 7.004031175040927,
+      "xi_over_L": 0.34846625454595914,
+      "relative_axis_difference": 0.004362052343128551,
+      "gap": 2.1596097259014755,
+      "mu_mid": 6.211021387598524,
+      "scaled_gap": 12.957658355408853,
+      "achieved_chi": 512,
+      "final_sweep_energy_change": 0.0007568882381434605,
+      "final_truncation": 4.410181146239483e-05,
+      "file": "L6-U16.7424-n4-seed123-neutral-chi512.toml",
+      "sector_files": "{\"-1\": \"L6-U16.7424-n4-seed123-hole-chi512.toml\", \"0\": \"L6-U16.7424-n4-seed123-neutral-chi512.toml\", \"1\": \"L6-U16.7424-n4-seed123-particle-chi512.toml\"}"
+    },
+    {
+      "L": 6,
+      "U": 16.7424,
+      "nmax": 5,
+      "chi_requested": 384,
+      "seed": 123,
+      "sweeps_requested": 13,
+      "energy": -19.991362315243947,
+      "n0": 8.622121133315142,
+      "nkx": 1.6201791608100977,
+      "nky": 1.5702169365453935,
+      "ratio": 0.8149877479088021,
+      "density_range": 0.0002471527495964132,
+      "G_mid_x": 0.19059294285517667,
+      "G_mid_y": 0.19495632899520168,
+      "G_mid_diag": 0.1656038410757417,
+      "n0_minus_nk": 7.026923084637396,
+      "xi_over_L": 0.34980341473294635,
+      "relative_axis_difference": 0.005794655803622895,
+      "gap": 2.1521273833446344,
+      "mu_mid": 6.212253536276684,
+      "scaled_gap": 12.912764300067806,
+      "achieved_chi": 384,
+      "final_sweep_energy_change": 0.007998789675989215,
+      "final_truncation": 6.48475020988682e-05,
+      "file": "L6-U16.7424-n5-seed123-neutral-chi384.toml",
+      "sector_files": "{\"-1\": \"L6-U16.7424-n5-seed123-hole-chi384.toml\", \"0\": \"L6-U16.7424-n5-seed123-neutral-chi384.toml\", \"1\": \"L6-U16.7424-n5-seed123-particle-chi384.toml\"}"
+    },
+    {
+      "L": 6,
+      "U": 16.7424,
+      "nmax": 5,
+      "chi_requested": 512,
+      "seed": 123,
+      "sweeps_requested": 19,
+      "energy": -20.04007091826881,
+      "n0": 8.608357987406002,
+      "nkx": 1.6208303864086884,
+      "nky": 1.5831983486243928,
+      "ratio": 0.813900122432143,
+      "density_range": 0.0001921246146525668,
+      "G_mid_x": 0.1905425352009325,
+      "G_mid_y": 0.19390612921519434,
+      "G_mid_diag": 0.16483344863168384,
+      "n0_minus_nk": 7.006343619889462,
+      "xi_over_L": 0.34854693079348614,
+      "relative_axis_difference": 0.00437156979755618,
+      "gap": 2.1586492811727567,
+      "mu_mid": 6.2109227513078125,
+      "scaled_gap": 12.95189568703654,
+      "achieved_chi": 512,
+      "final_sweep_energy_change": 0.0004839984726743296,
+      "final_truncation": 4.347386072420114e-05,
+      "file": "L6-U16.7424-n5-seed123-neutral-chi512.toml",
+      "sector_files": "{\"-1\": \"L6-U16.7424-n5-seed123-hole-chi512.toml\", \"0\": \"L6-U16.7424-n5-seed123-neutral-chi512.toml\", \"1\": \"L6-U16.7424-n5-seed123-particle-chi512.toml\"}"
+    }
+  ]
+}
