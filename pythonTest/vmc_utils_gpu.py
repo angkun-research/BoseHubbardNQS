@@ -123,7 +123,7 @@ def local_energy_on_the_fly_gpu(
 def Obtain_Sampling_batch_gpu(
     psi, L, Nmax, initial_states, n_steps, burnin=False, print_rate=False,
     Sampler=GlobalSampler_gpu, t=1.0, U=2.0, mu=0.0, pbc=True, device=None,
-    evaluation_batch_size=None,
+    evaluation_batch_size=None, *, retain_every=1,
 ):
     """Return (logpsis with gradients, detached energies, walkers, samples).
 
@@ -131,9 +131,15 @@ def Obtain_Sampling_batch_gpu(
     Burn-in and zero steps return empty values/samples and the final walkers.
     evaluation_batch_size bounds network batches, not the retained sample storage
     or total final autograd graph. The model is never moved by this function.
+    n_steps counts proposals per walker. During measurement, retain one state
+    every retain_every proposals and evaluate local energies only on those states.
     """
     if n_steps < 0:
         raise ValueError("n_steps must be nonnegative")
+    if type(retain_every) is not int or retain_every < 1:
+        raise ValueError("retain_every must be a positive integer")
+    if not burnin and n_steps % retain_every:
+        raise ValueError("measurement n_steps must be divisible by retain_every")
     _chunk_size(0, evaluation_batch_size)
     parameter = next(psi.parameters())
     states = states_to_occupancy_tensor(initial_states, L, parameter.device).clone()
@@ -143,7 +149,7 @@ def Obtain_Sampling_batch_gpu(
     with torch.no_grad():
         accepted = torch.zeros((), device=parameter.device, dtype=torch.long)
         current = _log_amplitudes(psi, states, Nmax, evaluation_batch_size)
-        for _ in range(n_steps):
+        for step in range(1, n_steps + 1):
             proposed = Sampler(states, L=L, Nmax=Nmax, pbc=pbc)
             new = _log_amplitudes(psi, proposed, Nmax, evaluation_batch_size)
             # Log-space comparison avoids overflow at large log amplitudes.
@@ -153,7 +159,7 @@ def Obtain_Sampling_batch_gpu(
             states = torch.where(accept[:, None], proposed, states)
             current = torch.where(accept, new, current)
             accepted += accept.sum()
-            if not burnin:
+            if not burnin and (retain_every == 1 or step % retain_every == 0):
                 samples.append(states.clone())
         if print_rate and n_steps:
             print(f"Acceptance rate (batched GPU): {accepted.item() / (n_steps * len(states)):.4f}")

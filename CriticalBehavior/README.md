@@ -5,6 +5,8 @@ For the zero-temperature square lattice with periodic boundaries, see the [2D st
 We study the zero-temperature chain at fixed $N=L$ with nearest-neighbor hopping $t=1$. This directory uses `U_phys` for the coefficient in the conventional onsite term $U_{\rm phys}n(n-1)/2$. The original 1D Python and Julia examples use `U_code = U_phys / 2`. The occupation cutoff `nmax` is inclusive.
 
 See [RESULTS.md](RESULTS.md) for the numerical findings and verification.
+The [1D scaling pilot](../ScalingStudy/1D/README.md) uses these references
+to compare MPS bond caps and neural VMC accuracy across the three phases.
 
 ## Folder layout
 
@@ -48,6 +50,11 @@ python3 analysis/analyze.py "$work_dir" "$work_dir/independent" \
 ## Rerun the solver
 
 Use Julia 1.11 with the pinned environment. The DMRG manifests list $L$, $U_{\rm phys}/t$, inclusive `nmax`, boundary, maximum bond dimension, and observable mode. The [ED manifest](sweeps/ed.tsv) lists the chain length, occupation cutoff, and coupling grid.
+
+For same-cap convergence repeats, set `BHNQS_DMRG_SEED` to a nonnegative
+integer or `BHNQS_DMRG_MAX_SWEEPS` to an integer of at least 10. The
+solver defaults to seed 123 and at most 28 sweeps and records both
+settings in new measurement files.
 
 ```bash
 julia --project=. -e 'using Pkg; Pkg.instantiate()'

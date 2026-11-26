@@ -21,6 +21,7 @@ walkers at a time, and launches the existing 2D workflows.
 - [Batching and CUDA](docs/site/batching.md)
 - [Physics and conventions](docs/site/physics.md)
 - [Benchmarks and limitations](docs/site/benchmarks.md)
+- [1D scaling pilot and MPS baseline](ScalingStudy/1D/README.md)
 - [Documentation website build and GitHub Pages](docs/site/development.md)
 
 ## Start small

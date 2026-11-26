@@ -83,7 +83,10 @@ function main(args)
     boundary, mode, output = args[[4, 6, 7]]
     @assert length >= 4 && nmax >= 2 && chi >= 2 && isfinite(coupling) && coupling > 0
     @assert boundary in ("open", "periodic") && mode in ("gap", "correlations")
-    Random.seed!(123)
+    seed = parse(Int, get(ENV, "BHNQS_DMRG_SEED", "123"))
+    sweep_limit = parse(Int, get(ENV, "BHNQS_DMRG_MAX_SWEEPS", "28"))
+    @assert seed >= 0 && sweep_limit >= 10
+    Random.seed!(seed)
     BLAS.set_num_threads(1)
     sites = siteinds("Boson", length; dim=nmax + 1, conserve_qns=true)
     H = hamiltonian(sites, coupling, boundary)
@@ -103,7 +106,7 @@ function main(args)
         dimensions = use_neutral ? [chi] : min.(chi, [32, 64, 96, 128, 192, chi])
         noise = use_neutral ? [0.0] : [1e-6, 1e-7, 1e-8, 0.0]
         observer = SweepConvergence(use_neutral ? 4 : 10)
-        energy, state = dmrg(H, initial; nsweeps=28,
+        energy, state = dmrg(H, initial; nsweeps=sweep_limit,
             maxdim=dimensions, cutoff=1e-12, noise, observer, outputlevel=1,
             eigsolve_krylovdim=5, eigsolve_maxiter=2)
         warm_gap && offset == 0 && (neutral = state)
@@ -124,6 +127,7 @@ function main(args)
     end
     data = Dict("L" => length, "U_phys" => coupling, "nmax" => nmax,
                 "boundary" => boundary, "mode" => mode, "chi_requested" => chi, "warm_gap" => warm_gap,
+                "seed" => seed, "sweep_limit" => sweep_limit,
                 "sectors" => sectors, "ITensors" => string(pkgversion(ITensors)),
                 "ITensorMPS" => string(pkgversion(ITensorMPS)))
     tmp = "$output.tmp-$(getpid())"
